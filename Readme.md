@@ -66,37 +66,23 @@ The core of the backend is a sophisticated 4-stage pipeline that ensures "Garbag
 
 ---
 
-## 💻 Local Development Setup
+## 📈 Enterprise Use Cases
 
-If you wish to run the project locally for development or contributions:
+AI Flowchart Studio is designed to accelerate communication and logic mapping across multiple business domains:
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Yuvakunaal/AI-Flowchart-Studio.git
-cd AI-Flowchart-Studio
-```
+- **Software Engineering**: Rapidly prototype user authentication flows, system architecture diagrams, and microservice interactions.
+- **Product Management**: Map out user journeys, feature lifecycles, and A/B testing decision trees.
+- **Human Resources**: Visualize recruitment pipelines, employee onboarding processes, and organizational hierarchies.
+- **Customer Support**: Generate standardized troubleshooting guides and automated refund approval logic.
 
-### 2. Backend Setup
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-pip install -r requirements.txt
-```
+---
 
-### 3. Environment Variables
-Create a `.env` file in the `backend` directory:
-```env
-GEMINI_API_KEY="your_optional_fallback_key"
-FRONTEND_URL="*"
-```
+## 🛡️ Security & Privacy (BYOK)
 
-### 4. Run the Servers
-Start the FastAPI backend:
-```bash
-uvicorn main:app --reload
-```
-Then, open `frontend/index.html` in your browser (or use an extension like VS Code Live Server).
+We believe your logic is your intellectual property. 
+AI Flowchart Studio implements a strict **Bring Your Own Key (BYOK)** policy. 
+- **Zero Data Retention**: Your API key and your prompts are stored exclusively in your browser's `LocalStorage`. 
+- **Direct Communication**: Our Render backend acts only as a secure proxy to Google's GenAI servers, never logging or storing your data.
 
 ---
 <div align="center">
