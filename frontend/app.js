@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // API Configuration
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  const API_BASE_URL = isLocal ? 'http://127.0.0.1:8000' : 'https://nl-flowchart-api.onrender.com'; // Update with actual Render URL later
+  const API_BASE_URL = isLocal ? 'http://127.0.0.1:8000' : 'https://ai-flowchart-studio.onrender.com'; // Update with actual Render URL later
 
   // UI Elements
   const generateBtn = document.getElementById("generateBtn");
