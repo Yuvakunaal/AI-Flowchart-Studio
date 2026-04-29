@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation — AI Flowchart Studio</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0f172a;
+            --bg-surface: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #6366f1;
+            --accent-secondary: #06b6d4;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 70%, rgba(6, 182, 212, 0.04) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        .docs-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .docs-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .docs-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #a5b4fc, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .docs-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .docs-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .docs-section h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 12px;
+        }
+
+        .docs-section h2 svg {
+            color: var(--accent-primary);
+        }
+
+        .docs-section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .docs-section ol, .docs-section ul {
+            padding-left: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .docs-section li {
+            margin-bottom: 8px;
+        }
+
+        .docs-section li strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .api-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin: 12px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .api-link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .pro-tip {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 3px solid var(--accent-secondary);
+            padding: 12px 16px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-top: 20px;
+        }
+
+        .pro-tip strong {
+            color: #67e8f9;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 40px;
+            padding-bottom: 60px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="docs-container">
+        <header class="docs-header">
+            <div class="brand-icon">
+                <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+                    <rect x="2" y="2" width="12" height="8" rx="2" fill="url(#g1)" opacity="0.9" />
+                    <rect x="18" y="2" width="12" height="8" rx="2" fill="url(#g2)" opacity="0.7" />
+                    <rect x="10" y="22" width="12" height="8" rx="2" fill="url(#g1)" opacity="0.9" />
+                    <line x1="8" y1="10" x2="8" y2="16" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" />
+                    <line x1="8" y1="16" x2="16" y2="22" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" />
+                    <line x1="24" y1="10" x2="24" y2="16" stroke="url(#g2)" stroke-width="2" stroke-linecap="round" />
+                    <line x1="24" y1="16" x2="16" y2="22" stroke="url(#g2)" stroke-width="2" stroke-linecap="round" />
+                    <defs>
+                        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#8b5cf6" />
+                        </linearGradient>
+                        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#06b6d4" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h1 class="docs-title">Documentation</h1>
+            <p class="docs-subtitle">Everything you need to master AI Flowchart Studio.</p>
+        </header>
+
+        <section class="docs-section">
+            <h2>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                Getting the Google AI Studio Key
+            </h2>
+            <p>To use the powerful AI Generator features, you need a free API key from Google AI Studio. This key acts as your personal access pass to Google's Gemini models.</p>
+            
+            <ol>
+                <li><strong>Navigate to Google AI Studio:</strong> Click the button below to visit the official Google AI developer portal.</li>
+                <li><strong>Sign In:</strong> Log in with your standard Google or Workspace account.</li>
+                <li><strong>Create API Key:</strong> Click on "Get API Key" in the left sidebar, and then click "Create API Key in new project".</li>
+                <li><strong>Copy your Key:</strong> Copy the generated string of letters and numbers.</li>
+                <li><strong>Save it in the Studio:</strong> Go back to AI Flowchart Studio, open the "Gemini API Settings" dropdown in the left panel, paste your key, and click "Save Key".</li>
+            </ol>
+
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Get Gemini API Key
+            </a>
+
+            <div class="pro-tip">
+                <strong>Privacy First</strong>
+                <p style="margin: 0;">Your API key is stored 100% locally in your browser's LocalStorage. We never transmit it to any external databases or servers. It is used exclusively to make direct requests from your browser to Google's Gemini API.</p>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>
+                ✨ Using the AI Generator
+            </h2>
+            <p>The AI Generator translates your natural language descriptions into highly structured, professional flowcharts instantly.</p>
+            
+            <ul>
+                <li><strong>Be Descriptive:</strong> The more detail you provide about the steps, the better the flowchart. Describe the start point, the decision forks, and the end points.</li>
+                <li><strong>Wait for Generation:</strong> After clicking generate, the status pipeline will show you exactly what the AI is doing. It analyzes your prompt, generates the Mermaid.js structure, and validates it.</li>
+                <li><strong>Example Prompt:</strong></li>
+            </ul>
+
+            <div class="code-block">
+                "Design a user authentication flow: user enters email → validate format. If invalid, show error and return to start. If valid, check if account exists. If not, prompt signup. If exists, send OTP → verify → grant access."
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <h2>
+                ✏️ Using the Manual Builder
+            </h2>
+            <p>If you prefer full control, or if you want to modify an AI-generated flowchart, the Manual Builder is your go-to tool.</p>
+
+            <ul>
+                <li><strong>Adding Nodes:</strong> Provide a unique ID, a display label, and choose a geometric shape.</li>
+                <li><strong>Adding Links:</strong> Connect two existing nodes by selecting the Source and Target. Optionally add a label to the link.</li>
+                <li><strong>Editing Nodes:</strong> Click on any node directly inside the canvas to open the floating Node Editor. You can quickly change its label, shape, or delete it entirely.</li>
+                <li><strong>Pan & Zoom:</strong> Use your mouse scroll to zoom in and out. Click and drag anywhere on the blank canvas to pan around.</li>
+            </ul>
+        </section>
+
+        <section class="docs-section">
+            <h2>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exporting your Diagram
+            </h2>
+            <p>Once your flowchart is perfect, use the top toolbar to export it in various formats.</p>
+
+            <ul>
+                <li><strong>Code:</strong> Copies the raw Mermaid.js code to your clipboard. Perfect for pasting into GitHub, Notion, or Markdown files.</li>
+                <li><strong>SVG:</strong> Downloads a crisp, infinitely scalable vector graphic. Ideal for presentations or graphic design software.</li>
+                <li><strong>PNG:</strong> Downloads a high-resolution raster image with a transparent background. Best for quick sharing in Slack or email.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            &copy; 2026 AI Flowchart Studio. Built for intelligent diagramming.
+        </footer>
+    </div>
+
+</body>
+</html>
