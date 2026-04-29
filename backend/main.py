@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 import asyncio
+import os
 from dotenv import load_dotenv
 
 from agents import orchestrator_agent, logic_parser_agent, flowchart_gen_agent, validator_agent
@@ -12,13 +13,20 @@ load_dotenv()
 
 app = FastAPI(title="NL Flowchart Multi-Agent System")
 
+frontend_url = os.getenv("FRONTEND_URL", "*")
+origins = [frontend_url] if frontend_url != "*" else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
 
 @app.post("/api/generate")
 async def generate_flowchart(request: Request):

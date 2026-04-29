@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // API Configuration
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const API_BASE_URL = isLocal ? 'http://127.0.0.1:8000' : 'https://nl-flowchart-api.onrender.com'; // Update with actual Render URL later
+
   // UI Elements
   const generateBtn = document.getElementById("generateBtn");
   const promptInput = document.getElementById("promptInput");
@@ -79,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   function showToast(message, type = 'info') {
     if (!toastContainer) return;
+    toastContainer.innerHTML = '';
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;
@@ -145,6 +150,35 @@ document.addEventListener("DOMContentLoaded", () => {
   clearCanvas();
 
   // ==========================================
+  // SERVER WAKE UP PING
+  // ==========================================
+  async function pingServerWakeup() {
+    if (!generateBtn) return;
+    const originalHtml = generateBtn.innerHTML;
+    
+    generateBtn.disabled = true;
+    generateBtn.style.opacity = '0.8';
+    generateBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      Waking up Server...
+    `;
+
+    try {
+      await fetch(`${API_BASE_URL}/health`, { method: "GET" });
+    } catch (e) {
+      console.warn("Backend waking up...", e);
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.style.opacity = '1';
+      generateBtn.innerHTML = originalHtml;
+    }
+  }
+  pingServerWakeup();
+
+  // ==========================================
   // LOCAL STORAGE PERSISTENCE
   // ==========================================
   function saveState() {
@@ -183,6 +217,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ? "rotate(0deg)" : "rotate(180deg)";
     }
   });
+
+  // Manual Builder Sanitization
+  if (nodeIdInput) {
+    nodeIdInput.addEventListener("input", (e) => {
+      // Remove whitespace and weird chars as user types
+      e.target.value = e.target.value.replace(/[^a-zA-Z0-9_]/g, "_").replace(/_+/g, "_");
+    });
+  }
 
   saveKeyBtn.addEventListener("click", () => {
     userApiKey = userApiKeyInput.value.trim();
@@ -576,7 +618,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   generateBtn.addEventListener("click", async () => {
     const promptText = promptInput.value.trim();
-    if (!promptText) return;
+    if (!promptText) {
+      showToast("Please enter a description for your flowchart.", "error");
+      return;
+    }
 
     generateBtn.disabled = true;
     statusSection.classList.remove("hidden");
@@ -590,7 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
         headers["X-Gemini-API-Key"] = userApiKey;
       }
 
-      const response = await fetch("http://127.0.0.1:8000/api/generate", {
+      const response = await fetch(`${API_BASE_URL}/api/generate`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify({ prompt: promptText }),
@@ -826,8 +871,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let label = escapeMermaid(nodeLabelInput.value.trim());
     const shape = nodeShapeSelect.value;
 
-    if (!id) id = `node_${manualNodes.length + 1}`;
-    if (!label) label = id;
+    if (!id || !label) {
+      showToast('Please enter both an ID and a Label to create a node.', 'error');
+      return;
+    }
 
     if (manualNodes.find((n) => n.id === id)) {
       showToast('Node ID already exists!', 'error');
