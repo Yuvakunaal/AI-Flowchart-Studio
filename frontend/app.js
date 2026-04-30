@@ -1150,7 +1150,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   themeSelector.addEventListener("change", (e) => {
     currentTheme = e.target.value;
-    if (currentMode === "manual") {
+    if (manualNodes.length > 0) {
       renderManualFlowchart();
     } else if (currentMermaidCode && currentMermaidCode.trim()) {
       renderMermaid(currentMermaidCode);
