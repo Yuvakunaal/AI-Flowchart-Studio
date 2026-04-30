@@ -235,17 +235,261 @@
             transform: translateY(-2px);
         }
 
+        /* --- Tablet & Mobile (≤900px) --- */
         @media (max-width: 900px) {
-            body { flex-direction: column; }
+            body {
+                flex-direction: column;
+            }
+
+            /* Sidebar → Sticky Top Bar */
             .sidebar {
                 width: 100%;
                 height: auto;
-                position: relative;
-                padding: 20px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                padding: 16px 16px 12px 16px;
                 border-right: none;
                 border-bottom: 1px solid var(--border-subtle);
+                gap: 0;
+                background: rgba(15, 23, 42, 0.95);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
             }
-            .content-area { margin-left: 0; padding: 30px 20px; }
+
+            .brand {
+                margin-bottom: 14px;
+                padding-bottom: 14px;
+                gap: 10px;
+            }
+
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+            }
+
+            .brand-text {
+                font-size: 1rem;
+            }
+
+            /* Nav links → Horizontal scrollable pills */
+            .nav-links {
+                flex-direction: row;
+                gap: 6px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 2px;
+                margin: 0 -16px;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+
+            .nav-btn {
+                flex-shrink: 0;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                border-radius: 20px;
+                white-space: nowrap;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid var(--border-subtle);
+                transition: all 0.2s;
+            }
+
+            .nav-btn:hover {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            .nav-btn.active {
+                background: rgba(99, 102, 241, 0.2);
+                border-color: rgba(99, 102, 241, 0.4);
+                box-shadow: 0 2px 12px rgba(99, 102, 241, 0.15);
+            }
+
+            /* Content Area */
+            .content-area {
+                margin-left: 0;
+                padding: 24px 16px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 28px;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+                padding-bottom: 10px;
+            }
+
+            h3 {
+                font-size: 1rem;
+                margin-top: 18px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 0.92rem;
+                margin-bottom: 12px;
+            }
+
+            ul, ol {
+                padding-left: 16px;
+                font-size: 0.92rem;
+            }
+
+            li {
+                margin-bottom: 6px;
+            }
+
+            /* Cards */
+            .docs-card {
+                padding: 20px;
+                margin-bottom: 16px;
+                border-radius: var(--radius-md);
+            }
+
+            .pro-tip {
+                padding: 14px;
+                margin: 18px 0;
+                font-size: 0.9rem;
+            }
+
+            .pro-tip strong {
+                font-size: 0.72rem;
+            }
+
+            .ui-element {
+                font-size: 0.8rem;
+                padding: 2px 6px;
+            }
+
+            .action-btn {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                display: block;
+                text-align: center;
+                width: 100%;
+                margin-top: 14px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 28px 0 !important;
+                font-size: 0.8rem !important;
+                margin-top: 28px !important;
+            }
+        }
+
+        /* --- Small Phones (≤480px) --- */
+        @media (max-width: 480px) {
+            .sidebar {
+                padding: 12px 12px 10px 12px;
+            }
+
+            .brand {
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                gap: 8px;
+            }
+
+            .brand-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .brand-text {
+                font-size: 0.92rem;
+            }
+
+            .nav-links {
+                gap: 5px;
+                margin: 0 -12px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 0.72rem;
+                border-radius: 16px;
+            }
+
+            .content-area {
+                padding: 18px 14px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.88rem;
+                margin-bottom: 22px;
+            }
+
+            h2 {
+                font-size: 1.1rem;
+            }
+
+            h3 {
+                font-size: 0.95rem;
+            }
+
+            p, ul, ol {
+                font-size: 0.88rem;
+            }
+
+            .docs-card {
+                padding: 16px;
+                margin-bottom: 14px;
+            }
+
+            .pro-tip {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* --- Tiny Phones (≤380px) --- */
+        @media (max-width: 380px) {
+            .sidebar {
+                padding: 10px 10px 8px 10px;
+            }
+
+            .brand-text {
+                font-size: 0.85rem;
+            }
+
+            .nav-btn {
+                padding: 5px 10px;
+                font-size: 0.68rem;
+            }
+
+            .content-area {
+                padding: 14px 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .docs-card {
+                padding: 14px;
+            }
         }
     </style>
 </head>
