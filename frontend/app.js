@@ -258,6 +258,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   window.addEventListener('mouseup', () => { isPanning = false; });
 
+  // Touch-based canvas panning (mobile)
+  canvasContainer.addEventListener('touchstart', (e) => {
+    if (e.target.closest('.node') || e.target.closest('.node-editor')) return;
+    if (e.touches.length === 1) {
+      isPanning = true;
+      panStartX = e.touches[0].clientX;
+      panStartY = e.touches[0].clientY;
+      scrollStartX = canvasContainer.scrollLeft;
+      scrollStartY = canvasContainer.scrollTop;
+    }
+  }, { passive: true });
+  canvasContainer.addEventListener('touchmove', (e) => {
+    if (!isPanning || e.touches.length !== 1) return;
+    canvasContainer.scrollLeft = scrollStartX - (e.touches[0].clientX - panStartX);
+    canvasContainer.scrollTop = scrollStartY - (e.touches[0].clientY - panStartY);
+  }, { passive: true });
+  canvasContainer.addEventListener('touchend', () => { isPanning = false; });
+
   tabBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const targetId = btn.getAttribute("data-target");
@@ -563,15 +581,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     nodeEditor.classList.remove("hidden");
 
-    const padding = 20;
-    let finalX = x + padding;
-    let finalY = y + padding;
+    // On mobile, CSS handles bottom-sheet positioning; skip JS positioning
+    const isMobile = window.innerWidth <= 900;
+    if (!isMobile) {
+      const padding = 20;
+      let finalX = x + padding;
+      let finalY = y + padding;
 
-    if (finalX + 280 > window.innerWidth) finalX = x - 280 - padding;
-    if (finalY + 300 > window.innerHeight) finalY = y - 300 - padding;
+      if (finalX + 280 > window.innerWidth) finalX = x - 280 - padding;
+      if (finalY + 300 > window.innerHeight) finalY = y - 300 - padding;
 
-    nodeEditor.style.left = `${finalX}px`;
-    nodeEditor.style.top = `${finalY}px`;
+      nodeEditor.style.left = `${finalX}px`;
+      nodeEditor.style.top = `${finalY}px`;
+    }
     isEditing = true;
   }
 

@@ -1144,22 +1144,471 @@ input:focus,
 }
 
 /* ========== RESPONSIVENESS ========== */
+
+/* --- Tablet & Mobile (≤900px) --- */
 @media (max-width: 900px) {
-  .app-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 500px;
-    overflow-y: auto;
+  body {
+    overflow: auto;
+    overflow-x: hidden;
   }
 
-  .left-panel {
+  .app-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 8px;
+    gap: 8px;
     overflow: visible;
   }
 
+  /* --- Left Panel: Compact Card --- */
+  .left-panel {
+    overflow: visible;
+    padding: 16px;
+    gap: 14px;
+    border-radius: var(--radius-lg);
+    max-height: none;
+  }
+
+  .brand-header {
+    padding-bottom: 14px;
+    gap: 10px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .brand-text h1 {
+    font-size: 1.15rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.75rem;
+  }
+
+  /* Tabs */
+  .tab-btn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Inputs */
+  textarea {
+    min-height: 80px;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  input {
+    font-size: 0.85rem;
+    padding: 9px 12px;
+  }
+
+  .input-label {
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+  }
+
+  /* Buttons */
+  .primary-btn {
+    padding: 11px 16px;
+    font-size: 0.88rem;
+  }
+
+  .secondary-btn,
+  .destructive-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Settings section */
+  .collapsible-header {
+    padding: 8px 12px;
+  }
+
+  .collapsible-content {
+    padding: 10px;
+  }
+
+  /* Manual builder */
+  .manual-section {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .input-row {
+    gap: 6px;
+  }
+
+  .elements-list li {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  /* Status */
+  .status-header {
+    font-size: 0.8rem;
+  }
+
+  #statusList li {
+    padding: 5px 0;
+    font-size: 0.78rem;
+  }
+
+  /* Creator credit */
+  .creator-credit {
+    padding-top: 12px !important;
+    font-size: 0.72rem !important;
+  }
+
+  /* --- Right Panel: Full-Height Canvas --- */
+  .right-panel {
+    border-radius: var(--radius-lg);
+    min-height: 65vh;
+    min-height: 65dvh;
+  }
+
+  /* Canvas Toolbar: Compact & Scrollable */
   .canvas-toolbar {
-    flex-wrap: wrap;
+    margin: 8px 8px 0 8px;
+    padding: 6px 8px;
+    gap: 4px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .canvas-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toolbar-group {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .toolbar-divider {
+    height: 20px;
+    margin: 0 2px;
+  }
+
+  .toolbar-select {
+    padding: 5px 24px 5px 8px;
+    font-size: 0.72rem;
+    min-width: 0;
+  }
+
+  .toolbar-btn {
+    padding: 5px 8px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .toolbar-btn span {
     display: none;
+  }
+
+  .toolbar-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Canvas */
+  .canvas-container {
+    padding: 12px 16px 32px 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Welcome State */
+  .welcome-state {
+    margin-top: 8vh;
+    gap: 12px;
+  }
+
+  .welcome-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+  }
+
+  .welcome-icon svg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .welcome-title {
+    font-size: 1.2rem;
+  }
+
+  .welcome-desc {
+    font-size: 0.82rem;
+    max-width: 300px;
+  }
+
+  .welcome-shortcuts {
+    display: none;
+  }
+
+  /* Zoom Controls */
+  .zoom-controls {
+    bottom: 12px;
+    right: 12px;
+    padding: 4px;
+    gap: 3px;
+  }
+
+  .zoom-controls button {
+    width: 34px;
+    height: 34px;
+    font-size: 0.7rem;
+  }
+
+  /* Node Editor: Bottom Sheet Style */
+  .node-editor {
+    position: fixed;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
+    animation: editorSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 55vh;
+    overflow-y: auto;
+  }
+
+  @keyframes editorSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .editor-body {
+    padding: 16px 20px 24px 20px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
+  /* Toast */
+  .toast-container {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+  }
+
+  .toast {
+    width: 100%;
+    font-size: 0.82rem;
+    padding: 10px 16px;
+  }
+
+  /* Background blobs: smaller for performance */
+  .blob-1 {
+    width: 250px;
+    height: 250px;
+  }
+  .blob-2 {
+    width: 200px;
+    height: 200px;
+  }
+  .blob-3 {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* --- Small Phones (≤480px) --- */
+@media (max-width: 480px) {
+  .app-layout {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .left-panel {
+    padding: 14px;
+    gap: 12px;
+    border-radius: var(--radius-md);
+  }
+
+  .brand-header {
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+  }
+
+  .brand-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .brand-text h1 {
+    font-size: 1.05rem;
+  }
+
+  .brand-tagline {
+    font-size: 0.7rem;
+  }
+
+  .tabs {
+    border-radius: var(--radius-sm);
+    padding: 3px;
+  }
+
+  .tab-btn {
+    padding: 7px 8px;
+    font-size: 0.75rem;
+    gap: 4px;
+  }
+
+  textarea {
+    min-height: 72px;
+    font-size: 0.82rem;
+    padding: 8px 10px;
+  }
+
+  input,
+  .left-panel select {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .primary-btn {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .right-panel {
+    border-radius: var(--radius-md);
+    min-height: 60vh;
+    min-height: 60dvh;
+  }
+
+  .canvas-toolbar {
+    margin: 6px 6px 0 6px;
+    padding: 5px 6px;
+    border-radius: var(--radius-sm);
+    gap: 3px;
+  }
+
+  .toolbar-select {
+    padding: 4px 22px 4px 6px;
+    font-size: 0.68rem;
+    border-radius: 6px;
+  }
+
+  .toolbar-btn {
+    padding: 4px 6px;
+    border-radius: 6px;
+  }
+
+  .canvas-container {
+    padding: 8px 10px 28px 10px;
+  }
+
+  .welcome-state {
+    margin-top: 6vh;
+    gap: 10px;
+  }
+
+  .welcome-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+  }
+
+  .welcome-icon svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .welcome-title {
+    font-size: 1.05rem;
+  }
+
+  .welcome-desc {
+    font-size: 0.78rem;
+    max-width: 260px;
+    line-height: 1.4;
+  }
+
+  .zoom-controls {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .zoom-controls button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .settings-section {
+    border-radius: var(--radius-sm);
+  }
+
+  .manual-section {
+    padding: 10px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* --- Tiny Phones (≤380px) --- */
+@media (max-width: 380px) {
+  .app-layout {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .left-panel {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .brand-text h1 {
+    font-size: 0.95rem;
+  }
+
+  .tab-btn {
+    font-size: 0.7rem;
+    padding: 6px 6px;
+  }
+
+  textarea {
+    min-height: 64px;
+  }
+
+  .primary-btn {
+    padding: 9px 12px;
+    font-size: 0.82rem;
+  }
+
+  .right-panel {
+    min-height: 55vh;
+    min-height: 55dvh;
   }
 }
