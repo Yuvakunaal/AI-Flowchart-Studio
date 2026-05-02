@@ -33,11 +33,14 @@ AI Flowchart Studio is a high-performance, production-ready web application that
 ## ✨ Key Features
 
 - **🤖 Multi-Agent AI Generator**: Powered by Google's Gemini models, the system uses an Orchestrator-Parser-Generator architecture to guarantee logical accuracy and syntax validity.
+- **🔄 Robust Undo/Redo Engine**: A sophisticated memory buffer that tracks canvas states seamlessly across manual edits and AI generations, providing full safety against accidental deletions.
+- **📁 Multi-Project Management**: Effortlessly save, load, and manage up to 5 concurrent local flowchart projects without losing your progress.
 - **🛠️ Precision Manual Builder**: A complete "Click & Type" interface for manual refinement, allowing you to seamlessly add nodes, link connections, and edit custom shapes with zero coding required.
 - **💎 Ultra-HD Pro Export**: 
     - **PNG**: 3x Super-Scaled, crystal-clear captures using native SVG geometry.
     - **SVG**: Infinitely scalable vector format for high-end print, presentations, and graphic design.
     - **Code**: Direct access to Mermaid.js syntax for version control and documentation.
+- **📱 Native Mobile Experience**: A fully responsive interface featuring premium "Bottom-Sheet" slide-up menus for seamless mobile interaction.
 - **🔍 Smart Canvas Engine**: Hardware-accelerated scaling (+/- 300%) with intuitive panning and zoom controls.
 - **🎭 Intelligent Themes**: Dynamic switching between Dark, Light, and Forest aesthetic themes.
 - **🌍 Layout Versatility**: Instant toggle between Vertical (Top-Down) and Horizontal (Left-to-Right) flowchart orientations.
