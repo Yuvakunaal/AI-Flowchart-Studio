@@ -1,207 +1,93 @@
 ================================================================================
-              AI FLOWCHART STUDIO — FUTURE UPGRADATIONS & FEATURE ROADMAP
+              AI FLOWCHART STUDIO — THE "ANTIGRAVITY" FUTURE ROADMAP
 ================================================================================
 
-Last Updated: 30 April 2026
+Last Updated: 02 May 2026
 Author: Kunaal
 
+This document outlines the elite, top-tier features required to evolve the 
+AI Flowchart Studio from a powerful utility into a billion-dollar, enterprise-
+grade SaaS product (competing with tools like Miro, Figma, and Whimsical).
 
 ================================================================================
-🔥 HIGH-IMPACT FEATURES
+🚀 PHASE 1: THE ENTERPRISE BACKEND (CLOUD & SYNC)
 ================================================================================
 
-1. UNDO / REDO
-   - Implement Ctrl+Z / Ctrl+Y history stack
-   - Users lose work easily if they delete a node by mistake
-   - Approach: Maintain an array of state snapshots, push on every change
+1. CLOUD SYNCHRONIZATION & USER ACCOUNTS
+   - Implement OAuth (Google/GitHub) for instant sign-on.
+   - Migrate storage from local browser (`localStorage`) to a scalable database 
+     like Supabase (PostgreSQL) or Firebase.
+   - Benefit: Users can access their 5+ projects across their phone, laptop, 
+     and tablet seamlessly without losing data.
    - Priority: ★★★★★
 
-2. SAVE / LOAD PROJECTS
-   - Let users save multiple flowcharts as named projects in localStorage
-   - Add an "Open Project" dropdown to the left panel
-   - Each project stores: nodes, links, mermaid code, theme, direction
+2. REAL-TIME COLLABORATION (MULTIPLAYER)
+   - Integrate WebSockets (Socket.io) or WebRTC.
+   - Allow multiple users to view and edit the same flowchart simultaneously.
+   - Implement "Live Cursors" with user names floating around the canvas.
    - Priority: ★★★★★
 
-3. SHARE VIA LINK
-   - Encode the Mermaid code into a compressed URL parameter
-   - Users can share flowcharts with a single link (no backend needed)
-   - Use LZ-string or similar compression for long flowcharts
+3. VERSION HISTORY & TIME-TRAVEL
+   - Beyond simple Undo/Redo, implement a persistent "History Log".
+   - Users can revert to what a flowchart looked like 3 days ago.
+   - Benefit: Enterprise teams require audit trails and disaster recovery.
    - Priority: ★★★★☆
 
-4. AI EDIT MODE
-   - Instead of regenerating from scratch, let users type natural language edits
-   - Example: "Add an error handling branch after the login step"
-   - Sends existing flowchart + edit instruction to AI for modification
+
+================================================================================
+🧠 PHASE 2: NEXT-GEN AI WORKFLOWS (THE CO-PILOT)
+================================================================================
+
+4. CONVERSATIONAL AI MODIFICATIONS (CHAT UI)
+   - Instead of a single "Generate" prompt that wipes the canvas, add a 
+     persistent AI Chat sidebar.
+   - Example user prompts: "Make the 'Login' node red", or "Add a password 
+     recovery branch after the Error node."
+   - The AI smartly injects/modifies specific Mermaid code without destroying 
+     the rest of the layout.
+   - Priority: ★★★★★
+
+5. AUTO-EXPAND CAPABILITIES ("MAGIC EXPAND")
+   - A magic wand button on a specific node.
+   - If a user clicks "Checkout Process" and hits Magic Expand, the AI 
+     automatically breaks that single node down into 5 detailed sub-nodes.
    - Priority: ★★★★☆
 
-5. DARK CANVAS TOGGLE
-   - The canvas is always light (#f8fafc) — add a dark canvas mode
-   - Users who prefer full dark theme would love this
-   - Toggle button in the canvas toolbar
+
+================================================================================
+🎨 PHASE 3: THE ULTIMATE CANVAS (UI/UX MASTERY)
+================================================================================
+
+6. INFINITE FREE-FORM CANVAS & CUSTOM DRAGGING
+   - Transition from Mermaid's strict auto-layout to a hybrid system where 
+     users can freely click and drag nodes to exact X/Y coordinates.
+   - Implement an infinite panning canvas.
+   - Priority: ★★★★☆
+
+7. THE "NAVIGATOR" MINI-MAP
+   - A small, glassmorphic thumbnail map in the bottom-right corner.
+   - Essential for navigating massive, complex enterprise architectures.
+   - Priority: ★★★☆☆
+
+8. CUSTOM THEME BUILDER & NODE STYLING
+   - Allow granular control: let users change the border thickness, exact hex 
+     colors, and typography of individual nodes.
+   - Allow importing custom company brand palettes.
    - Priority: ★★★☆☆
 
 
 ================================================================================
-✨ POLISH & UX ENHANCEMENTS
+🔗 PHASE 4: ECOSYSTEM INTEGRATIONS
 ================================================================================
 
-6. KEYBOARD SHORTCUTS
-   - Delete key → remove selected node
-   - Escape → close editor
-   - Ctrl+E → export
-   - Ctrl+S → save project
-   - Show all shortcuts in a "?" help modal
+9. ADVANCED EXPORTING & EMBEDDING
+   - Export to high-res PDF.
+   - Generate "Live Embed Codes" (iFrames) so users can embed their flowcharts 
+     into Notion, Confluence, or personal blogs. (If the chart updates in the 
+     app, it updates on their blog).
    - Priority: ★★★★☆
 
-7. DRAG-TO-REORDER NODES
-   - Let users drag nodes in the sidebar list to reorder the flowchart sequence
-   - Visual drag handle on each node list item
-   - Priority: ★★★☆☆
-
-8. MINIMAP
-   - A small overview thumbnail in the corner (like VS Code's minimap)
-   - Helps navigate huge flowcharts with many nodes
-   - Shows current viewport position as a highlighted rectangle
-   - Priority: ★★★☆☆
-
-9. PINCH-TO-ZOOM (MOBILE)
-   - Two-finger pinch zoom on mobile for the canvas
-   - Touch-pan is already implemented, but pinch zoom is missing
-   - Use touch event distance calculation between two fingers
-   - Priority: ★★★★☆
-
-10. ONBOARDING TOUR
-    - A first-time animated walkthrough (3-4 steps)
-    - Highlights: textarea, generate button, toolbar, zoom controls
-    - Uses localStorage flag to show only once
-    - Priority: ★★☆☆☆
-
-
-================================================================================
-🛠 TECHNICAL & POWER-USER FEATURES
-================================================================================
-
-11. MERMAID CODE EDITOR
-    - A raw code panel (split view) for power users
-    - Directly edit Mermaid syntax with live preview
-    - Syntax highlighting using CodeMirror or Monaco Editor
-    - Priority: ★★★★☆
-
-12. TEMPLATE LIBRARY
-    - Pre-built templates users can load with one click:
-      • Authentication Flow
-      • CI/CD Pipeline
-      • Database Schema
-      • Decision Tree
-      • E-commerce Checkout
-      • API Request Flow
-      • Error Handling Pattern
-    - Just hardcoded Mermaid strings — very easy to implement
+10. GITHUB / JIRA TWO-WAY SYNC
+    - Turn flowchart nodes into actual actionable Jira tickets or GitHub issues.
+    - If a node says "Implement Auth", clicking it opens the synced GitHub issue.
     - Priority: ★★★★★
-
-13. PDF EXPORT
-    - In addition to SVG/PNG, offer one-click PDF download
-    - Use jsPDF or similar library
-    - Include optional title/header in the PDF
-    - Priority: ★★★☆☆
-
-14. VERSION HISTORY
-    - Auto-save snapshots every time a flowchart is generated or modified
-    - Let users browse and restore previous versions
-    - Store in localStorage with timestamps
-    - Priority: ★★★☆☆
-
-15. COLLABORATIVE EDITING
-    - Real-time multiplayer editing via WebSockets
-    - Multiple users can edit the same flowchart simultaneously
-    - Show cursors/avatars of other users
-    - Big effort but a killer feature for teams
-    - Priority: ★★☆☆☆ (high effort)
-
-
-================================================================================
-🎨 VISUAL UPGRADES
-================================================================================
-
-16. CUSTOM NODE COLORS
-    - Let users pick colors per node via the node editor
-    - Example: red for errors, green for success paths, yellow for warnings
-    - Color picker or preset palette
-    - Priority: ★★★★☆
-
-17. MORE SHAPE OPTIONS
-    - Add to the manual builder shape dropdown:
-      • Hexagon
-      • Parallelogram
-      • Cylinder (database)
-      • Stadium (pill shape)
-      • Subroutine (double-bordered)
-    - Mermaid supports all of these natively
-    - Priority: ★★★☆☆
-
-18. ANIMATED FLOWCHARTS
-    - Optional "Play" button that animates the flow path step-by-step
-    - Glowing trail effect following the arrows
-    - Great for presentations and demos
-    - Priority: ★★★☆☆
-
-19. WATERMARK ON EXPORTS
-    - Add a subtle "Made with AI Flowchart Studio" watermark on exports
-    - Include a toggle to remove it
-    - Adds brand visibility when flowcharts are shared
-    - Priority: ★★☆☆☆
-
-
-================================================================================
-📱 PWA & DISTRIBUTION
-================================================================================
-
-20. PWA (INSTALLABLE APP)
-    - Add manifest.json + service worker
-    - Users can install it on their phone's home screen
-    - Feels like a native app with app icon and splash screen
-    - Priority: ★★★★★
-
-21. OFFLINE MODE
-    - Cache the app shell so the manual builder works fully offline
-    - AI generation would still need internet connectivity
-    - Service worker caches HTML, CSS, JS, and fonts
-    - Priority: ★★★★☆
-
-
-================================================================================
-📊 RECOMMENDED IMPLEMENTATION ORDER (Maximum Impact, Minimum Effort)
-================================================================================
-
-Phase 1 — Quick Wins:
-  → Template Library (#12)
-  → Undo/Redo (#1)
-  → PWA (#20)
-
-Phase 2 — Core Features:
-  → Save/Load Projects (#2)
-  → Keyboard Shortcuts (#6)
-  → Dark Canvas Toggle (#5)
-  → Pinch-to-Zoom (#9)
-
-Phase 3 — Power Features:
-  → Share via Link (#3)
-  → AI Edit Mode (#4)
-  → Mermaid Code Editor (#11)
-  → Custom Node Colors (#16)
-
-Phase 4 — Advanced:
-  → PDF Export (#13)
-  → Version History (#14)
-  → More Shape Options (#17)
-  → Minimap (#8)
-  → Animated Flowcharts (#18)
-  → Offline Mode (#21)
-
-Phase 5 — Ambitious:
-  → Collaborative Editing (#15)
-  → Onboarding Tour (#10)
-  → Drag-to-Reorder (#7)
-  → Export Watermark (#19)
-
-================================================================================

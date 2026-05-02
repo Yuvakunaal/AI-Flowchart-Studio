@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveKeyBtn = document.getElementById("saveKeyBtn");
 
   // Toolbar Elements
+  const exportMenuBtn = document.getElementById("exportMenuBtn");
+  const exportDropdown = document.getElementById("exportDropdown");
   const copyImageBtn = document.getElementById("copyImageBtn");
   const copyCodeBtn = document.getElementById("copyCodeBtn");
   const downloadSvgBtn = document.getElementById("downloadSvgBtn");
@@ -32,6 +34,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const zoomInBtn = document.getElementById("zoomInBtn");
   const zoomOutBtn = document.getElementById("zoomOutBtn");
   const zoomResetBtn = document.getElementById("zoomResetBtn");
+
+  // Undo/Redo Buttons
+  const undoBtn = document.getElementById("undoBtn");
+  const redoBtn = document.getElementById("redoBtn");
+
+  // Projects Elements (Modal)
+  const projectsBtn = document.getElementById("projectsBtn");
+  const projectsModal = document.getElementById("projectsModal");
+  const projectsModalBackdrop = document.getElementById("projectsModalBackdrop");
+  const closeProjectsModal = document.getElementById("closeProjectsModal");
+  const projectNameInput = document.getElementById("projectNameInput");
+  const saveProjectBtn = document.getElementById("saveProjectBtn");
+  const projectsList = document.getElementById("projectsList");
+  const projectsEmpty = document.getElementById("projectsEmpty");
 
   // Tabs
   const tabBtns = document.querySelectorAll(".tab-btn");
@@ -68,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentDirection = "TD";
   let currentZoom = 1;
   let currentMermaidCode = "";
+  let currentProjectName = null;
   let userApiKey = "";
   let selectedNodeId = null;
   let isEditing = false;
@@ -77,6 +94,15 @@ document.addEventListener("DOMContentLoaded", () => {
     outgoing: new Map(),
     incoming: new Map(),
   };
+
+  // Undo/Redo State
+  const MAX_UNDO_STACK = 50;
+  let undoStack = [];
+  let redoStack = [];
+
+  // Pinch-to-Zoom State
+  let initialPinchDistance = null;
+  let pinchStartZoom = 1;
 
   // ==========================================
   // UTILITIES & SECURITY
@@ -258,23 +284,53 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   window.addEventListener('mouseup', () => { isPanning = false; });
 
-  // Touch-based canvas panning (mobile)
+  // Touch-based canvas panning & pinch-to-zoom (mobile)
+  function getTouchDistance(t1, t2) {
+    const dx = t1.clientX - t2.clientX;
+    const dy = t1.clientY - t2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
   canvasContainer.addEventListener('touchstart', (e) => {
     if (e.target.closest('.node') || e.target.closest('.node-editor')) return;
-    if (e.touches.length === 1) {
+    if (e.touches.length === 2) {
+      // Pinch-to-zoom start
+      isPanning = false;
+      initialPinchDistance = getTouchDistance(e.touches[0], e.touches[1]);
+      pinchStartZoom = currentZoom;
+    } else if (e.touches.length === 1) {
       isPanning = true;
+      initialPinchDistance = null;
       panStartX = e.touches[0].clientX;
       panStartY = e.touches[0].clientY;
       scrollStartX = canvasContainer.scrollLeft;
       scrollStartY = canvasContainer.scrollTop;
     }
   }, { passive: true });
+
   canvasContainer.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2 && initialPinchDistance !== null) {
+      // Pinch-to-zoom move
+      e.preventDefault();
+      const currentDistance = getTouchDistance(e.touches[0], e.touches[1]);
+      const scale = currentDistance / initialPinchDistance;
+      currentZoom = Math.max(0.2, Math.min(3, pinchStartZoom * scale));
+      updateZoom();
+      return;
+    }
     if (!isPanning || e.touches.length !== 1) return;
     canvasContainer.scrollLeft = scrollStartX - (e.touches[0].clientX - panStartX);
     canvasContainer.scrollTop = scrollStartY - (e.touches[0].clientY - panStartY);
-  }, { passive: true });
-  canvasContainer.addEventListener('touchend', () => { isPanning = false; });
+  }, { passive: false });
+
+  canvasContainer.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+      initialPinchDistance = null;
+    }
+    if (e.touches.length === 0) {
+      isPanning = false;
+    }
+  });
 
   tabBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -614,6 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const nodeIndex = manualNodes.findIndex((n) => n.id === selectedNodeId);
     if (nodeIndex !== -1) {
+      pushUndoState();
       manualNodes[nodeIndex].label = escapeMermaid(editNodeLabel.value.trim());
       manualNodes[nodeIndex].shape = editNodeShape.value;
 
@@ -639,6 +696,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentLi = null;
 
   generateBtn.addEventListener("click", async () => {
+    currentProjectName = null;
     const promptText = promptInput.value.trim();
     if (!promptText) {
       showToast("Please enter a description for your flowchart.", "error");
@@ -903,6 +961,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    pushUndoState();
     manualNodes.push({ id, label, shape });
     nodeIdInput.value = "";
     nodeLabelInput.value = "";
@@ -941,8 +1000,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (manualLinks.some(l => l.source === source && l.target === target)) {
+      showToast('Link already exists between these nodes.', 'error');
+      return;
+    }
+
     if (addLinkBtn.disabled) return;
 
+    pushUndoState();
     manualLinks.push({ source, target, label, id: Date.now().toString() });
     linkLabelInput.value = "";
     saveState();
@@ -951,11 +1016,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   clearAllBtn.addEventListener("click", () => {
-    if (
-      confirm(
-        "Are you sure you want to clear the entire flowchart? This cannot be undone.",
-      )
-    ) {
+    if (confirm("Are you sure you want to clear the entire flowchart? This cannot be undone.")) {
+      currentProjectName = null;
       manualNodes = [];
       manualLinks = [];
       currentMermaidCode = "";
@@ -964,10 +1026,12 @@ document.addEventListener("DOMContentLoaded", () => {
       saveState();
       updateManualUI(true);
       clearCanvas();
+      clearUndoRedoStacks();
     }
   });
 
   window.deleteManualNode = function (id) {
+    pushUndoState();
     manualNodes = manualNodes.filter((n) => n.id !== id);
     manualLinks = manualLinks.filter((l) => l.source !== id && l.target !== id);
     saveState();
@@ -975,6 +1039,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.deleteManualLink = function (id) {
+    pushUndoState();
     manualLinks = manualLinks.filter((l) => l.id !== id);
     saveState();
     updateManualUI(true);
@@ -1216,6 +1281,49 @@ document.addEventListener("DOMContentLoaded", () => {
     zoomResetBtn.textContent = `${Math.round(currentZoom * 100)}%`;
   }
 
+  // Export Dropdown Logic
+  if (exportMenuBtn && exportDropdown) {
+    exportMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      // If we are opening it, set the position for desktop
+      if (exportDropdown.classList.contains('hidden')) {
+        const isMobile = window.innerWidth <= 900;
+        if (!isMobile) {
+          const rect = exportMenuBtn.getBoundingClientRect();
+          exportDropdown.style.top = `${rect.bottom + 8}px`;
+          exportDropdown.style.right = `${window.innerWidth - rect.right}px`;
+        } else {
+          exportDropdown.style.top = '';
+          exportDropdown.style.right = '';
+        }
+      }
+      exportDropdown.classList.toggle('hidden');
+    });
+
+    const closeExportMenuBtn = document.getElementById('closeExportMenuBtn');
+    if (closeExportMenuBtn) {
+      closeExportMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        exportDropdown.classList.add('hidden');
+      });
+    }
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!exportMenuBtn.contains(e.target) && !exportDropdown.contains(e.target)) {
+        exportDropdown.classList.add('hidden');
+      }
+    });
+
+    // Close when an option is clicked
+    exportDropdown.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
+        exportDropdown.classList.add('hidden');
+      });
+    });
+  }
+
   copyCodeBtn.addEventListener("click", () => {
     navigator.clipboard.writeText(currentMermaidCode);
     const originalText = copyCodeBtn.innerHTML;
@@ -1302,4 +1410,327 @@ document.addEventListener("DOMContentLoaded", () => {
       copyImageBtn.innerHTML = originalBtnText;
     }
   });
+
+  // ==========================================
+  // UNDO / REDO SYSTEM
+  // ==========================================
+  function captureState() {
+    return {
+      nodes: JSON.parse(JSON.stringify(manualNodes)),
+      links: JSON.parse(JSON.stringify(manualLinks)),
+      mermaidCode: currentMermaidCode,
+      direction: currentDirection,
+      theme: currentTheme,
+    };
+  }
+
+  function pushUndoState() {
+    undoStack.push(captureState());
+    if (undoStack.length > MAX_UNDO_STACK) undoStack.shift();
+    redoStack = [];
+    updateUndoRedoButtons();
+  }
+
+  function restoreState(snapshot) {
+    manualNodes = JSON.parse(JSON.stringify(snapshot.nodes));
+    manualLinks = JSON.parse(JSON.stringify(snapshot.links));
+    currentMermaidCode = snapshot.mermaidCode;
+    currentDirection = snapshot.direction;
+    currentTheme = snapshot.theme;
+
+    themeSelector.value = currentTheme;
+    directionSelector.value = currentDirection;
+
+    saveState();
+    updateManualUI(false);
+
+    if (currentMermaidCode && currentMermaidCode.trim()) {
+      renderMermaid(currentMermaidCode);
+    } else {
+      clearCanvas();
+    }
+  }
+
+  function undo() {
+    if (undoStack.length === 0) return;
+    redoStack.push(captureState());
+    const prev = undoStack.pop();
+    restoreState(prev);
+    updateUndoRedoButtons();
+    showToast('Undo', 'info');
+  }
+
+  function redo() {
+    if (redoStack.length === 0) return;
+    undoStack.push(captureState());
+    const next = redoStack.pop();
+    restoreState(next);
+    updateUndoRedoButtons();
+    showToast('Redo', 'info');
+  }
+
+  function updateUndoRedoButtons() {
+    if (undoBtn) undoBtn.disabled = undoStack.length === 0;
+    if (redoBtn) redoBtn.disabled = redoStack.length === 0;
+  }
+
+  // Wire undo/redo buttons
+  if (undoBtn) undoBtn.addEventListener('click', undo);
+  if (redoBtn) redoBtn.addEventListener('click', redo);
+
+  // Keyboard shortcuts for undo/redo
+  document.addEventListener('keydown', (e) => {
+    // Skip if user is typing in an input/textarea
+    const tag = document.activeElement?.tagName?.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const ctrlOrCmd = isMac ? e.metaKey : e.ctrlKey;
+
+    if (ctrlOrCmd && e.key === 'z' && !e.shiftKey) {
+      e.preventDefault();
+      undo();
+    } else if ((ctrlOrCmd && e.key === 'y') || (ctrlOrCmd && e.shiftKey && e.key === 'z') || (ctrlOrCmd && e.shiftKey && e.key === 'Z')) {
+      e.preventDefault();
+      redo();
+    }
+  });
+
+  // (Undo hooks are embedded directly inside each handler above)
+
+  // AI generation resets undo stack — new flowchart = fresh session
+  generateBtn.addEventListener('click', () => {
+    clearUndoRedoStacks();
+  }, true);
+
+  function clearUndoRedoStacks() {
+    undoStack = [];
+    redoStack = [];
+    updateUndoRedoButtons();
+  }
+
+  // Initialize undo/redo buttons state
+  updateUndoRedoButtons();
+
+  // ==========================================
+  // SAVE / LOAD PROJECTS
+  // ==========================================
+  const PROJECTS_STORAGE_KEY = 'flowchart_projects';
+
+  function getProjects() {
+    try {
+      const raw = localStorage.getItem(PROJECTS_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveProjectsToStorage(projects) {
+    localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(projects));
+  }
+
+  function saveProject(name) {
+    if (!name || !name.trim()) {
+      showToast('Please enter a project name.', 'error');
+      return;
+    }
+    const projects = getProjects();
+    const key = name.trim();
+
+    if (projects[key]) {
+      if (!confirm(`Project "${key}" already exists. Overwrite?`)) return;
+    } else if (Object.keys(projects).length >= 5) {
+      showToast('Maximum limit of 5 projects reached. Please delete an existing project first.', 'error');
+      return;
+    }
+
+    projects[key] = {
+      nodes: JSON.parse(JSON.stringify(manualNodes)),
+      links: JSON.parse(JSON.stringify(manualLinks)),
+      mermaidCode: currentMermaidCode,
+      direction: currentDirection,
+      theme: currentTheme,
+      savedAt: new Date().toISOString(),
+    };
+    saveProjectsToStorage(projects);
+    currentProjectName = key;
+    showToast(`Project "${key}" saved!`, 'success');
+    renderProjectsList();
+  }
+
+  function loadProject(name) {
+    const projects = getProjects();
+    const project = projects[name];
+    if (!project) {
+      showToast('Project not found.', 'error');
+      return;
+    }
+
+    // Loading a project = fresh session, clear undo/redo
+    clearUndoRedoStacks();
+    currentProjectName = name;
+
+    manualNodes = JSON.parse(JSON.stringify(project.nodes || []));
+    manualLinks = JSON.parse(JSON.stringify(project.links || []));
+    currentMermaidCode = project.mermaidCode || '';
+    currentDirection = project.direction || 'TD';
+    currentTheme = project.theme || 'dark';
+
+    themeSelector.value = currentTheme;
+    directionSelector.value = currentDirection;
+
+    saveState();
+    updateManualUI(false);
+
+    if (currentMermaidCode && currentMermaidCode.trim()) {
+      currentZoom = 1;
+      updateZoom();
+      renderMermaid(currentMermaidCode);
+    } else {
+      clearCanvas();
+    }
+
+    closeProjectsModalFn();
+    showToast(`Project "${name}" loaded!`, 'success');
+  }
+
+  function deleteProject(name) {
+    if (!confirm(`Delete project "${name}"? This cannot be undone.`)) return;
+    const projects = getProjects();
+    delete projects[name];
+    saveProjectsToStorage(projects);
+    
+    if (currentProjectName === name) {
+      currentProjectName = null;
+      if (projectNameInput) projectNameInput.value = '';
+    }
+
+    showToast(`Project "${name}" deleted.`, 'info');
+    renderProjectsList();
+  }
+
+  function renderProjectsList() {
+    if (!projectsList || !projectsEmpty) return;
+    const projects = getProjects();
+    const keys = Object.keys(projects).sort((a, b) => {
+      const da = projects[b].savedAt || '';
+      const db = projects[a].savedAt || '';
+      return da.localeCompare(db);
+    });
+
+    projectsList.innerHTML = '';
+    
+    const countDisplay = document.getElementById('projectCountDisplay');
+    if (countDisplay) {
+      countDisplay.textContent = `${keys.length}/5`;
+    }
+
+    if (keys.length === 0) {
+      projectsEmpty.style.display = '';
+      return;
+    }
+
+    projectsEmpty.style.display = 'none';
+
+    keys.forEach(name => {
+      const project = projects[name];
+      const li = document.createElement('li');
+      li.className = 'project-item';
+
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'project-item-name';
+      nameSpan.textContent = name;
+      nameSpan.title = name;
+
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'project-item-date';
+      if (project.savedAt) {
+        const d = new Date(project.savedAt);
+        dateSpan.textContent = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      }
+
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'project-item-actions';
+
+      const loadBtn = document.createElement('button');
+      loadBtn.className = 'project-load-btn';
+      loadBtn.textContent = 'Load';
+      loadBtn.title = `Load "${name}"`;
+      loadBtn.addEventListener('click', () => loadProject(name));
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'project-delete-btn';
+      delBtn.innerHTML = '&times;';
+      delBtn.title = `Delete "${name}"`;
+      delBtn.addEventListener('click', () => deleteProject(name));
+
+      actionsDiv.appendChild(loadBtn);
+      actionsDiv.appendChild(delBtn);
+
+      li.appendChild(nameSpan);
+      li.appendChild(dateSpan);
+      li.appendChild(actionsDiv);
+      projectsList.appendChild(li);
+    });
+  }
+
+  // ==========================================
+  // PROJECTS MODAL
+  // ==========================================
+  function openProjectsModalFn() {
+    if (projectsModal) {
+      projectsModal.classList.remove('hidden');
+      renderProjectsList();
+      if (projectNameInput) {
+        if (currentProjectName) {
+          projectNameInput.value = currentProjectName;
+        }
+        projectNameInput.focus();
+      }
+    }
+  }
+
+  function closeProjectsModalFn() {
+    if (projectsModal) {
+      projectsModal.classList.add('hidden');
+    }
+  }
+
+  // Projects toolbar button
+  if (projectsBtn) {
+    projectsBtn.addEventListener('click', openProjectsModalFn);
+  }
+
+  // Close modal
+  if (closeProjectsModal) {
+    closeProjectsModal.addEventListener('click', closeProjectsModalFn);
+  }
+  if (projectsModalBackdrop) {
+    projectsModalBackdrop.addEventListener('click', closeProjectsModalFn);
+  }
+
+  // Escape key closes modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && projectsModal && !projectsModal.classList.contains('hidden')) {
+      closeProjectsModalFn();
+    }
+  });
+
+  // Save project button
+  if (saveProjectBtn && projectNameInput) {
+    saveProjectBtn.addEventListener('click', () => {
+      saveProject(projectNameInput.value);
+    });
+
+    // Enter key to save
+    projectNameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        saveProject(projectNameInput.value);
+      }
+    });
+  }
+
+  // Initialize projects list on load
+  renderProjectsList();
 });

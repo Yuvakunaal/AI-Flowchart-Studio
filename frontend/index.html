@@ -200,7 +200,8 @@
                     <ul id="linksList"></ul>
                 </div>
             </div>
-            
+
+
             <div class="creator-credit" style="margin-top: auto; padding-top: 20px; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border-subtle); width: 100%;">
                 Designed & Engineered by <a href="https://www.linkedin.com/in/boggavarapu-yuva-satya-kunaal-127817290/" target="_blank" style="color: var(--accent-secondary); text-decoration: none; font-weight: 500;">Kunaal</a>
             </div>
@@ -223,6 +224,20 @@
                 </div>
                 <div class="toolbar-divider"></div>
                 <div class="toolbar-group">
+                    <button id="undoBtn" class="toolbar-btn" title="Undo (Ctrl+Z)" disabled>
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 14L4 9l5-5" />
+                            <path d="M20 20v-7a4 4 0 0 0-4-4H4" />
+                        </svg>
+                    </button>
+                    <button id="redoBtn" class="toolbar-btn" title="Redo (Ctrl+Y)" disabled>
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 14l5-5-5-5" />
+                            <path d="M4 20v-7a4 4 0 0 1 4-4h12" />
+                        </svg>
+                    </button>
                     <button id="resetViewBtn" class="toolbar-btn" title="Reset View">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -230,31 +245,14 @@
                             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
                         </svg>
                     </button>
-                    <button id="copyCodeBtn" class="toolbar-btn" title="Copy Mermaid Code">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="16 18 22 12 16 6" />
-                            <polyline points="8 6 2 12 8 18" />
-                        </svg>
-                        <span>Code</span>
-                    </button>
-                    <button id="downloadSvgBtn" class="toolbar-btn" title="Download SVG">
+                    <button id="exportMenuBtn" class="toolbar-btn" title="Export">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
                             fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        <span>SVG</span>
-                    </button>
-                    <button id="copyImageBtn" class="toolbar-btn" title="Export as PNG">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                        </svg>
-                        <span>PNG</span>
+                        <span>Export</span>
                     </button>
                 </div>
                 <a href="docs.html" target="_blank" class="toolbar-btn" title="Documentation" style="text-decoration: none; margin-left: auto;">
@@ -265,6 +263,13 @@
                     </svg>
                     <span>Docs</span>
                 </a>
+                <button id="projectsBtn" class="toolbar-btn" title="My Projects" style="text-decoration: none;">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <span>Projects</span>
+                </button>
             </div>
 
             <div class="canvas-container" id="canvasContainer">
@@ -326,6 +331,49 @@
         </main>
     </div>
 
+    <!-- Export Menu (Global to prevent mobile clipping) -->
+    <div id="exportDropdown" class="dropdown-menu hidden">
+        <div class="editor-header mobile-only-header" style="display: none;">
+            <span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Export Options
+            </span>
+            <button id="closeExportMenuBtn" class="close-editor-btn" aria-label="Close Export Menu">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <button id="copyCodeBtn" class="dropdown-item" title="Copy Mermaid Code">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+            </svg>
+            Copy Code
+        </button>
+        <button id="downloadSvgBtn" class="dropdown-item" title="Download SVG">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download SVG
+        </button>
+        <button id="copyImageBtn" class="dropdown-item" title="Export as PNG">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
+            </svg>
+            Download PNG
+        </button>
+    </div>
+
     <!-- Floating Node Editor -->
     <div id="nodeEditor" class="node-editor hidden">
         <div class="editor-header">
@@ -372,6 +420,43 @@
 
     <!-- Toast Container -->
     <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Projects Modal -->
+    <div id="projectsModal" class="projects-modal hidden">
+        <div class="projects-modal-backdrop" id="projectsModalBackdrop"></div>
+        <div class="projects-modal-content">
+            <div class="projects-modal-header">
+                <h3 style="display: flex; align-items: center; width: 100%;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    My Projects
+                    <span id="projectCountDisplay" style="margin-left: auto; font-size: 0.8rem; font-weight: 500; opacity: 0.7; padding-right: 15px;">0/5</span>
+                </h3>
+                <button id="closeProjectsModal" class="modal-close-btn" aria-label="Close">&times;</button>
+            </div>
+            <div class="projects-modal-body">
+                <div class="project-save-row">
+                    <input type="text" id="projectNameInput" placeholder="Enter project name..." autocomplete="off">
+                    <button id="saveProjectBtn" class="primary-btn compact project-save-btn">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg>
+                        Save Current
+                    </button>
+                </div>
+                <div class="projects-divider"></div>
+                <div class="project-list-container">
+                    <ul id="projectsList" class="projects-list"></ul>
+                    <p class="projects-empty" id="projectsEmpty">No saved projects yet. Save your current flowchart above!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
