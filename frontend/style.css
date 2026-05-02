@@ -1079,7 +1079,8 @@ input:focus,
   color: #a5b4fc;
 }
 
-#closeEditor {
+#closeEditor,
+#closeExportMenuBtn {
   background: none;
   border: none;
   color: var(--text-muted);
@@ -1089,7 +1090,8 @@ input:focus,
   transition: color var(--transition-fast);
 }
 
-#closeEditor:hover {
+#closeEditor:hover,
+#closeExportMenuBtn:hover {
   color: var(--text-primary);
 }
 
