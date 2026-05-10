@@ -2,11 +2,10 @@
 
 The AI Flowchart Studio website was returning a 404 error because the project files were located in a `frontend/` subdirectory, but Vercel was attempting to serve them from the repository root.
 
-## Phase 1: Vercel Configuration
-- Create a `vercel.json` configuration file in the root directory.
-- Configure `rewrites` to map all frontend-related paths to the `frontend/` directory.
-- Ensure static assets (CSS, JS, SVG) are correctly mapped.
-- Map SEO files (`robots.txt`, `sitemap.xml`) from `frontend/public/` to the root.
+## Phase 1: Vercel Configuration (Revised)
+- Move `vercel.json` to the `frontend/` directory (matching Vercel's Root Directory setting).
+- Simplify `rewrites` to use paths relative to the `frontend/` folder.
+- Ensure SEO files (`robots.txt`, `sitemap.xml`) are mapped correctly from `public/`.
 
 ## Phase 2: SEO & Meta-Data (Optional but recommended)
 - Verify `robots.txt` and `sitemap.xml` are accessible at the root level via the new rewrites.
