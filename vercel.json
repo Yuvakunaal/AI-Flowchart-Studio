@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/robots.txt",
+      "destination": "/frontend/public/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/frontend/public/sitemap.xml"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/frontend/$1"
+    }
+  ]
+}
