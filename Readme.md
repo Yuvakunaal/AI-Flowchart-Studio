@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Yuvakunaal/AI-Flowchart-Studio/main/frontend/favicon.svg" alt="AI Flowchart Studio Logo" width="120" />
+  <img src="https://raw.githubusercontent.com/Yuvakunaal/AI-Flowchart-Studio/main/favicon.svg" alt="AI Flowchart Studio Logo" width="120" />
 
 # AI Flowchart Studio — Gemini AI Flowchart Generator
 
