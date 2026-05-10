@@ -1,93 +1,241 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/Yuvakunaal/AI-Flowchart-Studio/main/frontend/favicon.svg" alt="AI Flowchart Studio Logo" width="120" />
 
-  # 🚀 AI Flowchart Studio
-  
-  **Enterprise-Grade Natural Language to Visual Logic Generator**
+# AI Flowchart Studio — Gemini AI Flowchart Generator
 
-  [![Live Demo](https://img.shields.io/badge/Live_Demo-Access_Now-6366f1?style=for-the-badge)](https://ai-flowchart-studio.vercel.app)
-  
-  ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-  ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-  ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-  ![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-  ![Render](https://img.shields.io/badge/Backend-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+**Generate Flowcharts, Workflow Diagrams & System Design Diagrams with AI**
+
+Turn natural language prompts into professional diagrams using Google's Gemini AI. Create workflow diagrams, system design visualizations, and flowcharts instantly without manual drawing.
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Access_Now-6366f1?style=for-the-badge)](https://ai-flowchart-studio.vercel.app)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Yuvakunaal/AI-Flowchart-Studio)
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Gemini AI](https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 </div>
 
 ---
 
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Diagram Types](#diagram-types)
+- [Getting Started](#getting-started)
+- [Architecture](#architecture)
+- [Use Cases](#use-cases)
+- [Security & Privacy](#security--privacy)
+- [Tech Stack](#tech-stack)
+
+---
+
 ## 🌟 Live Application
 
-AI Flowchart Studio is a fully deployed, real-time web application. 
-**[Experience the live application here!](https://ai-flowchart-studio.vercel.app)**
+**[Try the AI Flowchart Generator Now](https://ai-flowchart-studio.vercel.app)**
 
-*Note: The application utilizes a "Bring Your Own Key" (BYOK) architecture. You will need a free Google Gemini API key to utilize the AI generation features. Your key is stored 100% locally in your browser and never leaves your machine.*
+AI Flowchart Studio is a production-ready, fully deployed web application that generates diagrams from natural language prompts using Gemini AI.
+
+> **Note:** Uses BYOK (Bring Your Own Key) architecture. Free Google Gemini API key required. Your key is stored 100% locally in your browser—never sent to our servers.
 
 ---
 
 ## 📖 Overview
 
-AI Flowchart Studio is a high-performance, production-ready web application that transforms complex natural language descriptions into professional, structured flowcharts. Built with a sophisticated **Multi-Agent Orchestration** backend and a premium **Glassmorphic UI**, it offers a seamless experience for both AI-driven generation and manual precision diagramming.
+**AI Flowchart Studio** is an enterprise-grade AI flowchart generator that transforms complex natural language descriptions into professional, structured diagrams. It combines a sophisticated **Multi-Agent Orchestration** backend with a modern **Glassmorphic UI** to provide seamless AI-driven and manual diagram creation.
+
+This tool is designed for teams that need to generate workflow diagrams, system design diagrams, and flowcharts without the overhead of manual drawing or learning specialized syntax.
 
 ## ✨ Key Features
 
-- **🤖 Multi-Agent AI Generator**: Powered by Google's Gemini models, the system uses an Orchestrator-Parser-Generator architecture to guarantee logical accuracy and syntax validity.
-- **🔄 Robust Undo/Redo Engine**: A sophisticated memory buffer that tracks canvas states seamlessly across manual edits and AI generations, providing full safety against accidental deletions.
-- **📁 Multi-Project Management**: Effortlessly save, load, and manage up to 5 concurrent local flowchart projects without losing your progress.
-- **🛠️ Precision Manual Builder**: A complete "Click & Type" interface for manual refinement, allowing you to seamlessly add nodes, link connections, and edit custom shapes with zero coding required.
-- **💎 Ultra-HD Pro Export**: 
-    - **PNG**: 3x Super-Scaled, crystal-clear captures using native SVG geometry.
-    - **SVG**: Infinitely scalable vector format for high-end print, presentations, and graphic design.
-    - **Code**: Direct access to Mermaid.js syntax for version control and documentation.
-- **📱 Native Mobile Experience**: A fully responsive interface featuring premium "Bottom-Sheet" slide-up menus for seamless mobile interaction.
-- **🔍 Smart Canvas Engine**: Hardware-accelerated scaling (+/- 300%) with intuitive panning and zoom controls.
-- **🎭 Intelligent Themes**: Dynamic switching between Dark, Light, and Forest aesthetic themes.
-- **🌍 Layout Versatility**: Instant toggle between Vertical (Top-Down) and Horizontal (Left-to-Right) flowchart orientations.
+### AI-Powered Diagram Generation
+
+- **🤖 Gemini AI Integration**: Multi-Agent Orchestration powered by Google's latest Gemini models ensures logical accuracy and syntactic validity for flowchart generation.
+- **Natural Language Input**: Describe your flowchart, workflow, or system architecture in plain English and get a rendered diagram in seconds.
+- **Intelligent Structure**: The AI analyzes intent, decomposes logic, generates optimized diagram code, and validates output—all automatically.
+
+### Diagram Editing & Management
+
+- **🔄 Undo/Redo Engine**: Sophisticated state management tracks all changes across AI generations and manual edits with a 50-step history buffer.
+- **✏️ Precision Manual Builder**: Click & Type interface for adding nodes, creating links, and editing shapes without any coding knowledge.
+- **📁 Multi-Project Management**: Save, load, and manage up to 5 concurrent projects locally with instant access.
+
+### Export & Output Flexibility
+
+- **💎 Multi-Format Export**:
+  - PNG (3x Super-Scaled, high-quality vector rendering)
+  - SVG (infinitely scalable for design and print)
+  - Mermaid Code (for version control and documentation)
+- **🎨 Theme Support**: Dark, Light, and Forest themes for any workflow preference.
+- **🌍 Layout Options**: Top-Down and Left-to-Right orientations for different diagram styles.
+
+### User Experience
+
+- **📱 Mobile-First**: Responsive design with native Bottom-Sheet menus for seamless mobile diagramming.
+- **🔍 Smart Canvas**: Hardware-accelerated zoom (0.2x to 3x) with intuitive pan controls.
+- **⚡ Real-Time Feedback**: Server-Sent Events (SSE) pipeline status streaming during AI generation.
+- **🛡️ Privacy First**: 100% local key storage in browser; zero data retention on servers.
 
 ---
 
-## 🏗️ The Multi-Agent Engine
+## 📊 Diagram Types
 
-The core of the backend is a sophisticated 4-stage pipeline that ensures "Garbage In" never becomes "Garbage Out". By splitting the workload across multiple specialized agents, the application achieves near 100% syntactical success:
+This AI flowchart generator supports multiple diagram styles for different use cases:
 
-1.  **Orchestrator Agent**: Analyzes user intent and validates if the prompt can logically be visualized as a flowchart.
-2.  **Logic Parser Agent**: Decomposes the raw text into a highly structured JSON graph containing strict Nodes and Edges.
-3.  **Generator Agent**: Converts the validated logical graph into highly optimized Mermaid.js syntax.
-4.  **Syntax Validator**: Performs a final safety check to catch rendering anomalies and guarantee a perfect visual output.
+### Flowcharts
+
+Generate structured flowcharts with decision branches, process steps, and outcomes. Perfect for:
+
+- User authentication flows
+- Feature decision trees
+- Troubleshooting guides
+- Business logic representation
+
+### Workflow Diagrams
+
+Create workflow diagrams for operational processes:
+
+- Employee onboarding and offboarding
+- Approval and escalation paths
+- Content review and publishing
+- Support ticket routing
+
+### System Design Diagrams
+
+Design system architecture and technical diagrams:
+
+- Service-to-service architecture
+- Data flow and dependencies
+- Infrastructure overviews
+- Microservice interactions
 
 ---
 
-## 🛠️ Technical Architecture
+## 🚀 Getting Started
 
-- **Frontend Deployment**: [Vercel](https://vercel.com) (Static CDN)
-- **Backend Deployment**: [Render](https://render.com) (ASGI/Gunicorn Python Workers)
-- **Frontend Stack**: ES6+ JavaScript, Native DOM APIs, Mermaid.js, html2canvas.
-- **Backend Stack**: FastAPI (Python), Google GenAI SDK.
-- **Styling**: Vanilla CSS3 with Custom Properties and a Glassmorphism design system.
-- **Data Flow**: RESTful API with Server-Sent Events (SSE) for real-time AI pipeline status streaming.
+### Try Online (No Setup Required)
+
+**[Visit AI Flowchart Studio](https://ai-flowchart-studio.vercel.app)** and start generating flowcharts instantly.
+
+### Prerequisites
+
+- Google Gemini API key (free tier available at [Google AI Studio](https://aistudio.google.com))
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+
+### Quick Start
+
+1. Open the live app
+2. Get your free Gemini API key
+3. Enter the key in app settings (stored locally)
+4. Describe your flowchart in plain English
+5. Click "Generate Flowchart" and wait for AI to build it
+6. Edit manually if needed and export
 
 ---
 
-## 📈 Enterprise Use Cases
+## 🏗️ Architecture
 
-AI Flowchart Studio is designed to accelerate communication and logic mapping across multiple business domains:
+### Multi-Agent AI Pipeline
 
-- **Software Engineering**: Rapidly prototype user authentication flows, system architecture diagrams, and microservice interactions.
-- **Product Management**: Map out user journeys, feature lifecycles, and A/B testing decision trees.
-- **Human Resources**: Visualize recruitment pipelines, employee onboarding processes, and organizational hierarchies.
-- **Customer Support**: Generate standardized troubleshooting guides and automated refund approval logic.
+The core differentiator is a **4-stage intelligent pipeline** that ensures high-quality diagram generation:
+
+1. **Orchestrator Agent**: Analyzes user intent and validates if the prompt can logically be visualized as a flowchart.
+2. **Logic Parser Agent**: Decomposes the raw text into a highly structured JSON graph containing strict Nodes and Edges.
+3. **Generator Agent**: Converts the validated logical graph into highly optimized Mermaid.js syntax.
+4. **Syntax Validator**: Performs a final safety check to catch rendering anomalies and guarantee a perfect visual output.
+
+### Tech Stack
+
+| Component            | Technology                                             |
+| -------------------- | ------------------------------------------------------ |
+| **Frontend**         | ES6+ JavaScript, Vanilla CSS3, Mermaid.js, html2canvas |
+| **Backend**          | FastAPI (Python), Google Gemini AI SDK                 |
+| **Frontend Hosting** | Vercel (CDN)                                           |
+| **Backend Hosting**  | Render (ASGI/Gunicorn)                                 |
+| **Architecture**     | RESTful API + Server-Sent Events (SSE)                 |
+| **UI Design**        | Glassmorphism, Dark/Light Themes                       |
+| **Storage**          | Browser LocalStorage (zero server retention)           |
+
+---
+
+## 📈 Use Cases
+
+### For Software Engineers
+
+- **System Design Diagrams**: Visualize microservice architecture, dependencies, and data flow
+- **User Authentication Flows**: Map login, signup, and password recovery processes
+- **API Integration Diagrams**: Show third-party integrations and data movements
+
+### For Product & Business Teams
+
+- **Workflow Diagrams**: Document employee onboarding, approvals, and operational processes
+- **User Journey Maps**: Visualize customer paths and decision points
+- **Feature Decision Trees**: Map A/B testing logic and feature rollout conditions
+
+### For Operations & Support
+
+- **Troubleshooting Guides**: Create visual decision trees for common issues
+- **Incident Response Flows**: Map escalation paths and resolution steps
+- **Process Documentation**: Generate approval workflows and handoff procedures
+
+### For Education & Documentation
+
+- **Algorithm Flowcharts**: Teach programming concepts visually
+- **Business Process Mapping**: Document organizational procedures
+- **Technical Architecture**: Communicate system design to stakeholders
 
 ---
 
 ## 🛡️ Security & Privacy (BYOK)
 
-We believe your logic is your intellectual property. 
-AI Flowchart Studio implements a strict **Bring Your Own Key (BYOK)** policy. 
-- **Zero Data Retention**: Your API key and your prompts are stored exclusively in your browser's `LocalStorage`. 
-- **Direct Communication**: Our Render backend acts only as a secure proxy to Google's GenAI servers, never logging or storing your data.
+We believe your logic is your intellectual property. AI Flowchart Studio implements a strict **Bring Your Own Key (BYOK)** policy:
+
+- **Zero Data Retention**: Your API key and prompts are stored 100% locally in your browser's `LocalStorage`. Nothing is sent to our servers.
+- **Direct Proxy Architecture**: Our Render backend acts only as a secure pass-through to Google's Gemini API—never logging, storing, or analyzing your data.
+- **No Tracking**: No analytics, no telemetry, no user profiling. Your work stays yours.
+- **Open Source**: Full codebase available for security audits and transparency.
 
 ---
+
+## 🌐 SEO & Discoverability
+
+This AI flowchart generator is optimized for search engines and designed to help you find exactly what you're looking for:
+
+- **Keywords**: AI flowchart generator, Gemini AI, workflow diagrams, system design diagrams
+- **Sitemap**: [XML Sitemap](https://ai-flowchart-studio.vercel.app/sitemap.xml)
+- **Robots**: [robots.txt](https://ai-flowchart-studio.vercel.app/robots.txt)
+- **Keyword Pages**:
+  - [Gemini AI Flowchart Generator](https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/)
+  - [AI System Design Generator](https://ai-flowchart-studio.vercel.app/ai-system-design-generator/)
+  - [Workflow Diagram Generator](https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/)
+
+---
+
+## 📝 License
+
+This project is open source. Check LICENSE file for details.
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Feel free to submit PRs for bug fixes, features, or documentation improvements.
+
+---
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/Yuvakunaal/AI-Flowchart-Studio/issues)
+- **Live App**: [ai-flowchart-studio.vercel.app](https://ai-flowchart-studio.vercel.app)
+- **Author**: [Kunaal](https://www.linkedin.com/in/boggavarapu-yuva-satya-kunaal-127817290/)
+
+---
+
 <div align="center">
+  <strong>AI Flowchart Studio</strong> — Generate flowcharts, workflow diagrams & system design with Gemini AI
+  
   <i>Built for intelligent, frictionless diagramming.</i>
 </div>
