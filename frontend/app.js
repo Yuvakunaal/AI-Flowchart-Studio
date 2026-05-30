@@ -104,6 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let initialPinchDistance = null;
   let pinchStartZoom = 1;
 
+  // Lazy script loader — loads a CDN script once, resolves immediately if already loaded
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+      const s = document.createElement("script");
+      s.src = src; s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
   // ==========================================
   // UTILITIES & SECURITY
   // ==========================================
@@ -827,13 +837,11 @@ document.addEventListener("DOMContentLoaded", () => {
           currentLi.classList.remove("active");
           currentLi.textContent = `✓ Flowchart rendered successfully!`;
         }
+        const fireConfetti = () => confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ["#3b82f6", "#8b5cf6", "#ffffff"] });
         if (window.confetti) {
-          confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ["#3b82f6", "#8b5cf6", "#ffffff"],
-          });
+          fireConfetti();
+        } else {
+          loadScript("https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js").then(fireConfetti);
         }
       });
     }
@@ -1379,6 +1387,9 @@ document.addEventListener("DOMContentLoaded", () => {
       tempDiv.appendChild(svgClone);
       document.body.appendChild(tempDiv);
 
+      if (!window.html2canvas) {
+        await loadScript("https://html2canvas.hertzen.com/dist/html2canvas.min.js");
+      }
       const canvas = await html2canvas(tempDiv, {
         scale: 3,
         backgroundColor: "#ffffff",
