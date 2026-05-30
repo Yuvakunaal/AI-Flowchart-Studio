@@ -202,7 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
       generateBtn.innerHTML = originalHtml;
     }
   }
-  pingServerWakeup();
+  // Avoid a background network request on page load. The backend is contacted
+  // only when the user generates a diagram.
 
   // ==========================================
   // LOCAL STORAGE PERSISTENCE

@@ -205,7 +205,7 @@ We believe your logic is your intellectual property. AI Flowchart Studio impleme
 - **Zero Server Retention**: Saved projects and API key settings live in browser `LocalStorage`. During generation, prompts and API keys are transmitted only for the active request and are not retained by the app server.
 - **Generation-Time Transit Only**: During AI generation, the prompt and selected API key are sent to the Render backend so it can call Google's Gemini API. The backend does not persist the key, prompt, or generated diagram.
 - **Direct Proxy Architecture**: The Render backend acts as a request relay to Google's Gemini API and streams progress back to the browser.
-- **Minimal Analytics**: The frontend includes Vercel Web Analytics for aggregate site usage. Diagram content, API keys, and saved projects are not used for profiling.
+- **No Third-Party Analytics Script**: The frontend does not load Vercel Web Analytics, which keeps the browser console clean and avoids optional analytics-script 404s.
 - **Open Source**: Full codebase available for security audits and transparency.
 
 ---
