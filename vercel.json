@@ -1,45 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "installCommand": "echo \"No install needed\"",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/gemini-ai-flowchart-generator",
-      "destination": "/gemini-ai-flowchart-generator/index.html"
-    },
-    {
-      "source": "/gemini-ai-flowchart-generator/",
-      "destination": "/gemini-ai-flowchart-generator/index.html"
-    },
-    {
-      "source": "/ai-system-design-generator",
-      "destination": "/ai-system-design-generator/index.html"
-    },
-    {
-      "source": "/ai-system-design-generator/",
-      "destination": "/ai-system-design-generator/index.html"
-    },
-    {
-      "source": "/workflow-diagram-generator",
-      "destination": "/workflow-diagram-generator/index.html"
-    },
-    {
-      "source": "/workflow-diagram-generator/",
-      "destination": "/workflow-diagram-generator/index.html"
-    },
-    {
-      "source": "/docs",
-      "destination": "/docs.html"
-    },
-    {
-      "source": "/docs/",
-      "destination": "/docs.html"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
