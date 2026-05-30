@@ -98,7 +98,9 @@ h1{font-family:var(--ff);font-size:clamp(2.1rem,4.5vw,3.2rem);font-weight:800;li
 .chips{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px}
 .chip{font-size:.7rem;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);color:var(--t2);font-weight:500}
 
-.preview{margin:36px 0 48px;display:flex;justify-content:center}
+.preview{margin:32px 0 44px;display:flex;justify-content:center;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.preview::-webkit-scrollbar{display:none}
+.preview svg{width:100%;height:auto;min-width:280px;display:block}
 
 hr{border:none;border-top:1px solid var(--border);margin:40px 0}
 
@@ -139,8 +141,48 @@ details[open] summary::after{transform:rotate(180deg)}
 .rel-link{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--t2);text-decoration:none;font-size:.78rem;font-weight:500;transition:all .13s}
 .rel-link:hover{background:var(--abg);border-color:var(--abd);color:#c4b5fd}
 
-@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.page{padding:36px 16px 64px}h1{font-size:2rem}}
-@media(max-width:400px){.grid{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .preview{margin:20px 0 32px}
+  hr{margin:28px 0}
+}
+@media(max-width:600px){
+  .page{padding:32px 16px 60px}
+  .hero{margin-bottom:32px;text-align:left}
+  h1{font-size:1.9rem;letter-spacing:-.03em}
+  .sub{font-size:.9rem;margin-left:0;text-align:left}
+  .cta-hero{width:100%;justify-content:center}
+  .chips{justify-content:flex-start;gap:5px}
+  .chip{font-size:.65rem;padding:3px 9px}
+  .grid{grid-template-columns:1fr 1fr;gap:7px}
+  .card{padding:13px}
+  .card h3{font-size:.8rem}
+  section{margin-bottom:28px}
+  hr{margin:22px 0}
+  .prompt{font-size:.73rem;padding:11px 13px;line-height:1.65}
+  summary{padding:11px 14px;font-size:.84rem}
+  .faq-ans{padding:2px 14px 12px;font-size:.82rem}
+  ul.clean li{font-size:.84rem}
+  code{font-size:.76em}
+  .related{margin-top:28px}
+  .rel-links{gap:5px}
+  .rel-link{font-size:.74rem;padding:6px 10px}
+}
+@media(max-width:440px){
+  nav{padding:0 12px;gap:8px}
+  .nl{font-size:.78rem}
+  .nl img{width:18px;height:18px}
+  .badge{display:none}
+  .cta-nav{padding:5px 11px;font-size:.72rem}
+  .sep{display:none}
+  h1{font-size:1.75rem}
+  .pill{font-size:.6rem;padding:3px 10px}
+}
+@media(max-width:400px){
+  .page{padding:24px 14px 52px}
+  h1{font-size:1.55rem}
+  .grid{grid-template-columns:1fr}
+  .card{padding:12px}
+}
     </style>
   </head>
   <body>
