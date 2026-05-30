@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI System Design Diagram Generator | AI Flowchart Studio</title>
-    <meta
-      name="description"
-      content="Generate system design diagrams from text with AI. Map services, APIs, data flows, queues, databases, and architecture dependencies."
-    />
+    <meta name="description" content="Generate system design diagrams from text with AI. Map services, APIs, data flows, queues, databases, and architecture dependencies." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/ai-system-design-generator/" />
     <meta property="og:type" content="article" />
@@ -17,82 +14,276 @@
     <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/ai-system-design-generator/" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/style.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "AI System Design Diagram Generator",
-        "url": "https://ai-flowchart-studio.vercel.app/ai-system-design-generator/",
-        "description": "Map services, APIs, databases, queues, and architecture dependencies from text."
-      }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"AI System Design Diagram Generator","url":"https://ai-flowchart-studio.vercel.app/ai-system-design-generator/","description":"Map services, APIs, databases, queues, and architecture dependencies from text."}</script>
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#07090f;--bg2:#090c14;--surface:rgba(255,255,255,0.03);
+  --surface2:rgba(255,255,255,0.055);--border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);--t1:#eef2f7;--t2:rgba(238,242,247,0.55);
+  --t3:rgba(238,242,247,0.28);--a:#8b5cf6;--av:#7c3aed;--ac:#06b6d4;
+  --abg:rgba(139,92,246,0.1);--abd:rgba(139,92,246,0.22);
+  --grad:linear-gradient(135deg,#8b5cf6,#6366f1,#06b6d4);
+  --r:8px;--nav-h:52px;
+  --ff:'Bricolage Grotesque',system-ui,sans-serif;
+  --fb:'Manrope',system-ui,sans-serif;
+  --fc:'JetBrains Mono',monospace;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.6;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 65% 55% at 5% 8%,rgba(139,92,246,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 95% 92%,rgba(6,182,212,.05) 0%,transparent 55%),var(--bg)}
+
+nav{position:sticky;top:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;gap:12px;padding:0 20px;background:rgba(7,9,15,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nl{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--t1);font-family:var(--ff);font-weight:700;font-size:.875rem;letter-spacing:-.01em;flex-shrink:0}
+.nl img{width:20px;height:20px}
+.sep{width:1px;height:16px;background:var(--border2)}
+.badge{font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#c4b5fd;background:var(--abg);border:1px solid var(--abd);padding:2px 8px;border-radius:99px}
+.sp{flex:1}
+.cta-nav{display:flex;align-items:center;gap:6px;background:var(--grad);color:#fff;text-decoration:none;padding:6px 14px;border-radius:7px;font-size:.78rem;font-weight:600;font-family:var(--fb);box-shadow:0 2px 12px rgba(139,92,246,.28);transition:opacity .15s,transform .15s}
+.cta-nav:hover{opacity:.9;transform:translateY(-1px)}
+
+.page{max-width:740px;margin:0 auto;padding:56px 20px 88px}
+
+.hero{text-align:center;margin-bottom:52px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#c4b5fd;background:var(--abg);border:1px solid var(--abd);padding:4px 12px;border-radius:99px;margin-bottom:20px}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--a)}
+h1{font-family:var(--ff);font-size:clamp(2.1rem,4.5vw,3.2rem);font-weight:800;line-height:1.04;letter-spacing:-.04em;margin-bottom:14px;color:var(--t1)}
+.grad{background:linear-gradient(135deg,#c4b5fd 0%,#a5b4fc 50%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:.975rem;color:var(--t2);line-height:1.65;max-width:500px;margin:0 auto 26px;font-weight:400}
+.cta-hero{display:inline-flex;align-items:center;gap:7px;background:var(--grad);color:#fff;text-decoration:none;padding:10px 22px;border-radius:8px;font-size:.88rem;font-weight:600;font-family:var(--fb);box-shadow:0 4px 20px rgba(139,92,246,.35);transition:opacity .15s,transform .15s,box-shadow .15s;margin-bottom:26px}
+.cta-hero:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 6px 28px rgba(139,92,246,.45)}
+.chips{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px}
+.chip{font-size:.7rem;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);color:var(--t2);font-weight:500}
+
+.preview{margin:36px 0 48px;display:flex;justify-content:center}
+
+hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+section{margin-bottom:36px}
+h2{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--t1);letter-spacing:-.02em;margin-bottom:14px}
+p{font-size:.875rem;color:var(--t2);line-height:1.65;margin-bottom:8px}
+.hi{color:var(--t1);font-weight:600}
+code{font-family:var(--fc);font-size:.78em;background:var(--abg);border:1px solid var(--abd);border-radius:4px;padding:1px 5px;color:#c4b5fd}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .14s}
+.card:hover{border-color:var(--abd)}
+.card-ico{font-size:1.1rem;margin-bottom:8px}
+.card h3{font-family:var(--ff);font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:4px;letter-spacing:-.01em}
+.card p{font-size:.75rem!important;color:var(--t3)!important;margin:0!important;line-height:1.5!important}
+
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+ul.clean li{display:flex;align-items:flex-start;gap:9px;font-size:.875rem;color:var(--t2);line-height:1.6}
+ul.clean li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:8px}
+
+.prompt-wrap{margin-top:12px}
+.prompt-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(139,92,246,.7);margin-bottom:6px;display:block}
+.prompt{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-left:2.5px solid var(--a);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-family:var(--fc);font-size:.78rem;color:#c4b5fd;line-height:1.7;opacity:.9}
+
+.faq{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+details{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .14s}
+details[open]{border-color:var(--abd)}
+summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;cursor:pointer;list-style:none;font-size:.875rem;font-weight:600;color:var(--t1);user-select:none;transition:color .12s}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:#c4b5fd}
+summary::after{content:'';width:14px;height:14px;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(238,242,247,0.3)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-size:cover;transition:transform .2s ease}
+details[open] summary::after{transform:rotate(180deg)}
+.faq-ans{padding:2px 16px 14px;font-size:.84rem;color:var(--t2);line-height:1.65;border-top:1px solid rgba(255,255,255,.04)}
+
+.related{margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.related p{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
+.rel-links{display:flex;flex-wrap:wrap;gap:6px}
+.rel-link{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--t2);text-decoration:none;font-size:.78rem;font-weight:500;transition:all .13s}
+.rel-link:hover{background:var(--abg);border-color:var(--abd);color:#c4b5fd}
+
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.page{padding:36px 16px 64px}h1{font-size:2rem}}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+    </style>
   </head>
-  <body class="seo-page">
-    <main class="page-shell">
-      <section class="page-card">
-        <p class="page-kicker">AI Flowchart Studio</p>
-        <h1>AI system design diagram generator</h1>
-        <p>
-          Generate system design diagrams from text when you need to explain
-          services, APIs, databases, queues, dependencies, and data movement.
-          Use the generated diagram as a visual draft for engineering reviews,
-          documentation, and planning discussions.
-        </p>
+  <body>
+    <div class="bg"></div>
 
+    <nav>
+      <a href="/" class="nl">
+        <img src="/favicon.svg" alt="AI Flowchart Studio" />
+        AI Flowchart Studio
+      </a>
+      <div class="sep"></div>
+      <span class="badge">Architecture</span>
+      <div class="sp"></div>
+      <a href="/" class="cta-nav">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Open App
+      </a>
+    </nav>
+
+    <div class="page">
+
+      <div class="hero">
+        <div class="pill"><span class="pill-dot"></span>System Architecture</div>
+        <h1>Generate <span class="grad">architecture diagrams</span><br>from text</h1>
+        <p class="sub">Describe your system in plain English. Get a structured diagram of services, APIs, databases, queues, and data flows — ready for engineering reviews and documentation.</p>
+        <a href="/" class="cta-hero">
+          Design your system
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="chips">
+          <span class="chip">Microservices</span>
+          <span class="chip">API flows</span>
+          <span class="chip">Data pipelines</span>
+          <span class="chip">Failure paths</span>
+          <span class="chip">Mermaid &amp; SVG export</span>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview">
+        <svg width="520" height="100" viewBox="0 0 520 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg3" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="50%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <!-- Client -->
+          <rect x="8" y="36" width="76" height="28" rx="5" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.35)" stroke-width="1.5"/>
+          <text x="46" y="54" text-anchor="middle" fill="#c4b5fd" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">Web Client</text>
+          <!-- Arrow -->
+          <line x1="84" y1="50" x2="114" y2="50" stroke="url(#lg3)" stroke-width="1.5"/>
+          <polygon points="114,46 122,50 114,54" fill="#6366f1"/>
+          <!-- API GW -->
+          <rect x="122" y="36" width="88" height="28" rx="5" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.28)" stroke-width="1.5"/>
+          <text x="166" y="54" text-anchor="middle" fill="#a5b4fc" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">API Gateway</text>
+          <!-- Arrow -->
+          <line x1="210" y1="50" x2="240" y2="50" stroke="url(#lg3)" stroke-width="1.5"/>
+          <polygon points="240,46 248,50 240,54" fill="#6366f1"/>
+          <!-- Order Service -->
+          <rect x="248" y="36" width="96" height="28" rx="5" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.28)" stroke-width="1.5"/>
+          <text x="296" y="54" text-anchor="middle" fill="#a5b4fc" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">Order Service</text>
+          <!-- Arrow to Queue -->
+          <line x1="344" y1="50" x2="374" y2="50" stroke="url(#lg3)" stroke-width="1.5"/>
+          <polygon points="374,46 382,50 374,54" fill="#06b6d4"/>
+          <!-- Queue -->
+          <rect x="382" y="36" width="70" height="28" rx="5" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.28)" stroke-width="1.5"/>
+          <text x="417" y="54" text-anchor="middle" fill="#67e8f9" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">Event Bus</text>
+          <!-- Arrow to Payment -->
+          <line x1="452" y1="50" x2="480" y2="50" stroke="url(#lg3)" stroke-width="1.5"/>
+          <polygon points="480,46 488,50 480,54" fill="#06b6d4"/>
+          <!-- Payment -->
+          <rect x="488" y="36" width="24" height="28" rx="5" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.28)" stroke-width="1.5"/>
+          <text x="500" y="55" text-anchor="middle" fill="#67e8f9" font-size="7.5" font-family="Manrope,sans-serif" font-weight="600">Pay</text>
+          <!-- DB arrow down from Order -->
+          <line x1="296" y1="64" x2="296" y2="78" stroke="rgba(139,92,246,0.5)" stroke-width="1.5"/>
+          <polygon points="292,78 296,86 300,78" fill="#8b5cf6"/>
+          <!-- DB -->
+          <rect x="256" y="86" width="80" height="14" rx="4" fill="rgba(139,92,246,0.08)" stroke="rgba(139,92,246,0.25)" stroke-width="1.5"/>
+          <text x="296" y="96" text-anchor="middle" fill="rgba(196,181,253,0.8)" font-size="8.5" font-family="Manrope,sans-serif" font-weight="500">PostgreSQL</text>
+        </svg>
+      </div>
+
+      <hr />
+
+      <section>
         <h2>What system design diagrams can show</h2>
-        <ul>
-          <li>Client, API gateway, backend service, and database flows</li>
-          <li>Authentication, authorization, and session handling paths</li>
-          <li>Microservice dependencies and service-to-service calls</li>
-          <li>Message queues, background jobs, and event-driven pipelines</li>
-          <li>Third-party integrations, webhooks, and failure handling</li>
-        </ul>
+        <p>From a single service to a full microservice architecture — describe the components and let AI map the connections.</p>
+        <div class="grid">
+          <div class="card">
+            <div class="card-ico">🌐</div>
+            <h3>Client to Backend</h3>
+            <p>Web client, mobile app, API gateway, auth layer, and backend services</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🔌</div>
+            <h3>Microservices</h3>
+            <p>Service-to-service calls, inter-service dependencies, and API contracts</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">📨</div>
+            <h3>Event-Driven Systems</h3>
+            <p>Message queues, event buses, consumers, producers, and dead letter queues</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🗄️</div>
+            <h3>Data Flows</h3>
+            <p>Database reads/writes, cache layers, replication, and storage boundaries</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🔐</div>
+            <h3>Auth & Security</h3>
+            <p>Authentication flows, token validation, authorization checks, session handling</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">⚠️</div>
+            <h3>Failure Paths</h3>
+            <p>Retry logic, circuit breakers, fallback states, and error notification flows</p>
+          </div>
+        </div>
+      </section>
 
+      <hr />
+
+      <section>
         <h2>How to prompt an architecture diagram</h2>
-        <p>
-          Name the user or client, the entry point, each service, the storage
-          layer, external systems, and important error paths. Include verbs such
-          as validates, stores, publishes, consumes, retries, rejects, caches,
-          and notifies.
-        </p>
+        <p>System design prompts work best when you describe components like services, not just steps. Include:</p>
+        <ul class="clean">
+          <li><strong class="hi">The entry point</strong> — client, mobile app, webhook, cron job, or event trigger</li>
+          <li><strong class="hi">Each service or component</strong> — name every service, API, database, queue, and external system</li>
+          <li><strong class="hi">Data movement verbs</strong> — <em>validates, stores, publishes, consumes, retries, caches, notifies, rejects</em></li>
+          <li><strong class="hi">Storage layers</strong> — which service owns which database or cache?</li>
+          <li><strong class="hi">Failure handling</strong> — what happens when a service fails or a payment is declined?</li>
+          <li><strong class="hi">External systems</strong> — third-party APIs, payment providers, notification services</li>
+        </ul>
+      </section>
 
+      <section>
         <h2>Example prompt</h2>
-        <p>
-          "Create a system design diagram for an order processing service. The
-          web app sends requests to an API gateway. The order service validates
-          inventory, writes to PostgreSQL, publishes an event to a queue, and
-          calls the payment service. If payment succeeds, notify fulfillment. If
-          payment fails, mark the order failed and notify the customer."
-        </p>
+        <div class="prompt-wrap">
+          <span class="prompt-label">Order processing service</span>
+          <div class="prompt">"Create a system design diagram for an order processing service. The web app sends requests to an API gateway. The order service validates inventory, writes to PostgreSQL, publishes an event to a message queue, and calls the payment service. If payment succeeds, publish a fulfillment event and notify the customer. If payment fails, mark the order as failed, trigger a refund if charged, and notify the customer."</div>
+        </div>
+      </section>
 
-        <div class="seo-faq">
-          <h2>FAQ</h2>
+      <hr />
+
+      <section>
+        <h2>FAQ</h2>
+        <div class="faq">
           <details>
             <summary>Does AI replace architecture review?</summary>
-            <p>
-              No. AI creates a fast first diagram, but engineers should review
-              correctness, missing failure modes, security assumptions, and scale
-              constraints.
-            </p>
+            <p class="faq-ans">No. AI creates a fast first diagram, but engineers should always review correctness, missing failure modes, security assumptions, and scale constraints. Use the generated diagram as a conversation starter — not the final word.</p>
           </details>
           <details>
             <summary>Is this only for developers?</summary>
-            <p>
-              Developers get the most technical value, but product and
-              operations teams can also use the diagram to understand services
-              and data movement.
-            </p>
+            <p class="faq-ans">Developers get the most technical value, but product and operations teams can use the diagram to understand service dependencies, data movement, and system boundaries without reading code.</p>
+          </details>
+          <details>
+            <summary>Can I show database schemas or ER diagrams?</summary>
+            <p class="faq-ans">Not directly — the app generates Mermaid <code>flowchart</code> diagrams which show data flow and dependencies. For ER diagrams specifically, use a dedicated database schema tool. For flow between services and databases (which service reads/writes what), this tool works well.</p>
+          </details>
+          <details>
+            <summary>How do I share diagrams with my team?</summary>
+            <p class="faq-ans">Export as PNG for Slack, Jira, or Confluence embeds. Export as SVG for Figma and design tools. Copy the Mermaid code to embed in GitHub, GitLab, or Notion. All exports are available from the Export menu in the canvas toolbar.</p>
           </details>
         </div>
-
-        <div class="page-links">
-          <a href="/">AI flowchart generator from text</a>
-          <a href="/gemini-ai-flowchart-generator/">Gemini AI flowchart generator</a>
-          <a href="/workflow-diagram-generator/">Workflow diagram generator</a>
-          <a href="/docs">Flowchart documentation</a>
-        </div>
       </section>
-    </main>
+
+      <div class="related">
+        <p>Also in AI Flowchart Studio</p>
+        <div class="rel-links">
+          <a href="/" class="rel-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Open App
+          </a>
+          <a href="/gemini-ai-flowchart-generator/" class="rel-link">Gemini AI Flowchart Generator</a>
+          <a href="/workflow-diagram-generator/" class="rel-link">Workflow Diagram Generator</a>
+          <a href="/docs" class="rel-link">Documentation</a>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>

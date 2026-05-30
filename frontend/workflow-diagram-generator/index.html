@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Workflow Diagram Generator from Text | AI Flowchart Studio</title>
-    <meta
-      name="description"
-      content="Create workflow diagrams from text with AI. Map approvals, onboarding, support paths, incident response, and operational handoffs."
-    />
+    <meta name="description" content="Create workflow diagrams from text with AI. Map approvals, onboarding, support paths, incident response, and operational handoffs." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/" />
     <meta property="og:type" content="article" />
@@ -17,79 +14,261 @@
     <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/style.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Workflow Diagram Generator from Text",
-        "url": "https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/",
-        "description": "Turn plain text process descriptions into editable workflow diagrams."
-      }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Workflow Diagram Generator from Text","url":"https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/","description":"Turn plain text process descriptions into editable workflow diagrams."}</script>
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#07090f;--bg2:#090c14;--surface:rgba(255,255,255,0.03);
+  --surface2:rgba(255,255,255,0.055);--border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);--t1:#eef2f7;--t2:rgba(238,242,247,0.55);
+  --t3:rgba(238,242,247,0.28);--a:#06b6d4;--av:#0891b2;--ac:#6366f1;
+  --abg:rgba(6,182,212,0.09);--abd:rgba(6,182,212,0.22);
+  --grad:linear-gradient(135deg,#06b6d4,#6366f1,#8b5cf6);
+  --r:8px;--nav-h:52px;
+  --ff:'Bricolage Grotesque',system-ui,sans-serif;
+  --fb:'Manrope',system-ui,sans-serif;
+  --fc:'JetBrains Mono',monospace;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.6;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 65% 55% at 5% 8%,rgba(6,182,212,.06) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 95% 92%,rgba(99,102,241,.05) 0%,transparent 55%),var(--bg)}
+
+nav{position:sticky;top:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;gap:12px;padding:0 20px;background:rgba(7,9,15,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nl{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--t1);font-family:var(--ff);font-weight:700;font-size:.875rem;letter-spacing:-.01em;flex-shrink:0}
+.nl img{width:20px;height:20px}
+.sep{width:1px;height:16px;background:var(--border2)}
+.badge{font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#67e8f9;background:var(--abg);border:1px solid var(--abd);padding:2px 8px;border-radius:99px}
+.sp{flex:1}
+.cta-nav{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;text-decoration:none;padding:6px 14px;border-radius:7px;font-size:.78rem;font-weight:600;font-family:var(--fb);box-shadow:0 2px 12px rgba(99,102,241,.28);transition:opacity .15s,transform .15s}
+.cta-nav:hover{opacity:.9;transform:translateY(-1px)}
+
+.page{max-width:740px;margin:0 auto;padding:56px 20px 88px}
+
+.hero{text-align:center;margin-bottom:52px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#67e8f9;background:var(--abg);border:1px solid var(--abd);padding:4px 12px;border-radius:99px;margin-bottom:20px}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--a)}
+h1{font-family:var(--ff);font-size:clamp(2.1rem,4.5vw,3.2rem);font-weight:800;line-height:1.04;letter-spacing:-.04em;margin-bottom:14px;color:var(--t1)}
+.grad{background:linear-gradient(135deg,#67e8f9 0%,#a5b4fc 55%,#c4b5fd 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:.975rem;color:var(--t2);line-height:1.65;max-width:500px;margin:0 auto 26px;font-weight:400}
+.cta-hero{display:inline-flex;align-items:center;gap:7px;background:var(--grad);color:#fff;text-decoration:none;padding:10px 22px;border-radius:8px;font-size:.88rem;font-weight:600;font-family:var(--fb);box-shadow:0 4px 20px rgba(6,182,212,.3);transition:opacity .15s,transform .15s,box-shadow .15s;margin-bottom:26px}
+.cta-hero:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 6px 28px rgba(6,182,212,.4)}
+.chips{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px}
+.chip{font-size:.7rem;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,0.04);border:1px solid var(--border2);color:var(--t2);font-weight:500}
+
+.preview{margin:36px 0 48px;display:flex;justify-content:center}
+
+hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+section{margin-bottom:36px}
+h2{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--t1);letter-spacing:-.02em;margin-bottom:14px}
+p{font-size:.875rem;color:var(--t2);line-height:1.65;margin-bottom:8px}
+.hi{color:var(--t1);font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .14s}
+.card:hover{border-color:var(--abd)}
+.card-ico{font-size:1.1rem;margin-bottom:8px}
+.card h3{font-family:var(--ff);font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:4px;letter-spacing:-.01em}
+.card p{font-size:.75rem!important;color:var(--t3)!important;margin:0!important;line-height:1.5!important}
+
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+ul.clean li{display:flex;align-items:flex-start;gap:9px;font-size:.875rem;color:var(--t2);line-height:1.6}
+ul.clean li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:8px}
+
+.prompt-wrap{margin-top:12px}
+.prompt-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(6,182,212,.7);margin-bottom:6px;display:block}
+.prompt{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-left:2.5px solid var(--a);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-family:var(--fc);font-size:.78rem;color:#67e8f9;line-height:1.7;opacity:.9}
+
+.faq{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+details{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .14s}
+details[open]{border-color:var(--abd)}
+summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;cursor:pointer;list-style:none;font-size:.875rem;font-weight:600;color:var(--t1);user-select:none;transition:color .12s}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:#67e8f9}
+summary::after{content:'';width:14px;height:14px;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(238,242,247,0.3)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-size:cover;transition:transform .2s ease}
+details[open] summary::after{transform:rotate(180deg)}
+.faq-ans{padding:2px 16px 14px;font-size:.84rem;color:var(--t2);line-height:1.65;border-top:1px solid rgba(255,255,255,.04)}
+
+.related{margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.related p{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
+.rel-links{display:flex;flex-wrap:wrap;gap:6px}
+.rel-link{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--t2);text-decoration:none;font-size:.78rem;font-weight:500;transition:all .13s}
+.rel-link:hover{background:var(--abg);border-color:var(--abd);color:#67e8f9}
+
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.page{padding:36px 16px 64px}h1{font-size:2rem}}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+    </style>
   </head>
-  <body class="seo-page">
-    <main class="page-shell">
-      <section class="page-card">
-        <p class="page-kicker">AI Flowchart Studio</p>
-        <h1>Workflow diagram generator from text</h1>
-        <p>
-          Create workflow diagrams from plain text when you need to show how
-          work moves through people, systems, approvals, and decision points.
-          AI Flowchart Studio helps turn rough operational notes into a visual
-          structure that is easier to review, improve, and share.
-        </p>
+  <body>
+    <div class="bg"></div>
 
+    <nav>
+      <a href="/" class="nl">
+        <img src="/favicon.svg" alt="AI Flowchart Studio" />
+        AI Flowchart Studio
+      </a>
+      <div class="sep"></div>
+      <span class="badge">Workflow</span>
+      <div class="sp"></div>
+      <a href="/" class="cta-nav">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Open App
+      </a>
+    </nav>
+
+    <div class="page">
+
+      <div class="hero">
+        <div class="pill"><span class="pill-dot"></span>Process Mapping</div>
+        <h1>Map your workflows from<br><span class="grad">plain text</span></h1>
+        <p class="sub">Transform rough operational notes into clear, editable workflow diagrams. Show how work moves through people, systems, and approvals — without a diagramming tool.</p>
+        <a href="/" class="cta-hero">
+          Create a workflow diagram
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="chips">
+          <span class="chip">Business processes</span>
+          <span class="chip">Approval flows</span>
+          <span class="chip">Operational handoffs</span>
+          <span class="chip">Export SVG &amp; PNG</span>
+        </div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview">
+        <svg width="520" height="90" viewBox="0 0 520 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg2" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#06b6d4"/>
+              <stop offset="50%" stop-color="#6366f1"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="32" width="90" height="28" rx="14" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.35)" stroke-width="1.5"/>
+          <text x="55" y="50" text-anchor="middle" fill="#67e8f9" font-size="10.5" font-family="Manrope,sans-serif" font-weight="600">Request</text>
+          <line x1="100" y1="46" x2="132" y2="46" stroke="url(#lg2)" stroke-width="1.5"/>
+          <polygon points="132,42 140,46 132,50" fill="#6366f1"/>
+          <rect x="140" y="30" width="100" height="32" rx="6" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.3)" stroke-width="1.5"/>
+          <text x="190" y="50" text-anchor="middle" fill="#a5b4fc" font-size="10" font-family="Manrope,sans-serif" font-weight="600">Route to approver</text>
+          <line x1="240" y1="46" x2="272" y2="46" stroke="url(#lg2)" stroke-width="1.5"/>
+          <polygon points="272,42 280,46 272,50" fill="#8b5cf6"/>
+          <polygon points="310,14 360,46 310,78 260,46" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.3)" stroke-width="1.5"/>
+          <text x="310" y="49" text-anchor="middle" fill="#a5b4fc" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">Approved?</text>
+          <line x1="360" y1="46" x2="392" y2="46" stroke="url(#lg2)" stroke-width="1.5"/>
+          <polygon points="392,42 400,46 392,50" fill="#06b6d4"/>
+          <rect x="400" y="30" width="108" height="32" rx="6" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.3)" stroke-width="1.5"/>
+          <text x="454" y="50" text-anchor="middle" fill="#67e8f9" font-size="10" font-family="Manrope,sans-serif" font-weight="600">Create PO &amp; notify</text>
+          <line x1="310" y1="78" x2="310" y2="88" stroke="rgba(239,68,68,0.4)" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text x="310" y="88" text-anchor="middle" fill="rgba(252,165,165,0.6)" font-size="9" font-family="Manrope,sans-serif">Reject &amp; notify</text>
+        </svg>
+      </div>
+
+      <hr />
+
+      <section>
         <h2>Best workflow diagram use cases</h2>
-        <ul>
-          <li>Employee onboarding and offboarding workflows</li>
-          <li>Purchase approval and procurement review paths</li>
-          <li>Support triage, escalation, and resolution flows</li>
-          <li>Content review, legal approval, and publishing workflows</li>
-          <li>Incident detection, severity routing, and postmortem steps</li>
-        </ul>
+        <p>Any process with handoffs, decisions, and state changes is a good candidate for a workflow diagram.</p>
+        <div class="grid">
+          <div class="card">
+            <div class="card-ico">🧑‍💼</div>
+            <h3>HR & Onboarding</h3>
+            <p>Employee onboarding, offboarding, access provisioning workflows</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">✅</div>
+            <h3>Approvals</h3>
+            <p>Purchase orders, content reviews, legal sign-offs, budget requests</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🎧</div>
+            <h3>Support Triage</h3>
+            <p>Ticket routing, escalation paths, resolution steps, SLA checks</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🚨</div>
+            <h3>Incident Response</h3>
+            <p>Alert detection, severity routing, on-call escalation, postmortem</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">📝</div>
+            <h3>Content Publishing</h3>
+            <p>Draft, review, legal approval, scheduling, and publish pipelines</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🔄</div>
+            <h3>Operations</h3>
+            <p>Procurement, vendor management, contract renewal, inventory flows</p>
+          </div>
+        </div>
+      </section>
 
+      <hr />
+
+      <section>
         <h2>Workflow diagram vs flowchart</h2>
-        <p>
-          A flowchart usually focuses on sequential logic. A workflow diagram
-          adds context about handoffs, owners, tools, states, and approvals.
-          This makes it useful for business process mapping and operational
-          documentation.
-        </p>
+        <p>A flowchart focuses on sequential logic. A workflow diagram adds context about <strong class="hi">who does what</strong>, <strong class="hi">which tools are involved</strong>, <strong class="hi">what state things are in</strong>, and <strong class="hi">how approvals move</strong>. This makes it useful for business process documentation and operational review.</p>
+        <p>In AI Flowchart Studio, you can prompt for either — just describe what your process involves and the AI will determine the right structure.</p>
+      </section>
 
+      <section>
+        <h2>How to write an effective workflow prompt</h2>
+        <ul class="clean">
+          <li><strong class="hi">Name the trigger</strong> — what starts the workflow? (<em>"Start when an employee submits a purchase request"</em>)</li>
+          <li><strong class="hi">Identify the actors</strong> — who handles each step? Team lead, finance, manager, system?</li>
+          <li><strong class="hi">Include conditions</strong> — what determines routing? Amounts, roles, SLA, status</li>
+          <li><strong class="hi">State both outcomes</strong> — approved and rejected paths, not just the happy path</li>
+          <li><strong class="hi">End every branch</strong> — where does each path terminate?</li>
+        </ul>
+      </section>
+
+      <section>
         <h2>Example prompt</h2>
-        <p>
-          "Create a purchase approval workflow. Start when an employee submits a
-          request. If the amount is under 500 dollars, route to the team lead.
-          If it is 500 dollars or more, route to finance. If approved, create a
-          purchase order. If rejected, notify the employee and close the request."
-        </p>
+        <div class="prompt-wrap">
+          <span class="prompt-label">Purchase approval workflow</span>
+          <div class="prompt">"Create a purchase approval workflow. Start when an employee submits a request. If the amount is under $500, route to the team lead for approval. If $500 or more, route to finance. If approved at either level, create a purchase order and notify the employee. If rejected, send an explanation and close the request."</div>
+        </div>
+      </section>
 
-        <div class="seo-faq">
-          <h2>FAQ</h2>
+      <hr />
+
+      <section>
+        <h2>FAQ</h2>
+        <div class="faq">
           <details>
             <summary>Why use AI for workflow diagrams?</summary>
-            <p>
-              AI helps convert unstructured process descriptions into a first
-              visual draft faster, then you can edit and export the result.
-            </p>
+            <p class="faq-ans">AI converts unstructured process descriptions into a first visual draft much faster than building from scratch. You can then refine, add nodes, edit labels, and export — keeping the AI-generated structure as the foundation.</p>
           </details>
           <details>
             <summary>Can workflow diagrams become system diagrams?</summary>
-            <p>
-              Yes. Add the tools, services, databases, APIs, and dependencies
-              behind each step to evolve the workflow into a system view.
-            </p>
+            <p class="faq-ans">Yes. Add the tools, services, databases, APIs, and dependencies behind each step to evolve the workflow into a system architecture view. AI Flowchart Studio's <a href="/ai-system-design-generator/">system design generator</a> is optimized for this.</p>
+          </details>
+          <details>
+            <summary>Can I add multiple approvers or parallel paths?</summary>
+            <p class="faq-ans">Include parallel paths in your prompt — describe each branch separately. Mermaid flowcharts support multiple paths from a single node, so prompts like "if amount under X, route to A; if over X, route to B" produce the correct branching structure.</p>
+          </details>
+          <details>
+            <summary>How do I export for Confluence or SharePoint?</summary>
+            <p class="faq-ans">Export as SVG or PNG from the Export menu and embed the image directly in Confluence or SharePoint. For Mermaid-compatible tools in your org, use the Mermaid code export.</p>
           </details>
         </div>
-
-        <div class="page-links">
-          <a href="/">AI flowchart generator from text</a>
-          <a href="/gemini-ai-flowchart-generator/">Gemini AI flowchart generator</a>
-          <a href="/ai-system-design-generator/">AI system design generator</a>
-          <a href="/docs">Flowchart documentation</a>
-        </div>
       </section>
-    </main>
+
+      <div class="related">
+        <p>Also in AI Flowchart Studio</p>
+        <div class="rel-links">
+          <a href="/" class="rel-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Open App
+          </a>
+          <a href="/gemini-ai-flowchart-generator/" class="rel-link">Gemini AI Flowchart Generator</a>
+          <a href="/ai-system-design-generator/" class="rel-link">AI System Design Generator</a>
+          <a href="/docs" class="rel-link">Documentation</a>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>

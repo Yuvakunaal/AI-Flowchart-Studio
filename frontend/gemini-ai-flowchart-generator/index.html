@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gemini AI Flowchart Generator from Text | AI Flowchart Studio</title>
-    <meta
-      name="description"
-      content="Use Gemini AI to generate editable flowcharts from plain text. Create process maps, decision trees, Mermaid diagrams, and workflow visuals in your browser."
-    />
+    <meta name="description" content="Use Gemini AI to generate editable flowcharts from plain text. Create process maps, decision trees, Mermaid diagrams, and workflow visuals in your browser." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/" />
     <meta property="og:type" content="article" />
@@ -17,86 +14,288 @@
     <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/style.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Gemini AI Flowchart Generator from Text",
-        "url": "https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/",
-        "description": "Create editable flowcharts from text prompts with Gemini AI."
-      }
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Gemini AI Flowchart Generator from Text","url":"https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/","description":"Create editable flowcharts from text prompts with Gemini AI."}</script>
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#07090f;--bg2:#090c14;--surface:rgba(255,255,255,0.03);
+  --surface2:rgba(255,255,255,0.055);--border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);--t1:#eef2f7;--t2:rgba(238,242,247,0.55);
+  --t3:rgba(238,242,247,0.28);--a:#6366f1;--av:#8b5cf6;--ac:#06b6d4;
+  --abg:rgba(99,102,241,0.1);--abd:rgba(99,102,241,0.22);
+  --grad:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
+  --r:8px;--nav-h:52px;
+  --ff:'Bricolage Grotesque',system-ui,sans-serif;
+  --fb:'Manrope',system-ui,sans-serif;
+  --fc:'JetBrains Mono',monospace;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.6;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 65% 55% at 5% 8%,rgba(99,102,241,.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 95% 92%,rgba(6,182,212,.05) 0%,transparent 55%),var(--bg)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;height:var(--nav-h);display:flex;align-items:center;gap:12px;padding:0 20px;background:rgba(7,9,15,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.nl{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--t1);font-family:var(--ff);font-weight:700;font-size:.875rem;letter-spacing:-.01em;flex-shrink:0}
+.nl img{width:20px;height:20px}
+.sep{width:1px;height:16px;background:var(--border2)}
+.badge{font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#a5b4fc;background:var(--abg);border:1px solid var(--abd);padding:2px 8px;border-radius:99px}
+.sp{flex:1}
+.cta-nav{display:flex;align-items:center;gap:6px;background:var(--grad);color:#fff;text-decoration:none;padding:6px 14px;border-radius:7px;font-size:.78rem;font-weight:600;font-family:var(--fb);box-shadow:0 2px 12px rgba(99,102,241,.28);transition:opacity .15s,transform .15s}
+.cta-nav:hover{opacity:.9;transform:translateY(-1px)}
+
+/* Page */
+.page{max-width:740px;margin:0 auto;padding:56px 20px 88px}
+
+/* Hero */
+.hero{text-align:center;margin-bottom:52px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#a5b4fc;background:var(--abg);border:1px solid var(--abd);padding:4px 12px;border-radius:99px;margin-bottom:20px}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--a)}
+h1{font-family:var(--ff);font-size:clamp(2.1rem,4.5vw,3.2rem);font-weight:800;line-height:1.04;letter-spacing:-.04em;margin-bottom:14px;color:var(--t1)}
+.grad{background:linear-gradient(135deg,#a5b4fc 0%,#c4b5fd 45%,#67e8f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:.975rem;color:var(--t2);line-height:1.65;max-width:500px;margin:0 auto 26px;font-weight:400}
+.cta-hero{display:inline-flex;align-items:center;gap:7px;background:var(--grad);color:#fff;text-decoration:none;padding:10px 22px;border-radius:8px;font-size:.88rem;font-weight:600;font-family:var(--fb);box-shadow:0 4px 20px rgba(99,102,241,.35);transition:opacity .15s,transform .15s,box-shadow .15s;margin-bottom:26px}
+.cta-hero:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 6px 28px rgba(99,102,241,.45)}
+.chips{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px}
+.chip{font-size:.7rem;padding:4px 11px;border-radius:99px;background:var(--surface2);border:1px solid var(--border2);color:var(--t2);font-weight:500}
+
+/* Diagram preview */
+.preview{margin:36px 0 48px;display:flex;justify-content:center}
+.preview svg{max-width:100%}
+
+/* Divider */
+hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+/* Sections */
+section{margin-bottom:36px}
+h2{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--t1);letter-spacing:-.02em;margin-bottom:14px}
+p{font-size:.875rem;color:var(--t2);line-height:1.65;margin-bottom:8px}
+.hi{color:var(--t1);font-weight:600}
+
+/* Card grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .14s}
+.card:hover{border-color:var(--abd)}
+.card-ico{font-size:1.1rem;margin-bottom:8px}
+.card h3{font-family:var(--ff);font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:4px;letter-spacing:-.01em}
+.card p{font-size:.75rem!important;color:var(--t3)!important;margin:0!important;line-height:1.5!important}
+
+/* List */
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px}
+ul.clean li{display:flex;align-items:flex-start;gap:9px;font-size:.875rem;color:var(--t2);line-height:1.6}
+ul.clean li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--a);flex-shrink:0;margin-top:8px}
+
+/* Example prompt */
+.prompt-wrap{margin-top:12px}
+.prompt-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(99,102,241,.7);margin-bottom:6px;display:block}
+.prompt{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-left:2.5px solid var(--a);border-radius:0 var(--r) var(--r) 0;padding:14px 16px;font-family:var(--fc);font-size:.78rem;color:#c4b5fd;line-height:1.7}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+details{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .14s}
+details[open]{border-color:var(--abd)}
+summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;cursor:pointer;list-style:none;font-size:.875rem;font-weight:600;color:var(--t1);user-select:none;transition:color .12s}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:#a5b4fc}
+summary::after{content:'';width:14px;height:14px;flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(238,242,247,0.3)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-size:cover;transition:transform .2s ease}
+details[open] summary::after{transform:rotate(180deg)}
+.faq-ans{padding:2px 16px 14px;font-size:.84rem;color:var(--t2);line-height:1.65;border-top:1px solid rgba(255,255,255,.04)}
+
+/* Related */
+.related{margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+.related p{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px}
+.rel-links{display:flex;flex-wrap:wrap;gap:6px}
+.rel-link{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;background:var(--surface);border:1px solid var(--border);border-radius:7px;color:var(--t2);text-decoration:none;font-size:.78rem;font-weight:500;transition:all .13s}
+.rel-link:hover{background:var(--abg);border-color:var(--abd);color:#a5b4fc}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr 1fr}
+  .page{padding:36px 16px 64px}
+  h1{font-size:2rem}
+}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+    </style>
   </head>
-  <body class="seo-page">
-    <main class="page-shell">
-      <section class="page-card">
-        <p class="page-kicker">AI Flowchart Studio</p>
-        <h1>Gemini AI flowchart generator from text</h1>
-        <p>
-          Use the Gemini AI flowchart generator to turn rough process notes into
-          structured diagram drafts. Describe the starting point, actions,
-          decisions, and outcomes, then generate a clear flowchart you can edit
-          directly in the browser.
-        </p>
-        <p>
-          This page is built for people searching for a practical text to
-          flowchart workflow powered by Gemini AI. It focuses on prompt-based
-          diagram creation, Mermaid-compatible output, and fast iteration for
-          product, engineering, operations, and support teams.
-        </p>
+  <body>
+    <div class="bg"></div>
 
+    <nav>
+      <a href="/" class="nl">
+        <img src="/favicon.svg" alt="AI Flowchart Studio" />
+        AI Flowchart Studio
+      </a>
+      <div class="sep"></div>
+      <span class="badge">Gemini AI</span>
+      <div class="sp"></div>
+      <a href="/" class="cta-nav">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Open App
+      </a>
+    </nav>
+
+    <div class="page">
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="pill"><span class="pill-dot"></span>Powered by Google Gemini</div>
+        <h1>Turn text into flowcharts<br>with <span class="grad">Gemini AI</span></h1>
+        <p class="sub">Describe any process in plain English. Gemini converts it into a structured, editable flowchart in seconds — no diagramming experience needed.</p>
+        <a href="/" class="cta-hero">
+          Generate your first flowchart
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <div class="chips">
+          <span class="chip">Mermaid output</span>
+          <span class="chip">SVG &amp; PNG export</span>
+          <span class="chip">Click-to-edit nodes</span>
+          <span class="chip">Runs in browser</span>
+          <span class="chip">Free to use</span>
+        </div>
+      </div>
+
+      <!-- MINI DIAGRAM PREVIEW -->
+      <div class="preview">
+        <svg width="520" height="110" viewBox="0 0 520 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="50%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <!-- Node 1 -->
+          <rect x="20" y="38" width="96" height="34" rx="17" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.35)" stroke-width="1.5"/>
+          <text x="68" y="59" text-anchor="middle" fill="#a5b4fc" font-size="11" font-family="Manrope,sans-serif" font-weight="600">Start</text>
+          <!-- Arrow -->
+          <line x1="116" y1="55" x2="154" y2="55" stroke="url(#lg)" stroke-width="1.5"/>
+          <polygon points="154,51 162,55 154,59" fill="#8b5cf6"/>
+          <!-- Node 2 -->
+          <rect x="162" y="38" width="100" height="34" rx="6" fill="rgba(139,92,246,0.1)" stroke="rgba(139,92,246,0.3)" stroke-width="1.5"/>
+          <text x="212" y="59" text-anchor="middle" fill="#c4b5fd" font-size="10" font-family="Manrope,sans-serif" font-weight="600">Validate input</text>
+          <!-- Arrow down to diamond -->
+          <line x1="262" y1="72" x2="262" y2="86" stroke="url(#lg)" stroke-width="1.5"/>
+          <polygon points="258,86 262,94 266,86" fill="#8b5cf6"/>
+          <!-- Diamond -->
+          <polygon points="262,94 300,110 338,94 300,78" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.3)" stroke-width="1.5"/>
+          <text x="300" y="97" text-anchor="middle" fill="#a5b4fc" font-size="9.5" font-family="Manrope,sans-serif" font-weight="600">Valid?</text>
+          <!-- Yes arrow -->
+          <line x1="338" y1="94" x2="374" y2="94" stroke="url(#lg)" stroke-width="1.5"/>
+          <polygon points="374,90 382,94 374,98" fill="#06b6d4"/>
+          <!-- No arrow up -->
+          <line x1="300" y1="78" x2="300" y2="55" stroke="rgba(239,68,68,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <!-- Error node -->
+          <rect x="258" y="22" width="84" height="26" rx="5" fill="rgba(239,68,68,0.08)" stroke="rgba(239,68,68,0.25)" stroke-width="1.5"/>
+          <text x="300" y="38" text-anchor="middle" fill="rgba(252,165,165,0.8)" font-size="9" font-family="Manrope,sans-serif" font-weight="600">Show error</text>
+          <!-- Success node -->
+          <rect x="382" y="79" width="100" height="30" rx="15" fill="rgba(6,182,212,0.1)" stroke="rgba(6,182,212,0.3)" stroke-width="1.5"/>
+          <text x="432" y="98" text-anchor="middle" fill="#67e8f9" font-size="10" font-family="Manrope,sans-serif" font-weight="600">Complete</text>
+        </svg>
+      </div>
+
+      <hr />
+
+      <!-- WHAT YOU CAN CREATE -->
+      <section>
         <h2>What you can create</h2>
-        <ul>
-          <li>Text to flowchart drafts from plain English prompts</li>
-          <li>Decision trees with yes/no or success/failure branches</li>
-          <li>Mermaid flowchart code for documentation and README files</li>
-          <li>Editable diagrams for product and engineering reviews</li>
-          <li>SVG and PNG exports for documents, slides, and team updates</li>
-        </ul>
+        <p>From login flows to CI/CD pipelines — describe it in plain English and get a structured diagram.</p>
+        <div class="grid">
+          <div class="card">
+            <div class="card-ico">🔀</div>
+            <h3>Decision Trees</h3>
+            <p>Yes/no branches, multi-path logic, and condition-based routing</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">⚙️</div>
+            <h3>Process Maps</h3>
+            <p>Step-by-step flows for onboarding, approvals, and operations</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">🔁</div>
+            <h3>Error & Retry Flows</h3>
+            <p>Failure paths, retries, rollbacks, and fallback states</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">{ }</div>
+            <h3>Mermaid Output</h3>
+            <p>Copy raw Mermaid code for GitHub, Notion, GitLab, Obsidian</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">📐</div>
+            <h3>SVG &amp; PNG Export</h3>
+            <p>Sharp vector or raster export for slides, docs, and design tools</p>
+          </div>
+          <div class="card">
+            <div class="card-ico">✏️</div>
+            <h3>Editable Nodes</h3>
+            <p>Click any node to rename it or change its shape after generation</p>
+          </div>
+        </div>
+      </section>
 
+      <hr />
+
+      <!-- HOW TO PROMPT -->
+      <section>
         <h2>How to write a strong prompt</h2>
-        <p>
-          A strong prompt names the actor, trigger, main steps, decisions,
-          failure paths, and final outcomes. Instead of writing "make a login
-          flow," describe account lookup, password validation, OTP checks,
-          success states, and retry paths.
-        </p>
+        <p>The more explicit your prompt, the better Gemini can structure it. Include:</p>
+        <ul class="clean">
+          <li><strong class="hi">A clear starting point</strong> — what triggers the flow? (<em>"Start when a user submits the form"</em>)</li>
+          <li><strong class="hi">Named decision branches</strong> — include both paths explicitly: the success path and the failure path</li>
+          <li><strong class="hi">Action verbs at every step</strong> — validate, check, send, notify, redirect, retry, reject</li>
+          <li><strong class="hi">Explicit end states</strong> — where does each branch terminate?</li>
+        </ul>
+      </section>
 
+      <!-- EXAMPLE PROMPT -->
+      <section>
         <h2>Example prompt</h2>
-        <p>
-          "Create a customer refund approval flow. Start with a refund request.
-          Check if the order is within the return window. If not, reject the
-          request and notify the customer. If yes, send the item to quality
-          review. If approved, process the refund. If rejected, send an
-          explanation and close the request."
-        </p>
+        <div class="prompt-wrap">
+          <span class="prompt-label">Customer refund approval</span>
+          <div class="prompt">"Create a customer refund approval flow. Start with a refund request. Check if the order is within the return window — if not, reject and notify the customer. If yes, send the item to quality review. If approved, process the refund and notify the customer. If rejected, send an explanation and close the request."</div>
+        </div>
+      </section>
 
-        <div class="seo-faq">
-          <h2>FAQ</h2>
+      <hr />
+
+      <!-- FAQ -->
+      <section>
+        <h2>FAQ</h2>
+        <div class="faq">
           <details>
             <summary>Can I edit the generated flowchart?</summary>
-            <p>
-              Yes. You can add nodes, connect links, label arrows, change
-              shapes, switch layout direction, and export Mermaid, SVG, or PNG.
-            </p>
+            <p class="faq-ans">Yes. Click any node on the canvas to rename it or change its shape. You can also edit the Mermaid code directly in the output field and re-render. The Manual Builder tab lets you add or remove nodes entirely.</p>
+          </details>
+          <details>
+            <summary>Do I need a Gemini API key?</summary>
+            <p class="faq-ans">Yes, for AI generation. You can get a free key from Google AI Studio at <strong>aistudio.google.com</strong>. The free tier supports hundreds of generations per day. The Manual Builder works without any key.</p>
           </details>
           <details>
             <summary>Is this only for Mermaid users?</summary>
-            <p>
-              No. Mermaid export is available, but the app also renders visual
-              diagrams and supports image export.
-            </p>
+            <p class="faq-ans">No. Mermaid is the rendering engine under the hood, but you never need to write Mermaid syntax. The app generates it for you and renders a visual diagram. You can export as SVG or PNG if you don't need the code.</p>
+          </details>
+          <details>
+            <summary>Is my API key sent to your servers?</summary>
+            <p class="faq-ans">No. Your key is stored only in your browser's localStorage and sent directly to Google's Gemini API. AI Flowchart Studio's servers never see it.</p>
           </details>
         </div>
-
-        <div class="page-links">
-          <a href="/">AI flowchart generator from text</a>
-          <a href="/workflow-diagram-generator/">Workflow diagram generator</a>
-          <a href="/ai-system-design-generator/">AI system design generator</a>
-          <a href="/docs">Flowchart documentation</a>
-        </div>
       </section>
-    </main>
+
+      <!-- RELATED -->
+      <div class="related">
+        <p>Also in AI Flowchart Studio</p>
+        <div class="rel-links">
+          <a href="/" class="rel-link">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Open App
+          </a>
+          <a href="/workflow-diagram-generator/" class="rel-link">Workflow Diagram Generator</a>
+          <a href="/ai-system-design-generator/" class="rel-link">AI System Design Generator</a>
+          <a href="/docs" class="rel-link">Documentation</a>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>
