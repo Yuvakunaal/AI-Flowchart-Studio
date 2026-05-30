@@ -8,7 +8,7 @@
     <base href="./" />
     <meta
       name="description"
-      content="Create flowcharts from plain text with Gemini AI. Build workflow diagrams, system design maps, and Mermaid diagrams, then export as PNG, SVG, or code."
+      content="Free AI flowchart generator from text — no login required. Build workflow diagrams, system design maps, and Mermaid diagrams with Gemini AI, then export as PNG, SVG, or code."
     />
     <meta
       name="keywords"
@@ -30,7 +30,7 @@
       content="Turn plain-language prompts into editable flowcharts, workflow diagrams, and system design diagrams with Gemini AI."
     />
     <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
       content="AI Flowchart Generator from Text | AI Flowchart Studio"
@@ -45,9 +45,9 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" defer></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -57,79 +57,87 @@
             "@id": "https://ai-flowchart-studio.vercel.app/#website",
             "name": "AI Flowchart Studio",
             "url": "https://ai-flowchart-studio.vercel.app/",
-            "description": "A browser-based AI flowchart generator for creating workflow diagrams, system design diagrams, and Mermaid flowcharts from plain text."
+            "description": "Free browser-based AI flowchart generator for creating workflow diagrams, system design diagrams, and Mermaid flowcharts from plain text."
           },
           {
-            "@type": "WebApplication",
+            "@type": "SoftwareApplication",
             "@id": "https://ai-flowchart-studio.vercel.app/#app",
             "name": "AI Flowchart Studio",
             "url": "https://ai-flowchart-studio.vercel.app/",
             "applicationCategory": "DesignApplication",
             "operatingSystem": "Web",
-            "description": "Create editable flowcharts, workflow diagrams, and system design visuals from text prompts with Gemini AI.",
+            "description": "Free AI flowchart generator — convert plain-language prompts into editable flowcharts, workflow diagrams, and system design visuals with Gemini AI. No login required.",
             "featureList": [
-              "Text to flowchart generation",
-              "Gemini AI prompt interpretation",
+              "Text to flowchart generation with Gemini AI",
               "Manual node and link editing",
-              "Mermaid diagram rendering",
-              "PNG, SVG, and Mermaid code export",
-              "Workflow and system design diagram support"
+              "Mermaid diagram rendering and code export",
+              "SVG and PNG export",
+              "Workflow diagram and system design diagram support",
+              "Browser-based, no login required"
             ],
             "offers": {
               "@type": "Offer",
               "price": "0",
               "priceCurrency": "USD"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "AI Flowchart Studio",
+              "url": "https://ai-flowchart-studio.vercel.app/"
             }
           },
           {
             "@type": "BreadcrumbList",
-            "@id": "https://ai-flowchart-studio.vercel.app/#breadcrumbs",
             "itemListElement": [
               {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "AI Flowchart Generator",
+                "name": "AI Flowchart Studio",
                 "item": "https://ai-flowchart-studio.vercel.app/"
               }
             ]
-          }
-        ]
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "SoftwareApplication",
-            "name": "AI Flowchart Studio",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "url": "https://ai-flowchart-studio.vercel.app/",
-            "description": "AI flowchart generator that converts plain-language prompts into editable workflow and system design diagrams.",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            }
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "What is the AI flowchart generator used for?",
+                "name": "What is AI Flowchart Studio used for?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "It converts natural language prompts into structured flowcharts, workflow diagrams, and system design diagrams."
+                  "text": "AI Flowchart Studio converts natural language prompts into structured flowcharts, workflow diagrams, and system design diagrams using Google's Gemini AI. It runs entirely in the browser with no login required."
                 }
               },
               {
                 "@type": "Question",
-                "name": "How does Gemini AI help in diagram generation?",
+                "name": "Is AI Flowchart Studio free to use?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Gemini AI interprets the prompt, maps process logic, and suggests diagram structure so you can generate clearer visuals faster."
+                  "text": "Yes, the app is completely free. You need a free Google Gemini API key for AI generation, which you can get from Google AI Studio at aistudio.google.com. The Manual Builder works without any API key."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I need to create an account or log in?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No account or login is required. Your Gemini API key is stored locally in your browser and is never sent to our servers."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What export formats does AI Flowchart Studio support?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You can export diagrams as Mermaid code (for GitHub, Notion, GitLab), SVG (scalable vector for documentation and design tools), or PNG (for slides, messaging, and sharing)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does Gemini AI help generate flowcharts?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Gemini AI interprets your plain-language process description and outputs valid Mermaid flowchart syntax, which the app renders as an interactive diagram. You can then edit nodes, change shapes, and export."
                 }
               },
               {
@@ -137,7 +145,7 @@
                 "name": "Can I create workflow diagrams and system design diagrams?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. You can generate both workflow and system design diagrams, then edit nodes and links before export."
+                  "text": "Yes. The app supports flowcharts, workflow diagrams for business processes and approvals, and system design diagrams for mapping services, APIs, databases, and architecture dependencies."
                 }
               }
             ]
