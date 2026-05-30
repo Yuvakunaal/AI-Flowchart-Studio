@@ -2,12 +2,40 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/frontend/index.html"
+    },
+    {
       "source": "/robots.txt",
-      "destination": "/frontend/public/robots.txt"
+      "destination": "/frontend/robots.txt"
     },
     {
       "source": "/sitemap.xml",
-      "destination": "/frontend/public/sitemap.xml"
+      "destination": "/frontend/sitemap.xml"
+    },
+    {
+      "source": "/gemini-ai-flowchart-generator",
+      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
+    },
+    {
+      "source": "/gemini-ai-flowchart-generator/",
+      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
+    },
+    {
+      "source": "/ai-system-design-generator",
+      "destination": "/frontend/ai-system-design-generator/index.html"
+    },
+    {
+      "source": "/ai-system-design-generator/",
+      "destination": "/frontend/ai-system-design-generator/index.html"
+    },
+    {
+      "source": "/workflow-diagram-generator",
+      "destination": "/frontend/workflow-diagram-generator/index.html"
+    },
+    {
+      "source": "/workflow-diagram-generator/",
+      "destination": "/frontend/workflow-diagram-generator/index.html"
     },
     {
       "source": "/(.*)",
