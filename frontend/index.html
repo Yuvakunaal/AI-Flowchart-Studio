@@ -3,18 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Flowchart Studio – Generate Flowcharts with Gemini AI</title>
+    <title>AI Flowchart Studio | AI Text to Flowchart Generator</title>
     <!-- Use relative base so local files and subpath deployments load assets correctly -->
     <base href="./" />
     <meta
       name="description"
-      content="Generate flowcharts, workflow diagrams, and system design visuals instantly using Gemini AI."
+      content="Turn plain English into editable flowcharts. Generate with AI, refine manually, and export Mermaid, SVG, or PNG in seconds."
     />
+    <meta
+      name="keywords"
+      content="ai flowchart generator, text to flowchart, workflow diagram generator, system design diagram generator, mermaid flowchart generator"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="google-site-verification"
       content="_Gyq5mirHsRjbJcyQty8rQ1xqVY6Uaa6aSCl6rUq2QI"
     />
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AI Flowchart Studio" />
+    <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/" />
+    <meta
+      property="og:title"
+      content="AI Flowchart Studio | AI Text to Flowchart Generator"
+    />
+    <meta
+      property="og:description"
+      content="Generate flowcharts, workflow diagrams, and system design diagrams from plain English prompts. Edit visually and export instantly."
+    />
+    <meta
+      property="og:image"
+      content="https://ai-flowchart-studio.vercel.app/favicon.svg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="AI Flowchart Studio | AI Text to Flowchart Generator"
+    />
+    <meta
+      name="twitter:description"
+      content="Turn text into editable flowcharts with AI. Build, refine, and export Mermaid, SVG, or PNG in seconds."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ai-flowchart-studio.vercel.app/favicon.svg"
+    />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css?v=3" />
     <link
@@ -33,6 +66,55 @@
         };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "AI Flowchart Studio",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://ai-flowchart-studio.vercel.app/",
+            "description": "AI flowchart generator that converts plain-language prompts into editable workflow and system design diagrams.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the AI flowchart generator used for?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It converts natural language prompts into structured flowcharts, workflow diagrams, and system design diagrams."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does Gemini AI help in diagram generation?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Gemini AI interprets the prompt, maps process logic, and suggests diagram structure so you can generate clearer visuals faster."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I create workflow diagrams and system design diagrams?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. You can generate both workflow and system design diagrams, then edit nodes and links before export."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
@@ -696,42 +778,39 @@
     <section class="seo-section" aria-labelledby="seo-title">
       <div class="seo-shell">
         <p class="seo-eyebrow">AI Flowchart Studio</p>
-        <h2 id="seo-title">
-          Generate diagrams faster with AI flowchart generation
-        </h2>
+        <h2 id="seo-title">Generate production-ready flowcharts from plain English</h2>
         <p>
-          AI Flowchart Studio is an AI flowchart generator built to turn
-          plain-language prompts into clear workflow diagrams and system design
-          diagrams. Use Gemini AI to map ideas into structured visuals that are
-          easy to review, share, and iterate on.
+          AI Flowchart Studio converts natural-language prompts into clear flowcharts
+          you can immediately review, edit, and share. Generate workflow diagrams,
+          process maps, and architecture visuals in one workspace without learning
+          diagram syntax.
         </p>
         <p>
-          Whether you are outlining product logic, technical architecture, or
-          process flows, the app helps you create diagram-ready output with
-          minimal effort. It is designed for teams that want fast visual
-          thinking without giving up control over structure and detail.
+          Teams use it for product planning, SOP documentation, incident response
+          mapping, and system design discussions. Start with AI for speed, then
+          refine labels, branches, and node structure manually for accuracy.
         </p>
 
         <div class="seo-grid">
           <article class="seo-card">
             <h3>AI flowchart generator</h3>
             <p>
-              Turn a sentence, brief, or specification into a polished flowchart
-              using Gemini AI and a workflow-focused diagram builder.
+              Transform requirements, meeting notes, or product specs into
+              structured diagrams and update every node in the visual editor.
             </p>
           </article>
           <article class="seo-card">
             <h3>Workflow diagrams</h3>
             <p>
-              Create workflow diagrams for onboarding, approvals, automation,
-              and operational processes with clean directional structure.
+              Build process flows for onboarding, approvals, quality checks, and
+              automation handoffs with clear decision branches.
             </p>
           </article>
           <article class="seo-card">
             <h3>System design diagrams</h3>
             <p>
-              Visualize services, dependencies, and system architecture with
-              diagrams that are easy to explain in planning and review sessions.
+              Map services, APIs, queues, and data paths so architecture tradeoffs
+              are easier to discuss in planning and design reviews.
             </p>
           </article>
         </div>
@@ -742,6 +821,7 @@
           >
           <a href="/ai-system-design-generator/">AI system design generator</a>
           <a href="/workflow-diagram-generator/">Workflow diagram generator</a>
+          <a href="/docs.html">Flowchart generator documentation</a>
         </div>
 
         <div class="seo-faq">
