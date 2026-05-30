@@ -2,41 +2,8 @@
   "version": 2,
   "rewrites": [
     {
-<<<<<<< HEAD
       "source": "/",
       "destination": "/frontend/index.html"
-=======
-      "source": "/gemini-ai-flowchart-generator",
-      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
-    },
-    {
-      "source": "/gemini-ai-flowchart-generator/",
-      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
-    },
-    {
-      "source": "/workflow-diagram-generator",
-      "destination": "/frontend/workflow-diagram-generator/index.html"
-    },
-    {
-      "source": "/workflow-diagram-generator/",
-      "destination": "/frontend/workflow-diagram-generator/index.html"
-    },
-    {
-      "source": "/ai-system-design-generator",
-      "destination": "/frontend/ai-system-design-generator/index.html"
-    },
-    {
-      "source": "/ai-system-design-generator/",
-      "destination": "/frontend/ai-system-design-generator/index.html"
-    },
-    {
-      "source": "/docs",
-      "destination": "/frontend/docs.html"
-    },
-    {
-      "source": "/docs/",
-      "destination": "/frontend/docs.html"
->>>>>>> bb12af4 (Improve SEO content, metadata, schema, routing reliability, and README accuracy for AI Flowchart Studio.)
     },
     {
       "source": "/robots.txt",
@@ -69,6 +36,14 @@
     {
       "source": "/workflow-diagram-generator/",
       "destination": "/frontend/workflow-diagram-generator/index.html"
+    },
+    {
+      "source": "/docs",
+      "destination": "/frontend/docs.html"
+    },
+    {
+      "source": "/docs/",
+      "destination": "/frontend/docs.html"
     },
     {
       "source": "/(.*)",
