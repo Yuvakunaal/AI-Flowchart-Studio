@@ -1,53 +1,44 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
+  "buildCommand": "echo \"Static frontend ready\"",
+  "outputDirectory": "frontend",
   "rewrites": [
     {
       "source": "/",
-      "destination": "/frontend/index.html"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/frontend/robots.txt"
-    },
-    {
-      "source": "/sitemap.xml",
-      "destination": "/frontend/sitemap.xml"
+      "destination": "/index.html"
     },
     {
       "source": "/gemini-ai-flowchart-generator",
-      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
+      "destination": "/gemini-ai-flowchart-generator/index.html"
     },
     {
       "source": "/gemini-ai-flowchart-generator/",
-      "destination": "/frontend/gemini-ai-flowchart-generator/index.html"
+      "destination": "/gemini-ai-flowchart-generator/index.html"
     },
     {
       "source": "/ai-system-design-generator",
-      "destination": "/frontend/ai-system-design-generator/index.html"
+      "destination": "/ai-system-design-generator/index.html"
     },
     {
       "source": "/ai-system-design-generator/",
-      "destination": "/frontend/ai-system-design-generator/index.html"
+      "destination": "/ai-system-design-generator/index.html"
     },
     {
       "source": "/workflow-diagram-generator",
-      "destination": "/frontend/workflow-diagram-generator/index.html"
+      "destination": "/workflow-diagram-generator/index.html"
     },
     {
       "source": "/workflow-diagram-generator/",
-      "destination": "/frontend/workflow-diagram-generator/index.html"
+      "destination": "/workflow-diagram-generator/index.html"
     },
     {
       "source": "/docs",
-      "destination": "/frontend/docs.html"
+      "destination": "/docs.html"
     },
     {
       "source": "/docs/",
-      "destination": "/frontend/docs.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
+      "destination": "/docs.html"
     }
   ]
 }
