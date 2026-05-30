@@ -40,7 +40,7 @@ Turn natural language prompts into editable flowcharts using Google's Gemini AI.
 
 AI Flowchart Studio is a production-ready, fully deployed web application that generates diagrams from natural language prompts using Gemini AI.
 
-> **Note:** Uses BYOK (Bring Your Own Key) architecture. A free Google Gemini API key is required for AI generation. Your key is saved locally in your browser and is only transmitted during generation so the backend can relay the request to Gemini; it is not stored by the app server.
+> **Note:** Uses BYOK (Bring Your Own Key) architecture. A free Google Gemini API key is required for AI generation. By default your key is stored locally in your browser and is sent only for the active generation request so the backend can relay it to Gemini; the app server does not persist user keys. (Deployment operators may optionally configure a server-side key as a fallback — see "Deployment notes" below.)
 
 ---
 
@@ -170,6 +170,13 @@ The core differentiator is a **4-stage intelligent pipeline** that ensures high-
 
 ---
 
+## 🔧 Deployment notes
+
+- **Backend (Render)**: The backend is packaged as a Python web service (FastAPI) and commonly deployed on Render using Gunicorn + Uvicorn workers. The Render `startCommand` used by the repository is `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker` and dependencies are installed via `pip install -r requirements.txt` in the `backend` folder.
+- **Environment variables**: `GEMINI_API_KEY` (optional server-side Gemini key) and `FRONTEND_URL` (CORS origin) are supported. Operators who prefer strict BYOK should avoid setting `GEMINI_API_KEY`.
+- **Frontend (Vercel)**: The frontend is static and served from the `frontend` folder. `vercel.json` config sets `outputDirectory` to `frontend` and includes a rewrite for `/docs` → `/docs.html`.
+- **API surface**: The client POSTs to `/api/generate` on the backend. User-supplied Gemini keys are sent in the `X-Gemini-API-Key` header; the backend streams progress via SSE (`text/event-stream`).
+
 ## 📈 Use Cases
 
 ### For Software Engineers
@@ -207,6 +214,8 @@ We believe your logic is your intellectual property. AI Flowchart Studio impleme
 - **Direct Proxy Architecture**: The Render backend acts as a request relay to Google's Gemini API and streams progress back to the browser.
 - **No Third-Party Analytics Script**: The frontend does not load Vercel Web Analytics, which keeps the browser console clean and avoids optional analytics-script 404s.
 - **Open Source**: Full codebase available for security audits and transparency.
+
+- **Optional server-side key (deployment fallback)**: The backend can be configured with a `GEMINI_API_KEY` environment variable (for example, when deploying on Render). If the server-side key is present, the backend will use it as a fallback when a browser-sent key is not provided. Even when a server-side key is used, the service does not log or persist individual user prompts or keys beyond the active request lifecycle. Operators who require strict BYOK-only behavior should avoid setting a server-side Gemini key.
 
 ---
 
