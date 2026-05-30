@@ -3,18 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Flowchart Studio | AI Text to Flowchart Generator</title>
+    <title>AI Flowchart Generator from Text | Gemini & Mermaid Diagram Tool</title>
     <!-- Use relative base so local files and subpath deployments load assets correctly -->
     <base href="./" />
     <meta
       name="description"
-      content="Turn plain English into editable flowcharts. Generate with AI, refine manually, and export Mermaid, SVG, or PNG in seconds."
+      content="Create flowcharts from plain text with Gemini AI. Build workflow diagrams, system design maps, and Mermaid diagrams, then export as PNG, SVG, or code."
     />
     <meta
       name="keywords"
-      content="ai flowchart generator, text to flowchart, workflow diagram generator, system design diagram generator, mermaid flowchart generator"
+      content="AI flowchart generator, text to flowchart, Gemini flowchart generator, Mermaid diagram generator, workflow diagram generator, system design diagram generator"
     />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="google-site-verification"
       content="_Gyq5mirHsRjbJcyQty8rQ1xqVY6Uaa6aSCl6rUq2QI"
@@ -22,31 +21,23 @@
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="AI Flowchart Studio" />
-    <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/" />
     <meta
       property="og:title"
-      content="AI Flowchart Studio | AI Text to Flowchart Generator"
+      content="AI Flowchart Generator from Text | AI Flowchart Studio"
     />
     <meta
       property="og:description"
-      content="Generate flowcharts, workflow diagrams, and system design diagrams from plain English prompts. Edit visually and export instantly."
+      content="Turn plain-language prompts into editable flowcharts, workflow diagrams, and system design diagrams with Gemini AI."
     />
-    <meta
-      property="og:image"
-      content="https://ai-flowchart-studio.vercel.app/favicon.svg"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/" />
+    <meta name="twitter:card" content="summary" />
     <meta
       name="twitter:title"
-      content="AI Flowchart Studio | AI Text to Flowchart Generator"
+      content="AI Flowchart Generator from Text | AI Flowchart Studio"
     />
     <meta
       name="twitter:description"
-      content="Turn text into editable flowcharts with AI. Build, refine, and export Mermaid, SVG, or PNG in seconds."
-    />
-    <meta
-      name="twitter:image"
-      content="https://ai-flowchart-studio.vercel.app/favicon.svg"
+      content="Generate, edit, and export flowcharts from text with Gemini AI and Mermaid."
     />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css?v=3" />
@@ -57,6 +48,54 @@
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://ai-flowchart-studio.vercel.app/#website",
+            "name": "AI Flowchart Studio",
+            "url": "https://ai-flowchart-studio.vercel.app/",
+            "description": "A browser-based AI flowchart generator for creating workflow diagrams, system design diagrams, and Mermaid flowcharts from plain text."
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://ai-flowchart-studio.vercel.app/#app",
+            "name": "AI Flowchart Studio",
+            "url": "https://ai-flowchart-studio.vercel.app/",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web",
+            "description": "Create editable flowcharts, workflow diagrams, and system design visuals from text prompts with Gemini AI.",
+            "featureList": [
+              "Text to flowchart generation",
+              "Gemini AI prompt interpretation",
+              "Manual node and link editing",
+              "Mermaid diagram rendering",
+              "PNG, SVG, and Mermaid code export",
+              "Workflow and system design diagram support"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://ai-flowchart-studio.vercel.app/#breadcrumbs",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "AI Flowchart Generator",
+                "item": "https://ai-flowchart-studio.vercel.app/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
     <!-- Vercel Web Analytics -->
     <script>
       window.va =
@@ -192,7 +231,7 @@
             </svg>
           </div>
           <div class="brand-text">
-            <h1>AI Flowchart <span class="gradient-text">Studio</span></h1>
+            <h1>AI Flowchart <span class="gradient-text">Generator</span></h1>
             <p class="brand-tagline">
               Build visually with AI or manually click & type.
             </p>
@@ -513,6 +552,7 @@
           <a
             href="https://www.linkedin.com/in/boggavarapu-yuva-satya-kunaal-127817290/"
             target="_blank"
+            rel="noopener noreferrer"
             style="
               color: var(--accent-secondary);
               text-decoration: none;
@@ -778,42 +818,88 @@
     <section class="seo-section" aria-labelledby="seo-title">
       <div class="seo-shell">
         <p class="seo-eyebrow">AI Flowchart Studio</p>
-        <h2 id="seo-title">Generate production-ready flowcharts from plain English</h2>
+        <h2 id="seo-title">
+          AI flowchart generator from text prompts
+        </h2>
         <p>
-          AI Flowchart Studio converts natural-language prompts into clear flowcharts
-          you can immediately review, edit, and share. Generate workflow diagrams,
-          process maps, and architecture visuals in one workspace without learning
-          diagram syntax.
+          AI Flowchart Studio turns plain-language process notes into editable
+          flowcharts, workflow diagrams, and system design visuals. Describe the
+          steps, decisions, branches, and outcomes, then use Gemini AI to create
+          a diagram draft you can refine instead of starting from a blank canvas.
         </p>
         <p>
-          Teams use it for product planning, SOP documentation, incident response
-          mapping, and system design discussions. Start with AI for speed, then
-          refine labels, branches, and node structure manually for accuracy.
+          The app is useful when you need a quick text to flowchart workflow for
+          product logic, support paths, onboarding, approval flows, technical
+          architecture, or service dependency maps. You can edit nodes manually,
+          change the diagram direction, switch visual themes, and export the
+          result as Mermaid code, SVG, or PNG.
         </p>
 
         <div class="seo-grid">
           <article class="seo-card">
-            <h3>AI flowchart generator</h3>
+            <h3>Text to flowchart generation</h3>
             <p>
-              Transform requirements, meeting notes, or product specs into
-              structured diagrams and update every node in the visual editor.
+              Turn a sentence, brief, SOP, or technical note into a structured
+              first draft with process steps, decision nodes, and directional
+              arrows.
             </p>
           </article>
           <article class="seo-card">
-            <h3>Workflow diagrams</h3>
+            <h3>Editable workflow diagrams</h3>
             <p>
-              Build process flows for onboarding, approvals, quality checks, and
-              automation handoffs with clear decision branches.
+              Create workflow diagrams for onboarding, approvals, automation,
+              incident response, procurement, and content operations.
             </p>
           </article>
           <article class="seo-card">
             <h3>System design diagrams</h3>
             <p>
-              Map services, APIs, queues, and data paths so architecture tradeoffs
-              are easier to discuss in planning and design reviews.
+              Visualize services, dependencies, and system architecture with
+              diagrams that are easy to explain in planning and review sessions.
+            </p>
+          </article>
+          <article class="seo-card">
+            <h3>Mermaid diagram export</h3>
+            <p>
+              Copy Mermaid code for README files, engineering docs, Notion
+              pages, tickets, and architecture decision records.
+            </p>
+          </article>
+          <article class="seo-card">
+            <h3>Manual diagram builder</h3>
+            <p>
+              Add nodes, connect links, label branches, adjust shapes, and keep
+              control over the final structure after AI creates the first draft.
+            </p>
+          </article>
+          <article class="seo-card">
+            <h3>Export for sharing</h3>
+            <p>
+              Download sharp SVG diagrams for documentation or PNG images for
+              presentations, Slack, email, and product planning notes.
             </p>
           </article>
         </div>
+
+        <h3>Use cases for the AI flowchart generator</h3>
+        <p>
+          Product teams can map feature logic, activation funnels, checkout
+          flows, and user journeys. Operations teams can document approvals,
+          escalations, handoffs, and recurring business processes. Engineers can
+          sketch API flows, authentication paths, data movement, microservice
+          dependencies, and system design discussions before moving them into
+          permanent documentation.
+        </p>
+
+        <h3>How to get a better generated flowchart</h3>
+        <p>
+          A strong prompt names the starting point, lists the main actions,
+          explains every decision branch, and describes the final outcomes. For
+          example, instead of asking for a login flow, describe what happens when
+          the user is new, when credentials fail, when two-factor authentication
+          is required, and when access is approved. The clearer the logic, the
+          cleaner the generated Mermaid flowchart will be.
+        </p>
 
         <div class="seo-links" aria-label="Keyword pages">
           <a href="/gemini-ai-flowchart-generator/"
@@ -821,7 +907,7 @@
           >
           <a href="/ai-system-design-generator/">AI system design generator</a>
           <a href="/workflow-diagram-generator/">Workflow diagram generator</a>
-          <a href="/docs.html">Flowchart generator documentation</a>
+          <a href="/docs.html">Flowchart generator docs</a>
         </div>
 
         <div class="seo-faq">

@@ -1,11 +1,11 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/Yuvakunaal/AI-Flowchart-Studio/main/frontend/favicon.svg" alt="AI Flowchart Studio Logo" width="120" />
 
-# AI Flowchart Studio — Gemini AI Flowchart Generator
+# AI Flowchart Studio — AI Flowchart Generator from Text
 
-**Generate Flowcharts, Workflow Diagrams & System Design Diagrams with AI**
+**Generate Flowcharts, Workflow Diagrams & System Design Diagrams with Gemini AI**
 
-Turn natural language prompts into professional diagrams using Google's Gemini AI. Create workflow diagrams, system design visualizations, and flowcharts instantly without manual drawing.
+Turn natural language prompts into editable flowcharts using Google's Gemini AI. Create workflow diagrams, system design visualizations, Mermaid diagrams, and process maps without starting from a blank canvas.
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Access_Now-6366f1?style=for-the-badge)](https://ai-flowchart-studio.vercel.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Yuvakunaal/AI-Flowchart-Studio)
@@ -29,6 +29,7 @@ Turn natural language prompts into professional diagrams using Google's Gemini A
 - [Architecture](#architecture)
 - [Use Cases](#use-cases)
 - [Security & Privacy](#security--privacy)
+- [SEO & Discoverability](#seo--discoverability)
 - [Tech Stack](#tech-stack)
 
 ---
@@ -39,13 +40,13 @@ Turn natural language prompts into professional diagrams using Google's Gemini A
 
 AI Flowchart Studio is a production-ready, fully deployed web application that generates diagrams from natural language prompts using Gemini AI.
 
-> **Note:** Uses BYOK (Bring Your Own Key) architecture. Free Google Gemini API key required. Your key is stored 100% locally in your browser—never sent to our servers.
+> **Note:** Uses BYOK (Bring Your Own Key) architecture. A free Google Gemini API key is required for AI generation. Your key is saved locally in your browser and is only transmitted during generation so the backend can relay the request to Gemini; it is not stored by the app server.
 
 ---
 
 ## 📖 Overview
 
-**AI Flowchart Studio** is an enterprise-grade AI flowchart generator that transforms complex natural language descriptions into professional, structured diagrams. It combines a sophisticated **Multi-Agent Orchestration** backend with a modern **Glassmorphic UI** to provide seamless AI-driven and manual diagram creation.
+**AI Flowchart Studio** is an AI flowchart generator from text that transforms natural language descriptions into structured diagrams. It combines a **Multi-Agent Orchestration** backend with a modern **Glassmorphic UI** to provide seamless AI-driven and manual diagram creation.
 
 This tool is designed for teams that need to generate workflow diagrams, system design diagrams, and flowcharts without the overhead of manual drawing or learning specialized syntax.
 
@@ -54,7 +55,7 @@ This tool is designed for teams that need to generate workflow diagrams, system 
 ### AI-Powered Diagram Generation
 
 - **🤖 Gemini AI Integration**: Multi-Agent Orchestration powered by Google's latest Gemini models ensures logical accuracy and syntactic validity for flowchart generation.
-- **Natural Language Input**: Describe your flowchart, workflow, or system architecture in plain English and get a rendered diagram in seconds.
+- **Text to Flowchart Generation**: Describe your flowchart, workflow, process map, or system architecture in plain English and get a rendered diagram in seconds.
 - **Intelligent Structure**: The AI analyzes intent, decomposes logic, generates optimized diagram code, and validates output—all automatically.
 
 ### Diagram Editing & Management
@@ -69,7 +70,7 @@ This tool is designed for teams that need to generate workflow diagrams, system 
   - PNG (3x Super-Scaled, high-quality vector rendering)
   - SVG (infinitely scalable for design and print)
   - Mermaid Code (for version control and documentation)
-- **🎨 Theme Support**: Dark, Light, and Forest themes for any workflow preference.
+- **🎨 Theme Support**: Dark, Light, Forest, and Neutral themes for different documentation styles.
 - **🌍 Layout Options**: Top-Down and Left-to-Right orientations for different diagram styles.
 
 ### User Experience
@@ -122,7 +123,7 @@ Design system architecture and technical diagrams:
 
 ### Prerequisites
 
-- Google Gemini API key (free tier available at [Google AI Studio](https://aistudio.google.com))
+- Google Gemini API key (free tier available at [Google AI Studio](https://aistudio.google.com/app/apikey))
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
 ### Quick Start
@@ -133,6 +134,14 @@ Design system architecture and technical diagrams:
 4. Describe your flowchart in plain English
 5. Click "Generate Flowchart" and wait for AI to build it
 6. Edit manually if needed and export
+
+### Helpful Pages
+
+- **[AI Flowchart Generator from Text](https://ai-flowchart-studio.vercel.app)**: Main app and primary generator.
+- **[Gemini AI Flowchart Generator](https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/)**: Guide for prompt-based Gemini flowchart generation.
+- **[Workflow Diagram Generator](https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/)**: Workflow and process mapping use cases.
+- **[AI System Design Diagram Generator](https://ai-flowchart-studio.vercel.app/ai-system-design-generator/)**: Architecture and service dependency diagram use cases.
+- **[Documentation](https://ai-flowchart-studio.vercel.app/docs.html)**: Setup, prompt writing, manual editing, canvas controls, and export guide.
 
 ---
 
@@ -193,24 +202,29 @@ The core differentiator is a **4-stage intelligent pipeline** that ensures high-
 
 We believe your logic is your intellectual property. AI Flowchart Studio implements a strict **Bring Your Own Key (BYOK)** policy:
 
-- **Zero Data Retention**: Your API key and prompts are stored 100% locally in your browser's `LocalStorage`. Nothing is sent to our servers.
-- **Direct Proxy Architecture**: Our Render backend acts only as a secure pass-through to Google's Gemini API—never logging, storing, or analyzing your data.
-- **No Tracking**: No analytics, no telemetry, no user profiling. Your work stays yours.
+- **Zero Server Retention**: Saved projects and API key settings live in browser `LocalStorage`. During generation, prompts and API keys are transmitted only for the active request and are not retained by the app server.
+- **Generation-Time Transit Only**: During AI generation, the prompt and selected API key are sent to the Render backend so it can call Google's Gemini API. The backend does not persist the key, prompt, or generated diagram.
+- **Direct Proxy Architecture**: The Render backend acts as a request relay to Google's Gemini API and streams progress back to the browser.
+- **Minimal Analytics**: The frontend includes Vercel Web Analytics for aggregate site usage. Diagram content, API keys, and saved projects are not used for profiling.
 - **Open Source**: Full codebase available for security audits and transparency.
 
 ---
 
 ## 🌐 SEO & Discoverability
 
-This AI flowchart generator is optimized for search engines and designed to help you find exactly what you're looking for:
+This AI flowchart generator is optimized for search engines and designed to help users find the right diagramming workflow quickly:
 
-- **Keywords**: AI flowchart generator, Gemini AI, workflow diagrams, system design diagrams
+- **Primary Keywords**: AI flowchart generator from text, Gemini AI flowchart generator, Mermaid diagram generator, workflow diagram generator, AI system design diagram generator
 - **Sitemap**: [XML Sitemap](https://ai-flowchart-studio.vercel.app/sitemap.xml)
 - **Robots**: [robots.txt](https://ai-flowchart-studio.vercel.app/robots.txt)
-- **Keyword Pages**:
+- **Structured Metadata**: Key pages include titles, meta descriptions, canonical URLs, Open Graph tags, Twitter cards, and JSON-LD schema.
+- **Indexable Pages**:
+  - [AI Flowchart Generator from Text](https://ai-flowchart-studio.vercel.app)
   - [Gemini AI Flowchart Generator](https://ai-flowchart-studio.vercel.app/gemini-ai-flowchart-generator/)
-  - [AI System Design Generator](https://ai-flowchart-studio.vercel.app/ai-system-design-generator/)
+  - [AI System Design Diagram Generator](https://ai-flowchart-studio.vercel.app/ai-system-design-generator/)
   - [Workflow Diagram Generator](https://ai-flowchart-studio.vercel.app/workflow-diagram-generator/)
+  - [Documentation](https://ai-flowchart-studio.vercel.app/docs.html)
+- **404 Protection**: Vercel rewrites explicitly support the key SEO pages with and without trailing slashes, plus `/docs`, `/robots.txt`, and `/sitemap.xml`.
 
 ---
 
