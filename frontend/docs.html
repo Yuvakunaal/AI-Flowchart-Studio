@@ -3,86 +3,1031 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How to Use AI Flowchart Studio | Setup, Prompts, Export Guide</title>
-    <meta
-      name="description"
-      content="Learn how to use AI Flowchart Studio: set up a Gemini API key, generate flowcharts from prompts, edit nodes manually, and export Mermaid, SVG, or PNG diagrams."
-    />
+    <title>Documentation | AI Flowchart Studio — Setup, Prompts, Export</title>
+    <meta name="description" content="Complete documentation for AI Flowchart Studio: API key setup, prompt writing guide, manual builder, canvas controls, export options, and keyboard shortcuts." />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/docs" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="AI Flowchart Studio" />
-    <meta property="og:title" content="How to Use AI Flowchart Studio" />
-    <meta property="og:description" content="Setup, prompt writing, manual editing, canvas controls, and export guidance for AI-generated flowcharts." />
+    <meta property="og:title" content="Documentation | AI Flowchart Studio" />
+    <meta property="og:description" content="Complete guide to AI Flowchart Studio: setup, prompt writing, manual building, export options, and keyboard shortcuts." />
     <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/docs" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "TechArticle",
-        "headline": "How to Use AI Flowchart Studio",
+        "headline": "AI Flowchart Studio Documentation",
         "url": "https://ai-flowchart-studio.vercel.app/docs",
-        "description": "Setup, prompt writing, manual editing, canvas controls, and export guidance for AI-generated flowcharts."
+        "description": "Setup, prompt writing, manual editing, canvas controls, and export guidance for AI Flowchart Studio."
       }
     </script>
+    <style>
+      /* ── Reset & Base ─────────────────────────────── */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg: #07090f;
+        --bg2: #0d1117;
+        --surface: rgba(255,255,255,0.03);
+        --border: rgba(255,255,255,0.07);
+        --border2: rgba(255,255,255,0.12);
+        --text: #e8edf5;
+        --text2: rgba(255,255,255,0.55);
+        --text3: rgba(255,255,255,0.3);
+        --indigo: #6366f1;
+        --violet: #8b5cf6;
+        --cyan: #06b6d4;
+        --indigo-soft: rgba(99,102,241,0.12);
+        --indigo-border: rgba(99,102,241,0.25);
+        --grad: linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
+        --r: 10px;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'DM Sans', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Progress Bar ─────────────────────────────── */
+      #prog {
+        position: fixed; top: 0; left: 0; height: 2px;
+        width: 0%; background: var(--grad); z-index: 999;
+        transition: width .08s linear;
+      }
+
+      /* ── Background ───────────────────────────────── */
+      .bg {
+        position: fixed; inset: 0; z-index: -1;
+        background:
+          radial-gradient(ellipse 70% 55% at 8% 15%, rgba(99,102,241,.07) 0%, transparent 60%),
+          radial-gradient(ellipse 55% 45% at 92% 85%, rgba(6,182,212,.05) 0%, transparent 60%),
+          var(--bg);
+      }
+
+      /* ── Top Nav ──────────────────────────────────── */
+      .topnav {
+        position: sticky; top: 0; z-index: 100; height: 56px;
+        display: flex; align-items: center; gap: 14px; padding: 0 24px;
+        background: rgba(7,9,15,.88); border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      }
+      .nav-logo {
+        display: flex; align-items: center; gap: 10px;
+        text-decoration: none; color: var(--text);
+        font-weight: 600; font-size: .88rem; flex-shrink: 0;
+      }
+      .nav-logo svg { flex-shrink: 0; }
+      .nav-sep { width: 1px; height: 18px; background: var(--border2); }
+      .nav-badge {
+        font-size: .68rem; font-weight: 700; letter-spacing: .06em;
+        text-transform: uppercase; color: #a5b4fc;
+        background: var(--indigo-soft); border: 1px solid var(--indigo-border);
+        padding: 2px 9px; border-radius: 999px;
+      }
+      .nav-spacer { flex: 1; }
+      .menu-btn {
+        display: none; align-items: center; gap: 6px;
+        background: var(--surface); border: 1px solid var(--border2);
+        color: var(--text2); font-size: .78rem; font-weight: 500;
+        padding: 5px 12px; border-radius: 7px; cursor: pointer;
+        font-family: inherit;
+      }
+      .nav-cta {
+        display: flex; align-items: center; gap: 7px;
+        background: var(--grad); color: #fff;
+        text-decoration: none; padding: 7px 16px; border-radius: 8px;
+        font-size: .8rem; font-weight: 600;
+        box-shadow: 0 4px 16px rgba(99,102,241,.32);
+        transition: transform .18s, box-shadow .18s; flex-shrink: 0;
+      }
+      .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 7px 22px rgba(99,102,241,.42); }
+
+      /* ── Layout ───────────────────────────────────── */
+      .layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        max-width: 1160px;
+        margin: 0 auto;
+        min-height: calc(100vh - 56px);
+      }
+
+      /* ── Sidebar ──────────────────────────────────── */
+      .sidebar {
+        position: sticky; top: 56px;
+        height: calc(100vh - 56px);
+        overflow-y: auto; padding: 28px 12px 28px 20px;
+        border-right: 1px solid var(--border);
+        scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.08) transparent;
+      }
+      .sidebar::-webkit-scrollbar { width: 3px; }
+      .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.08); border-radius: 3px; }
+
+      .nav-group { margin-bottom: 26px; }
+      .nav-group-label {
+        font-size: .62rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: .12em; color: var(--text3);
+        padding: 0 8px; margin-bottom: 5px; display: block;
+      }
+      .nav-item {
+        display: flex; align-items: center; gap: 9px;
+        padding: 7px 8px; border-radius: 7px; margin-left: -2px;
+        color: var(--text2); text-decoration: none;
+        font-size: .81rem; font-weight: 450;
+        border-left: 2px solid transparent;
+        transition: color .14s, background .14s, border-color .14s;
+      }
+      .nav-item:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.04); }
+      .nav-item.active {
+        color: #a5b4fc; background: var(--indigo-soft);
+        border-left-color: var(--indigo); font-weight: 500;
+      }
+      .nav-item svg { width: 13px; height: 13px; flex-shrink: 0; opacity: .65; }
+      .nav-item.active svg { opacity: 1; color: var(--indigo); }
+
+      /* ── Main Content ─────────────────────────────── */
+      .main { padding: 48px 60px 100px 60px; max-width: 800px; }
+
+      /* ── Hero ─────────────────────────────────────── */
+      .hero { margin-bottom: 64px; }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: .68rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: .1em; color: #a5b4fc; margin-bottom: 18px;
+      }
+      .eyebrow-line { width: 18px; height: 1.5px; background: var(--indigo); }
+      .hero h1 {
+        font-family: 'Syne', sans-serif;
+        font-size: clamp(2.2rem,4vw,3.6rem);
+        font-weight: 800; line-height: 1.02; letter-spacing: -.035em;
+        margin-bottom: 18px; color: var(--text);
+      }
+      .grad {
+        background: linear-gradient(135deg,#a5b4fc,#c4b5fd,#67e8f9);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-desc {
+        font-size: 1.05rem; color: var(--text2); line-height: 1.72;
+        max-width: 560px; margin-bottom: 32px;
+      }
+      .stats {
+        display: flex; gap: 0;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; overflow: hidden;
+      }
+      .stat {
+        flex: 1; padding: 20px 24px;
+        border-right: 1px solid var(--border);
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .stat:last-child { border-right: none; }
+      .stat-val {
+        font-family: 'Syne', sans-serif; font-size: 1.8rem;
+        font-weight: 800; color: var(--text); line-height: 1;
+      }
+      .stat-lbl {
+        font-size: .68rem; color: var(--text3);
+        text-transform: uppercase; letter-spacing: .06em; font-weight: 600;
+      }
+
+      /* ── Sections ─────────────────────────────────── */
+      .section { margin-bottom: 72px; scroll-margin-top: 72px; }
+      .section-hd {
+        display: flex; align-items: center; gap: 14px;
+        margin-bottom: 26px; padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section-icon {
+        width: 36px; height: 36px; border-radius: 9px;
+        background: var(--indigo-soft); border: 1px solid var(--indigo-border);
+        display: flex; align-items: center; justify-content: center;
+        color: #a5b4fc; flex-shrink: 0;
+      }
+      .section h2 {
+        font-family: 'Syne', sans-serif; font-size: 1.65rem;
+        font-weight: 700; letter-spacing: -.02em; color: var(--text);
+      }
+      .section h3 {
+        font-family: 'Syne', sans-serif; font-size: 1.05rem;
+        font-weight: 700; color: var(--text); margin: 28px 0 10px;
+        letter-spacing: -.01em;
+      }
+      .section p { font-size: .93rem; color: var(--text2); line-height: 1.8; margin-bottom: 12px; }
+
+      /* ── Feature Grid ─────────────────────────────── */
+      .feat-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 10px; margin: 18px 0;
+      }
+      .feat {
+        display: flex; gap: 12px; padding: 14px 16px;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--r); transition: border-color .15s;
+      }
+      .feat:hover { border-color: var(--indigo-border); }
+      .feat-ico { font-size: 1.15rem; flex-shrink: 0; }
+      .feat h4 { font-size: .84rem; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+      .feat p { font-size: .76rem !important; color: var(--text3) !important; margin: 0 !important; line-height: 1.5 !important; }
+
+      /* ── Steps ────────────────────────────────────── */
+      .steps { display: flex; flex-direction: column; margin: 20px 0; }
+      .step { display: grid; grid-template-columns: 34px 1fr; gap: 16px; position: relative; }
+      .step:not(:last-child)::after {
+        content: ''; position: absolute; left: 16px; top: 40px;
+        bottom: -8px; width: 2px; background: rgba(99,102,241,.18);
+      }
+      .step-n {
+        width: 34px; height: 34px; border-radius: 50%;
+        background: var(--grad); display: flex; align-items: center;
+        justify-content: center; font-size: .78rem; font-weight: 700; color: #fff;
+        flex-shrink: 0; box-shadow: 0 4px 12px rgba(99,102,241,.3); position: relative; z-index: 1;
+      }
+      .step-body { padding-bottom: 24px; }
+      .step-body h4 { font-size: .92rem; font-weight: 600; color: var(--text); margin-bottom: 5px; padding-top: 5px; }
+      .step-body p { font-size: .86rem !important; color: var(--text2) !important; margin: 0 !important; line-height: 1.65 !important; }
+      strong.hi { color: var(--text); }
+
+      /* ── Callouts ─────────────────────────────────── */
+      .callout {
+        display: flex; gap: 13px; padding: 15px 18px;
+        border-radius: var(--r); margin: 18px 0; border: 1px solid;
+      }
+      .callout-tip   { background: rgba(52,211,153,.05);  border-color: rgba(52,211,153,.2); }
+      .callout-warn  { background: rgba(251,191,36,.05);  border-color: rgba(251,191,36,.2); }
+      .callout-info  { background: rgba(96,165,250,.05);  border-color: rgba(96,165,250,.2); }
+      .callout-ico   { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+      .callout-title {
+        font-size: .72rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: .06em; margin-bottom: 4px;
+      }
+      .callout-tip  .callout-title { color: #34d399; }
+      .callout-warn .callout-title { color: #fbbf24; }
+      .callout-info .callout-title { color: #60a5fa; }
+      .callout p { font-size: .86rem !important; color: var(--text2) !important; margin: 0 !important; line-height: 1.65 !important; }
+
+      /* ── Code Block ───────────────────────────────── */
+      .code-block {
+        background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.07);
+        border-radius: var(--r); overflow: hidden; margin: 14px 0;
+      }
+      .code-hd {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 9px 16px; border-bottom: 1px solid rgba(255,255,255,.05);
+        background: rgba(255,255,255,.02);
+      }
+      .code-lang { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); }
+      .code-copy {
+        background: none; border: none; color: var(--text3);
+        font-size: .7rem; cursor: pointer; padding: 2px 8px;
+        border-radius: 4px; transition: all .14s; font-family: inherit;
+        display: flex; align-items: center; gap: 4px;
+      }
+      .code-copy:hover { color: rgba(255,255,255,.7); background: rgba(255,255,255,.06); }
+      .code-block pre {
+        padding: 18px 20px; font-family: 'JetBrains Mono', monospace;
+        font-size: .8rem; line-height: 1.72; color: #c4b5fd;
+        overflow-x: auto; margin: 0;
+      }
+
+      /* ── Inline code ──────────────────────────────── */
+      code {
+        font-family: 'JetBrains Mono', monospace; font-size: .8em;
+        background: var(--indigo-soft); border: 1px solid var(--indigo-border);
+        border-radius: 4px; padding: 1px 6px; color: #a5b4fc;
+      }
+
+      /* ── Prompt Example ───────────────────────────── */
+      .prompt-lbl {
+        font-size: .62rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: .1em; color: rgba(99,102,241,.75); margin-bottom: 6px;
+        display: block;
+      }
+      .prompt-ex {
+        background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.06);
+        border-left: 3px solid var(--indigo);
+        border-radius: 0 var(--r) var(--r) 0;
+        padding: 14px 18px; margin-bottom: 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: .79rem; color: #c4b5fd; line-height: 1.72;
+      }
+
+      /* ── Node Type Grid ───────────────────────────── */
+      .node-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+      .node-card {
+        padding: 16px; background: var(--surface);
+        border: 1px solid var(--border); border-radius: var(--r); transition: border-color .15s;
+      }
+      .node-card:hover { border-color: var(--indigo-border); }
+      .node-shape { font-size: 1.5rem; margin-bottom: 8px; }
+      .node-name { font-size: .82rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+      .node-desc { font-size: .74rem; color: var(--text3); line-height: 1.5; }
+
+      /* ── Export Cards ─────────────────────────────── */
+      .export-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin: 18px 0; }
+      .export-card {
+        padding: 20px; background: var(--surface);
+        border: 1px solid var(--border); border-radius: 12px; transition: all .18s;
+      }
+      .export-card:hover { border-color: var(--indigo-border); background: rgba(99,102,241,.04); }
+      .export-ico { font-size: 1.1rem; margin-bottom: 10px; }
+      .export-fmt { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 5px; }
+      .export-name { font-size: .9rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+      .export-desc { font-size: .76rem; color: var(--text3); line-height: 1.55; }
+      .use-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+      .use-tag {
+        font-size: .62rem; padding: 2px 7px; border-radius: 999px;
+        background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+        color: var(--text3);
+      }
+
+      /* ── Keyboard Shortcuts ───────────────────────── */
+      .shortcuts-table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+      .shortcuts-table th {
+        text-align: left; padding: 9px 14px;
+        font-size: .64rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: .1em; color: var(--text3);
+        border-bottom: 1px solid var(--border);
+      }
+      .shortcuts-table td {
+        padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.04);
+        color: var(--text2); vertical-align: middle;
+      }
+      .shortcuts-table tr:hover td { background: rgba(255,255,255,.015); }
+      .shortcuts-table td:first-child { color: var(--text); font-weight: 500; }
+      .shortcuts-table td:last-child { font-size: .76rem; color: var(--text3); }
+      kbd {
+        display: inline-flex; align-items: center; justify-content: center;
+        background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+        border-bottom-width: 2px; border-radius: 5px; padding: 2px 8px;
+        font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+        color: rgba(255,255,255,.75); min-width: 26px; line-height: 1.4;
+      }
+      .kc { display: inline-flex; align-items: center; gap: 3px; }
+      .kp { font-size: .64rem; color: var(--text3); }
+
+      /* ── Bullets ──────────────────────────────────── */
+      .bullets { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 18px; }
+      .bullets li {
+        display: flex; align-items: flex-start; gap: 10px;
+        font-size: .9rem; color: var(--text2); line-height: 1.65; list-style: none;
+      }
+      .bullets li::before {
+        content: ''; width: 5px; height: 5px; border-radius: 50%;
+        background: var(--indigo); flex-shrink: 0; margin-top: 9px;
+      }
+
+      /* ── FAQ ──────────────────────────────────────── */
+      .faq { display: flex; flex-direction: column; gap: 8px; }
+      .faq-item {
+        border: 1px solid var(--border); border-radius: var(--r);
+        overflow: hidden; transition: border-color .15s;
+      }
+      .faq-item[open] { border-color: var(--indigo-border); }
+      .faq-q {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 17px 20px; cursor: pointer; list-style: none;
+        font-size: .9rem; font-weight: 600; color: var(--text);
+        user-select: none; transition: color .14s; gap: 12px;
+      }
+      .faq-q::-webkit-details-marker { display: none; }
+      .faq-q:hover { color: #a5b4fc; }
+      .faq-chev {
+        width: 16px; height: 16px; color: var(--text3); flex-shrink: 0;
+        transition: transform .2s ease;
+      }
+      .faq-item[open] .faq-chev { transform: rotate(180deg); color: var(--indigo); }
+      .faq-a {
+        padding: 14px 20px 18px; font-size: .87rem; color: var(--text2);
+        line-height: 1.75; border-top: 1px solid rgba(255,255,255,.04);
+      }
+
+      /* ── Footer ───────────────────────────────────── */
+      .doc-footer { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--border); }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+      .footer-link {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 14px; background: var(--surface);
+        border: 1px solid var(--border); border-radius: 8px;
+        color: var(--text2); text-decoration: none;
+        font-size: .8rem; font-weight: 500; transition: all .14s;
+      }
+      .footer-link:hover { background: var(--indigo-soft); border-color: var(--indigo-border); color: #a5b4fc; }
+      .footer-note { font-size: .75rem; color: var(--text3); line-height: 1.6; }
+
+      /* ── Responsive ───────────────────────────────── */
+      @media (max-width: 960px) {
+        .layout { grid-template-columns: 1fr; }
+        .sidebar {
+          display: none; position: fixed; top: 56px; left: 0; right: 0;
+          height: auto; max-height: calc(100vh - 56px); z-index: 80;
+          background: rgba(7,9,15,.97); backdrop-filter: blur(20px);
+          border-right: none; border-bottom: 1px solid var(--border);
+          padding: 16px 20px 24px;
+        }
+        .sidebar.open { display: block; }
+        .menu-btn { display: flex; }
+        .main { padding: 32px 24px 64px; }
+        .export-grid { grid-template-columns: 1fr; }
+        .node-grid { grid-template-columns: 1fr; }
+        .feat-grid { grid-template-columns: 1fr; }
+        .stats { flex-wrap: wrap; }
+        .stat { flex: 1 1 45%; }
+      }
+      @media (max-width: 540px) {
+        .main { padding: 24px 16px 48px; }
+        .hero h1 { font-size: 2rem; }
+        .section h2 { font-size: 1.35rem; }
+        .stats { flex-direction: column; }
+        .stat { border-right: none; border-bottom: 1px solid var(--border); }
+        .stat:last-child { border-bottom: none; }
+      }
+    </style>
   </head>
-  <body class="seo-page">
-    <main class="page-shell">
-      <section class="page-card">
-        <p class="page-kicker">Documentation</p>
-        <h1>How to use AI Flowchart Studio</h1>
-        <p>
-          AI Flowchart Studio helps you generate flowcharts from text, refine
-          them manually, and export diagrams for documentation, planning, and
-          team communication.
-        </p>
+  <body>
+    <div id="prog"></div>
+    <div class="bg"></div>
 
-        <h2>Set up your Gemini API key</h2>
-        <ol>
-          <li>Open the app homepage.</li>
-          <li>Expand Gemini API Settings.</li>
-          <li>Paste your Gemini API key.</li>
-          <li>Click Save Key. The key is stored locally in your browser.</li>
-        </ol>
+    <!-- TOP NAV -->
+    <nav class="topnav">
+      <a href="/" class="nav-logo">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="rgba(99,102,241,0.15)"/>
+          <path d="M7 17l4-5 5 5 4-7 5 7" stroke="url(#g1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11 17v5m8-5v5m-8 0h8" stroke="url(#g2)" stroke-width="1.5" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="g1" x1="7" y1="12" x2="25" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient>
+            <linearGradient id="g2" x1="11" y1="17" x2="19" y2="22" gradientUnits="userSpaceOnUse"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient>
+          </defs>
+        </svg>
+        AI Flowchart Studio
+      </a>
+      <div class="nav-sep"></div>
+      <span class="nav-badge">Docs</span>
+      <div class="nav-spacer"></div>
+      <button class="menu-btn" onclick="toggleSidebar()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        Menu
+      </button>
+      <a href="/" class="nav-cta">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Open App
+      </a>
+    </nav>
 
-        <h2>Generate a flowchart</h2>
-        <ol>
-          <li>Describe the process in the prompt box.</li>
-          <li>Include the start point, actions, decisions, and outcomes.</li>
-          <li>Click Generate Flowchart.</li>
-          <li>Review the rendered diagram and adjust it as needed.</li>
-        </ol>
-
-        <h2>Edit manually</h2>
-        <p>
-          Use the Manual Builder to add nodes, connect links, label branches,
-          choose shapes, and refine AI-generated diagrams without writing code.
-        </p>
-
-        <h2>Export options</h2>
-        <ul>
-          <li>Copy Mermaid code for README files and documentation.</li>
-          <li>Download SVG for sharp, scalable graphics.</li>
-          <li>Download PNG for slides, chat messages, and quick sharing.</li>
-        </ul>
-
-        <h2>Prompt example</h2>
-        <p>
-          "Create a login flow. Start when a user enters email and password.
-          Check whether the account exists. If not, route to signup. If it
-          exists, verify the password. If verification fails, show retry. If it
-          succeeds, require OTP for new devices and then show the dashboard."
-        </p>
-
-        <div class="page-links">
-          <a href="/">Open the app</a>
-          <a href="/gemini-ai-flowchart-generator/">Gemini AI flowchart generator</a>
-          <a href="/workflow-diagram-generator/">Workflow diagram generator</a>
-          <a href="/ai-system-design-generator/">AI system design generator</a>
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="nav-group">
+          <span class="nav-group-label">Introduction</span>
+          <a href="#overview" class="nav-item active" data-s="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Overview
+          </a>
+          <a href="#quickstart" class="nav-item" data-s="quickstart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Quick Start
+          </a>
         </div>
-      </section>
-    </main>
+        <div class="nav-group">
+          <span class="nav-group-label">Setup</span>
+          <a href="#api-key" class="nav-item" data-s="api-key">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>API Key Setup
+          </a>
+        </div>
+        <div class="nav-group">
+          <span class="nav-group-label">Core Features</span>
+          <a href="#ai-generation" class="nav-item" data-s="ai-generation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>AI Generation
+          </a>
+          <a href="#prompt-writing" class="nav-item" data-s="prompt-writing">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Prompt Writing
+          </a>
+          <a href="#manual-builder" class="nav-item" data-s="manual-builder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Manual Builder
+          </a>
+          <a href="#canvas-controls" class="nav-item" data-s="canvas-controls">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>Canvas Controls
+          </a>
+          <a href="#export" class="nav-item" data-s="export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export & Share
+          </a>
+        </div>
+        <div class="nav-group">
+          <span class="nav-group-label">Reference</span>
+          <a href="#shortcuts" class="nav-item" data-s="shortcuts">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>Keyboard Shortcuts
+          </a>
+          <a href="#faq" class="nav-item" data-s="faq">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>FAQ
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+
+        <!-- HERO -->
+        <div class="hero">
+          <p class="eyebrow"><span class="eyebrow-line"></span> Documentation</p>
+          <h1>Build <span class="grad">diagrams</span><br>at the speed of thought</h1>
+          <p class="hero-desc">Everything you need to go from a plain-language description to a production-ready flowchart, workflow diagram, or system design map — in seconds.</p>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-val"><span class="grad">3</span></span>
+              <span class="stat-lbl">Steps to first diagram</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val"><span class="grad">0</span></span>
+              <span class="stat-lbl">Data stored on servers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val"><span class="grad">3</span></span>
+              <span class="stat-lbl">Export formats</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val"><span class="grad">∞</span></span>
+              <span class="stat-lbl">Diagrams you can create</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── OVERVIEW ── -->
+        <section class="section" id="overview">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            </div>
+            <h2>Overview</h2>
+          </div>
+          <p>AI Flowchart Studio is a browser-based diagram tool that converts plain-language descriptions into structured visual diagrams using Google's Gemini AI. You can also build diagrams from scratch using the Manual Builder — no AI key required.</p>
+          <p>All diagrams are rendered using <code>Mermaid.js</code> — an open standard for text-based diagrams — giving you clean, scalable output you can export or drop directly into GitHub, Notion, or any Mermaid-compatible tool.</p>
+          <div class="feat-grid">
+            <div class="feat"><span class="feat-ico">⚡</span><div><h4>AI-Powered Generation</h4><p>Describe your process in plain English and get a rendered diagram in seconds</p></div></div>
+            <div class="feat"><span class="feat-ico">🔧</span><div><h4>Manual Builder</h4><p>Add nodes, connect them, label branches — full control without writing code</p></div></div>
+            <div class="feat"><span class="feat-ico">🖱️</span><div><h4>Click-to-Edit Nodes</h4><p>Click any node in the rendered diagram to rename it or change its shape</p></div></div>
+            <div class="feat"><span class="feat-ico">📦</span><div><h4>Multiple Export Formats</h4><p>Export as Mermaid code, SVG vector, or PNG raster — pick what fits your workflow</p></div></div>
+            <div class="feat"><span class="feat-ico">🔒</span><div><h4>Private by Design</h4><p>Your API key lives only in your browser's localStorage — never sent to our servers</p></div></div>
+            <div class="feat"><span class="feat-ico">💾</span><div><h4>Project Saves</h4><p>Save and reload multiple diagrams locally — your work stays in your browser</p></div></div>
+          </div>
+        </section>
+
+        <!-- ── QUICK START ── -->
+        <section class="section" id="quickstart">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <h2>Quick Start</h2>
+          </div>
+          <p>Create your first AI-generated flowchart in under two minutes.</p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div class="step-body">
+                <h4>Get a free Gemini API key</h4>
+                <p>Visit <strong class="hi">Google AI Studio</strong> at <code>aistudio.google.com</code> and create an API key. The free tier supports hundreds of generations per day — no credit card needed.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div class="step-body">
+                <h4>Paste your key into the app</h4>
+                <p>Expand <strong class="hi">Gemini API Settings</strong> in the left panel, paste your key, and click <strong class="hi">Save Key</strong>. Your key is stored only in your browser — you'll do this once per device.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div class="step-body">
+                <h4>Describe your flow and generate</h4>
+                <p>Type your process description in the <strong class="hi">AI Generate</strong> tab and click <strong class="hi">Generate Flowchart</strong>. Your diagram renders on the canvas in real time.</p>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-ico">💡</span>
+            <div>
+              <p class="callout-title">No API key? Use Manual Mode</p>
+              <p>Switch to the <strong>Manual Builder</strong> tab to construct diagrams node-by-node without any API key.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── API KEY ── -->
+        <section class="section" id="api-key">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            </div>
+            <h2>API Key Setup</h2>
+          </div>
+          <p>AI Flowchart Studio uses a BYOK (Bring Your Own Key) model. You supply your Gemini API key and the app uses it to call Google's Gemini API directly from your browser.</p>
+          <h3>Getting your key</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div class="step-body">
+                <h4>Open Google AI Studio</h4>
+                <p>Go to <code>aistudio.google.com</code> and sign in with your Google account.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div class="step-body">
+                <h4>Create an API key</h4>
+                <p>Click <strong class="hi">Get API Key → Create API key</strong>. Select or create a Google Cloud project if prompted.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div class="step-body">
+                <h4>Copy and paste into the app</h4>
+                <p>Copy the key (starts with <code>AIza…</code>), expand <strong class="hi">Gemini API Settings</strong> in the app, paste it, and click <strong class="hi">Save Key</strong>.</p>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-info">
+            <span class="callout-ico">🔐</span>
+            <div>
+              <p class="callout-title">How your key is stored</p>
+              <p>Your API key is saved in <code>localStorage</code> in your browser. It is only transmitted to Google's Gemini API when you click Generate — it never passes through AI Flowchart Studio's servers.</p>
+            </div>
+          </div>
+          <div class="callout callout-warn">
+            <span class="callout-ico">⚠️</span>
+            <div>
+              <p class="callout-title">Keep your key safe</p>
+              <p>Don't share your API key or paste it into unknown sites. If you think your key is compromised, revoke it in Google AI Studio and generate a new one.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── AI GENERATION ── -->
+        <section class="section" id="ai-generation">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h2>AI Generation</h2>
+          </div>
+          <p>The AI tab sends your prompt to Google Gemini, which returns valid Mermaid flowchart syntax. That code is rendered live on the canvas as an interactive SVG diagram.</p>
+          <h3>How it works</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div class="step-body">
+                <h4>You write a prompt</h4>
+                <p>Describe your process in the text area. Include start points, decision branches, and end states for best results.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div class="step-body">
+                <h4>Gemini converts it to Mermaid code</h4>
+                <p>Your prompt is sent to Gemini with a system instruction that constrains the output to valid <code>flowchart TD</code> Mermaid syntax only — no prose, no explanation.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div class="step-body">
+                <h4>The diagram renders on the canvas</h4>
+                <p>Mermaid.js parses the returned code and renders it as a scalable SVG. You can pan, zoom, click nodes to edit, and export immediately.</p>
+              </div>
+            </div>
+          </div>
+          <h3>After generation</h3>
+          <ul class="bullets">
+            <li>Click any node on the canvas to open the node editor — rename it or change its shape on the spot.</li>
+            <li>The <strong class="hi">Mermaid Output</strong> field shows the raw code — edit it directly and hit re-render for precise tweaks.</li>
+            <li>Generate again with a refined prompt to replace the diagram entirely, or combine prompt + manual edits.</li>
+          </ul>
+          <div class="callout callout-tip">
+            <span class="callout-ico">💡</span>
+            <div>
+              <p class="callout-title">Generation failing?</p>
+              <p>Check that your API key is saved and valid. If the status list shows a network error, your free-tier quota may be exhausted for the day — check Google AI Studio for usage limits.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── PROMPT WRITING ── -->
+        <section class="section" id="prompt-writing">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </div>
+            <h2>Prompt Writing Guide</h2>
+          </div>
+          <p>The quality of your diagram depends on the quality of your prompt. Gemini infers structure well — but the more explicit you are, the more accurate the result.</p>
+          <h3>What to include in a prompt</h3>
+          <ul class="bullets">
+            <li><strong class="hi">Start node</strong> — Where does the process begin? (<em>e.g. "Start when the user reaches the checkout page"</em>)</li>
+            <li><strong class="hi">Actions</strong> — What happens at each step? Use verbs: validate, check, send, display, redirect, notify.</li>
+            <li><strong class="hi">Decision points</strong> — Where does the flow branch? Explicitly name both paths: the Yes/success path and the No/failure path.</li>
+            <li><strong class="hi">End states</strong> — What are the possible termination points? Name each one. There can be more than one.</li>
+          </ul>
+          <h3>Real prompt examples</h3>
+          <span class="prompt-lbl">User authentication flow</span>
+          <div class="prompt-ex">Create a login flow. User enters email and password. Check if account exists — if not, show "account not found" and offer signup. If it exists, verify password — if wrong, increment failure counter; after 3 failures lock the account. If password correct and device is new, send OTP — if OTP fails, reject. If OTP passes or device is recognized, redirect to dashboard.</div>
+          <span class="prompt-lbl">E-commerce order processing</span>
+          <div class="prompt-ex">Show an e-commerce order process. Start when customer clicks "Place Order". Validate payment — if invalid, show error and retry. If valid, charge card — if declined, show failure. If charged, check inventory — if out of stock, refund and notify customer. If in stock, create order record, send confirmation email, trigger warehouse dispatch, set tracking to "Processing". End.</div>
+          <span class="prompt-lbl">CI/CD deployment pipeline</span>
+          <div class="prompt-ex">Document a CI/CD pipeline triggered on git push. Run unit tests — if failing, notify developer and stop. If passing, run integration tests — if failing, alert team and stop. If passing, build Docker image and push to registry. Deploy to staging, run smoke tests — if failing, roll back and alert. If passing, wait for manual approval — if rejected, stop. If approved, deploy to production, run health check, post Slack notification. End.</div>
+          <h3>Tips for better results</h3>
+          <ul class="bullets">
+            <li>Use natural connective words: <em>if, then, otherwise, when, after, on success, on failure</em></li>
+            <li>Name each branch outcome explicitly: <em>"if valid → …"</em> and <em>"if invalid → …"</em></li>
+            <li>One action per node — don't bundle multiple actions into one step</li>
+            <li>State every end state explicitly so Gemini knows where branches terminate</li>
+            <li>For very complex flows, break into sub-processes and generate them separately</li>
+          </ul>
+          <div class="callout callout-tip">
+            <span class="callout-ico">✨</span>
+            <div>
+              <p class="callout-title">Iterate, don't perfect</p>
+              <p>Generate a first draft, see what comes out, then refine the prompt with more specifics. Two or three iterations usually produces a polished result faster than writing one long prompt upfront.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── MANUAL BUILDER ── -->
+        <section class="section" id="manual-builder">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <h2>Manual Builder</h2>
+          </div>
+          <p>The Manual Builder tab lets you construct diagrams node-by-node without AI. It's useful for precise, predictable diagrams, for adding nodes to an AI-generated base, or when you don't have an API key.</p>
+          <h3>Node types</h3>
+          <div class="node-grid">
+            <div class="node-card"><div class="node-shape">▭</div><div class="node-name">Rectangle</div><div class="node-desc">Standard process step. Use for actions, tasks, or states. The default and most common node type.</div></div>
+            <div class="node-card"><div class="node-shape">◇</div><div class="node-name">Diamond</div><div class="node-desc">Decision point. Use for Yes/No questions or branching conditions that split the flow.</div></div>
+            <div class="node-card"><div class="node-shape">○</div><div class="node-name">Circle</div><div class="node-desc">Terminal node. Use for the explicit start or end point of a flow.</div></div>
+            <div class="node-card"><div class="node-shape" style="font-size:1.1rem;letter-spacing:-.05em">╭▭╮</div><div class="node-name">Rounded Rectangle</div><div class="node-desc">Soft-edged process step. Often used for start/end states in flowchart conventions.</div></div>
+          </div>
+          <h3>Adding nodes</h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div class="step-body"><h4>Switch to Manual Builder tab</h4><p>Click <strong class="hi">Manual Builder</strong> in the left panel tab row.</p></div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div class="step-body"><h4>Enter a node label</h4><p>Type the text that will appear inside the shape in the <strong class="hi">Node Label</strong> field.</p></div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div class="step-body"><h4>Choose a shape and click Add Node</h4><p>Select Rectangle, Diamond, Circle, or Rounded from the shape dropdown, then click <strong class="hi">Add Node</strong>. The node appears in the list and renders on canvas.</p></div>
+            </div>
+          </div>
+          <h3>Connecting nodes</h3>
+          <p>Once you have at least two nodes, use the <strong class="hi">Connect Nodes</strong> section:</p>
+          <ul class="bullets">
+            <li>Select the <strong class="hi">From</strong> node (origin) from the first dropdown</li>
+            <li>Select the <strong class="hi">To</strong> node (destination) from the second dropdown</li>
+            <li>Optionally add an <strong class="hi">Edge Label</strong> — e.g. "Yes", "No", "On success", "Error"</li>
+            <li>Click <strong class="hi">Add Connection</strong> to draw the arrow between them</li>
+          </ul>
+          <h3>Editing nodes after rendering</h3>
+          <p>Click any node on the canvas to open a floating editor. Change the label or shape and the diagram re-renders immediately. You can also delete individual nodes from the node list in the left panel.</p>
+          <div class="callout callout-info">
+            <span class="callout-ico">ℹ️</span>
+            <div>
+              <p class="callout-title">Mixing AI and manual</p>
+              <p>Generate a base diagram with AI, then switch to Manual Builder to add or refine individual nodes. The Mermaid code in the output field reflects all changes in real time.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── CANVAS CONTROLS ── -->
+        <section class="section" id="canvas-controls">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+            <h2>Canvas Controls</h2>
+          </div>
+          <p>The canvas is a scrollable, zoomable area that holds your rendered diagram. Navigate it with your mouse, trackpad, or the on-screen controls.</p>
+          <h3>Navigation</h3>
+          <ul class="bullets">
+            <li><strong class="hi">Pan</strong> — Click and drag the canvas background to move around the diagram.</li>
+            <li><strong class="hi">Zoom</strong> — Use the <strong class="hi">+</strong> / <strong class="hi">−</strong> buttons in the bottom-right corner, or the zoom percentage dropdown in the toolbar.</li>
+            <li><strong class="hi">Fit to screen</strong> — Click the <strong class="hi">Fit</strong> button in the toolbar to reset zoom so the full diagram is visible.</li>
+            <li><strong class="hi">Reset zoom</strong> — Click the zoom percentage button to snap back to 100%.</li>
+          </ul>
+          <h3>Interacting with nodes</h3>
+          <ul class="bullets">
+            <li>Click a node to open the floating <strong class="hi">Node Editor</strong> — edit the label or change the shape.</li>
+            <li>Hover a node to see a subtle indigo glow highlight.</li>
+            <li>The active (selected) node is outlined with an indigo border.</li>
+            <li>Press <kbd>Esc</kbd> or click outside to close the node editor.</li>
+          </ul>
+          <h3>Toolbar quick reference</h3>
+          <ul class="bullets">
+            <li><strong class="hi">Layout</strong> — Switch flow direction: top-to-bottom (TD), left-to-right (LR), bottom-to-top (BT), right-to-left (RL).</li>
+            <li><strong class="hi">Undo / Redo</strong> — Step backward or forward through your edit history.</li>
+            <li><strong class="hi">Clear</strong> — Wipe the canvas and start a fresh diagram.</li>
+            <li><strong class="hi">Export</strong> — Open the export menu for Mermaid code, SVG, or PNG.</li>
+            <li><strong class="hi">Docs</strong> — Opens this documentation page in a new tab.</li>
+          </ul>
+        </section>
+
+        <!-- ── EXPORT ── -->
+        <section class="section" id="export">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <h2>Export & Share</h2>
+          </div>
+          <p>Click <strong class="hi">Export</strong> in the canvas toolbar to open the export menu. Three formats are available, each suited for different use cases.</p>
+          <div class="export-grid">
+            <div class="export-card">
+              <div class="export-ico">{ }</div>
+              <p class="export-fmt" style="color:#a5b4fc">Mermaid Code</p>
+              <p class="export-name">Copy to Clipboard</p>
+              <p class="export-desc">Copies the raw Mermaid diagram syntax. Paste anywhere that renders Mermaid natively.</p>
+              <div class="use-tags"><span class="use-tag">GitHub README</span><span class="use-tag">Notion</span><span class="use-tag">GitLab</span><span class="use-tag">Obsidian</span></div>
+            </div>
+            <div class="export-card">
+              <div class="export-ico">⟨/⟩</div>
+              <p class="export-fmt" style="color:#34d399">Vector</p>
+              <p class="export-name">Download SVG</p>
+              <p class="export-desc">Scalable vector graphic — infinitely sharp at any size. Best for documentation and design tools.</p>
+              <div class="use-tags"><span class="use-tag">Web embeds</span><span class="use-tag">Figma</span><span class="use-tag">Print</span><span class="use-tag">Confluence</span></div>
+            </div>
+            <div class="export-card">
+              <div class="export-ico">🖼</div>
+              <p class="export-fmt" style="color:#fbbf24">Raster</p>
+              <p class="export-name">Download PNG</p>
+              <p class="export-desc">High-resolution raster image. Perfect for slides, messaging apps, and quick sharing.</p>
+              <div class="use-tags"><span class="use-tag">Slides</span><span class="use-tag">Slack</span><span class="use-tag">Jira</span><span class="use-tag">Emails</span></div>
+            </div>
+          </div>
+          <h3>Embedding Mermaid in GitHub</h3>
+          <p>GitHub natively renders Mermaid in Markdown files. Wrap your exported code in a fenced code block tagged <code>mermaid</code>:</p>
+          <div class="code-block">
+            <div class="code-hd">
+              <span class="code-lang">Markdown</span>
+              <button class="code-copy" onclick="copyCode(this)">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+            <pre>```mermaid
+flowchart TD
+    A([Start]) --> B[Enter Credentials]
+    B --> C{Account exists?}
+    C -->|Yes| D[Verify Password]
+    C -->|No| E[Show Signup]
+    D -->|Correct| F([Dashboard])
+    D -->|Wrong| G[Show Error]
+```</pre>
+          </div>
+          <div class="callout callout-tip">
+            <span class="callout-ico">💡</span>
+            <div>
+              <p class="callout-title">Notion users</p>
+              <p>Create a <strong>/Code</strong> block, select <strong>Mermaid</strong> as the language, and paste the exported code. Notion renders it live in the document.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── SHORTCUTS ── -->
+        <section class="section" id="shortcuts">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+            </div>
+            <h2>Keyboard Shortcuts</h2>
+          </div>
+          <p>These shortcuts work when the canvas or prompt input is focused.</p>
+          <table class="shortcuts-table">
+            <thead><tr><th>Action</th><th>Shortcut</th><th>Context</th></tr></thead>
+            <tbody>
+              <tr><td>Generate flowchart</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>Enter</kbd></span></td><td>From the prompt text area</td></tr>
+              <tr><td>Undo</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>Z</kbd></span></td><td>Reverts last change</td></tr>
+              <tr><td>Redo</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>Shift</kbd><span class="kp">+</span><kbd>Z</kbd></span></td><td>Re-applies reverted change</td></tr>
+              <tr><td>Zoom in</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>+</kbd></span></td><td>Canvas focused</td></tr>
+              <tr><td>Zoom out</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>−</kbd></span></td><td>Canvas focused</td></tr>
+              <tr><td>Fit diagram to screen</td><td><kbd>F</kbd></td><td>Canvas focused</td></tr>
+              <tr><td>Close editor / overlay</td><td><kbd>Esc</kbd></td><td>Any open popover</td></tr>
+              <tr><td>Save project</td><td><span class="kc"><kbd>Ctrl</kbd><span class="kp">+</span><kbd>S</kbd></span></td><td>Saves to browser storage</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:12px;font-size:.76rem;color:var(--text3)">On macOS, substitute <kbd>Ctrl</kbd> with <kbd>⌘</kbd>.</p>
+        </section>
+
+        <!-- ── FAQ ── -->
+        <section class="section" id="faq">
+          <div class="section-hd">
+            <div class="section-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            </div>
+            <h2>FAQ</h2>
+          </div>
+          <div class="faq">
+            <details class="faq-item">
+              <summary class="faq-q">Is my API key sent to your servers?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">No. Your key is saved only in your browser's <code>localStorage</code>. When you click Generate, it is sent directly from your browser to Google's Gemini API. AI Flowchart Studio's backend never receives or stores your key.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">Do I need to pay for the Gemini API?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">The Gemini API has a generous free tier supporting hundreds of generations per day — enough for personal and team use. Heavier usage may require a paid Google Cloud plan. Check Google AI Studio for current rate limits and pricing.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">What diagram types can I create?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">AI Flowchart Studio outputs Mermaid <code>flowchart</code> diagrams — covering flowcharts, process maps, decision trees, system architecture diagrams, CI/CD pipelines, user journeys, and any flow with nodes and directed edges. Sequence diagrams, Gantt charts, and ER diagrams are outside the current scope.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">How are my diagrams saved?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">Diagrams are saved as named projects in your browser's <code>localStorage</code>. They persist between sessions on the same browser and device but are not synced to any cloud. Clearing your browser data will delete saved projects — use the Mermaid code export as a portable backup.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">The generated diagram looks wrong — what do I do?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">Try refining your prompt with more explicit branching language. If the structure is mostly correct, click individual nodes to edit them directly. For large mis-renders, inspect the Mermaid output field for syntax errors, fix them inline, and re-render manually.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">Can I use the Manual Builder offline?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">The Manual Builder works without an internet connection once the page is loaded — it makes no API calls. AI generation requires connectivity to reach the Gemini API. The Mermaid rendering library is loaded from a CDN, so the initial page load needs connectivity too.</p>
+            </details>
+            <details class="faq-item">
+              <summary class="faq-q">Can I embed the exported SVG on my website?<svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></summary>
+              <p class="faq-a">Yes. The exported SVG is a standard vector file. Embed it with an <code>&lt;img&gt;</code> tag, inline it directly in HTML, or import it into Figma and other design tools. Diagrams you create are yours — no attribution required.</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="doc-footer">
+          <p style="font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:14px">Explore the app</p>
+          <div class="footer-links">
+            <a href="/" class="footer-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>Open App</a>
+            <a href="/gemini-ai-flowchart-generator/" class="footer-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Gemini Flowchart Generator</a>
+            <a href="/workflow-diagram-generator/" class="footer-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Workflow Diagram Generator</a>
+            <a href="/ai-system-design-generator/" class="footer-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>AI System Design Generator</a>
+          </div>
+          <p class="footer-note" style="margin-top:20px">AI Flowchart Studio is a browser-based tool. All diagram data stays on your device. Your Gemini API key is transmitted directly to Google — never to AI Flowchart Studio's servers.</p>
+        </div>
+
+      </main>
+    </div>
+
+    <script>
+      // Progress bar
+      const prog = document.getElementById('prog');
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        prog.style.width = (h > 0 ? window.scrollY / h * 100 : 0) + '%';
+      }, { passive: true });
+
+      // Scroll spy
+      const sections = document.querySelectorAll('.section');
+      const navItems = document.querySelectorAll('.nav-item[data-s]');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const id = e.target.id;
+            navItems.forEach(n => n.classList.toggle('active', n.dataset.s === id));
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      sections.forEach(s => io.observe(s));
+
+      // Sidebar toggle (mobile)
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+      }
+      navItems.forEach(n => n.addEventListener('click', () => {
+        document.getElementById('sidebar').classList.remove('open');
+      }));
+
+      // Copy code block
+      function copyCode(btn) {
+        const text = btn.closest('.code-block').querySelector('pre').textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = '✓ Copied';
+          btn.style.color = '#34d399';
+          setTimeout(() => { btn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy'; btn.style.color = ''; }, 2000);
+        });
+      }
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    </script>
   </body>
 </html>
