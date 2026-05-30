@@ -19,6 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const apiSettingsContent = document.getElementById("apiSettingsContent");
   const userApiKeyInput = document.getElementById("userApiKey");
   const saveKeyBtn = document.getElementById("saveKeyBtn");
+  const toggleApiKeyBtn = document.getElementById("toggleApiKey");
+  const apiSavedBadge = document.getElementById("apiSavedBadge");
+  const eyeShow = document.getElementById("eyeShow");
+  const eyeHide = document.getElementById("eyeHide");
 
   // Toolbar Elements
   const exportMenuBtn = document.getElementById("exportMenuBtn");
@@ -235,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (savedKey) {
         userApiKey = savedKey;
         userApiKeyInput.value = userApiKey;
+        if (apiSavedBadge) apiSavedBadge.classList.add("visible");
       }
     } catch (e) {
       console.error("Failed to load local storage state");
@@ -266,8 +271,18 @@ document.addEventListener("DOMContentLoaded", () => {
   saveKeyBtn.addEventListener("click", () => {
     userApiKey = userApiKeyInput.value.trim();
     saveState();
+    if (apiSavedBadge) apiSavedBadge.classList.add("visible");
     showToast('API key saved securely', 'success');
   });
+
+  if (toggleApiKeyBtn) {
+    toggleApiKeyBtn.addEventListener("click", () => {
+      const hidden = userApiKeyInput.type === "password";
+      userApiKeyInput.type = hidden ? "text" : "password";
+      if (eyeShow) eyeShow.style.display = hidden ? "none" : "";
+      if (eyeHide) eyeHide.style.display = hidden ? "" : "none";
+    });
+  }
 
   // Scroll wheel zoom
   canvasContainer.addEventListener('wheel', (e) => {

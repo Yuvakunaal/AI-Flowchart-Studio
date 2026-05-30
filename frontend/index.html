@@ -273,64 +273,52 @@
           <div class="settings-section">
             <div class="collapsible-header" id="apiSettingsToggle">
               <div class="collapsible-title">
-                <svg
-                  viewBox="0 0 24 24"
-                  width="14"
-                  height="14"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"
-                  />
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
-                <span>Gemini API Settings</span>
+                <span>Gemini API Key</span>
               </div>
-              <svg
-                class="chevron-icon"
-                viewBox="0 0 24 24"
-                width="14"
-                height="14"
-                stroke="currentColor"
-                stroke-width="2"
-                fill="none"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+              <div class="api-header-right">
+                <span class="api-saved-badge" id="apiSavedBadge">✓ Saved</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
             </div>
             <div class="collapsible-content hidden" id="apiSettingsContent">
-              <p class="settings-hint">
-                Your key is stored locally in your browser. Never sent to our
-                servers.
-              </p>
-              <input
-                type="password"
-                id="userApiKey"
-                placeholder="Enter Gemini API Key..."
-                autocomplete="off"
-              />
-              <button id="saveKeyBtn" class="secondary-btn">
-                <svg
-                  viewBox="0 0 24 24"
-                  width="14"
-                  height="14"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
-                  />
-                  <polyline points="17 21 17 13 7 13 7 21" />
-                  <polyline points="7 3 7 8 15 8" />
+              <div class="api-hint-row">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
-                Save Key
+                <span>Stored in your browser only · Never sent to servers</span>
+              </div>
+              <div class="api-input-wrap">
+                <input
+                  type="password"
+                  id="userApiKey"
+                  placeholder="AIzaSy..."
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <button type="button" class="api-eye-btn" id="toggleApiKey" aria-label="Show or hide API key">
+                  <svg id="eyeShow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  <svg id="eyeHide" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
+                  </svg>
+                </button>
+              </div>
+              <button id="saveKeyBtn" class="api-save-btn">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Save API Key
               </button>
+              <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" class="api-get-key-link">
+                No key? Get one free at Google AI Studio →
+              </a>
             </div>
           </div>
 
