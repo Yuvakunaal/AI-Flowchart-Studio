@@ -118,6 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Mermaid lazy loader — start download on init, await only when rendering
+  let _mermaidLoad = null;
+  function ensureMermaid() {
+    if (window.mermaid) return Promise.resolve();
+    if (!_mermaidLoad) _mermaidLoad = loadScript("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js");
+    return _mermaidLoad;
+  }
+
   // ==========================================
   // UTILITIES & SECURITY
   // ==========================================
@@ -172,19 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   // INITIALIZATION
   // ==========================================
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: currentTheme,
-    securityLevel: "loose",
-    flowchart: {
-      htmlLabels: true,
-      useMaxWidth: false,
-      curve: "basis",
-      nodeSpacing: 55,
-      rankSpacing: 70,
-      padding: 20,
-    },
-  });
+  // Start downloading Mermaid in background immediately so it is
+  // ready by the time the user first clicks Generate (no await — non-blocking)
+  ensureMermaid();
   loadState();
   updateManualUI(false);
   clearCanvas();
@@ -905,6 +903,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       hideWelcome();
+      await ensureMermaid();
 
       if (code.startsWith("```mermaid")) {
         code = code.substring(10).replace(/```$/, "").trim();
