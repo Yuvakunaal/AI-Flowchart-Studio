@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation — AI Flowchart Studio</title>
+    <title>AI Flowchart Studio Documentation | Guides & Prompt Tips</title>
+    <meta name="description" content="Learn setup, prompt writing, manual editing, canvas controls, and export workflows in AI Flowchart Studio.">
+    <meta name="keywords" content="ai flowchart studio documentation, text to flowchart guide, flowchart prompt tips, mermaid diagram export">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://ai-flowchart-studio.vercel.app/docs.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="AI Flowchart Studio">
+    <meta property="og:url" content="https://ai-flowchart-studio.vercel.app/docs.html">
+    <meta property="og:title" content="AI Flowchart Studio Documentation | Guides & Prompt Tips">
+    <meta property="og:description" content="Step-by-step guidance for setup, prompt writing, manual editing, canvas controls, and export options.">
+    <meta property="og:image" content="https://ai-flowchart-studio.vercel.app/favicon.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Flowchart Studio Documentation | Guides & Prompt Tips">
+    <meta name="twitter:description" content="Get practical guidance for building, editing, and exporting AI-generated flowcharts.">
+    <meta name="twitter:image" content="https://ai-flowchart-studio.vercel.app/favicon.svg">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "TechArticle",
+            "headline": "AI Flowchart Studio Documentation",
+            "description": "Step-by-step guide for generating, editing, and exporting flowcharts.",
+            "url": "https://ai-flowchart-studio.vercel.app/docs.html",
+            "about": ["Flowchart generation", "Workflow diagrams", "System design diagrams"]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://ai-flowchart-studio.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Documentation",
+                "item": "https://ai-flowchart-studio.vercel.app/docs.html"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
     <style>
         :root {
             --bg-base: #0f172a;
@@ -532,16 +577,26 @@
         <!-- TAB 1: WELCOME & SETUP -->
         <section id="tab-setup" class="tab-pane active">
             <h1>Getting Started</h1>
-            <p class="subtitle">Learn how to configure the Studio and set up your API key.</p>
+            <p class="subtitle">Learn setup, prompt writing, editing workflows, and exports so your diagrams are production-ready.</p>
+
+            <div class="docs-card">
+                <h2>Related Pages</h2>
+                <ul>
+                    <li><a href="/">AI Flowchart Generator Home</a></li>
+                    <li><a href="/workflow-diagram-generator/">Workflow Diagram Generator</a></li>
+                    <li><a href="/ai-system-design-generator/">AI System Design Generator</a></li>
+                    <li><a href="/gemini-ai-flowchart-generator/">Gemini AI Flowchart Generator</a></li>
+                </ul>
+            </div>
 
             <div class="docs-card">
                 <h2>What is AI Flowchart Studio?</h2>
-                <p>Welcome! This application is designed to help you build beautiful, interactive flowcharts effortlessly. You have two ways to create: using our advanced AI to generate diagrams from plain English descriptions, or using the Manual Builder to snap nodes and links together yourself.</p>
+                <p>AI Flowchart Studio helps you convert plain-language ideas into clear flowcharts quickly. You can generate a first draft with AI, then switch to manual tools to adjust structure, labels, and decisions before sharing.</p>
             </div>
 
             <div class="docs-card">
                 <h2>Setting Up Your API Key</h2>
-                <p>To use the <strong>AI Generator</strong>, you must provide your own Google Gemini API key. This acts as your personal secure connection to the AI engine.</p>
+                <p>To use the <strong>AI Generator</strong>, add your Google Gemini API key once. The key connects your browser session directly to the AI model for diagram generation.</p>
                 <ol>
                     <li>Click the <strong>Get API Key</strong> button below to visit Google AI Studio.</li>
                     <li>Sign in with your standard Google account.</li>
@@ -552,8 +607,8 @@
                 <a href="https://aistudio.google.com/app/apikey" target="_blank" class="action-btn">Get Google API Key</a>
 
                 <div class="pro-tip">
-                    <strong>100% Private</strong>
-                    Your key is stored securely in your browser's local memory. It is never saved to our servers, ensuring your data remains completely private.
+                    <strong>Privacy Note</strong>
+                    Your key is stored in local browser storage and is not persisted on the project server.
                 </div>
             </div>
         </section>
