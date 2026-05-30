@@ -118,11 +118,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Mermaid lazy loader — start download on init, await only when rendering
+  // Standard Mermaid config — used on every initialize() call
+  function getMermaidConfig() {
+    return {
+      startOnLoad: false,
+      theme: currentTheme,
+      securityLevel: "loose",
+      flowchart: {
+        htmlLabels: true,
+        useMaxWidth: false,
+        curve: "basis",
+        nodeSpacing: 55,
+        rankSpacing: 70,
+        padding: 20,
+      },
+    };
+  }
+
+  // Mermaid lazy loader — start download on init, await only when rendering.
+  // Critically, we initialize with startOnLoad:false the instant the script
+  // loads so Mermaid never auto-scans the DOM and tries to render placeholder
+  // content (which would throw "Syntax error in text").
   let _mermaidLoad = null;
   function ensureMermaid() {
-    if (window.mermaid) return Promise.resolve();
-    if (!_mermaidLoad) _mermaidLoad = loadScript("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js");
+    if (window.mermaid) {
+      mermaid.initialize(getMermaidConfig());
+      return Promise.resolve();
+    }
+    if (!_mermaidLoad) {
+      _mermaidLoad = loadScript("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js")
+        .then(() => {
+          mermaid.initialize(getMermaidConfig());
+        });
+    }
     return _mermaidLoad;
   }
 
@@ -914,19 +942,8 @@ document.addEventListener("DOMContentLoaded", () => {
       mermaidOutput.style.opacity = 0;
       mermaidOutput.classList.remove("mermaid-fade-in");
 
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: currentTheme,
-        securityLevel: "loose",
-        flowchart: {
-          htmlLabels: true,
-          useMaxWidth: false,
-          curve: "basis",
-          nodeSpacing: 55,
-          rankSpacing: 70,
-          padding: 20,
-        },
-      });
+      // Re-initialize so theme changes take effect on re-render
+      mermaid.initialize(getMermaidConfig());
 
       await new Promise((r) => setTimeout(r, 50));
 

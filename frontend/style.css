@@ -996,7 +996,7 @@ input:focus,
 }
 
 /* ========== MERMAID CHART ========== */
-.mermaid {
+.mermaid-canvas {
   transition: opacity 0.3s ease;
   display: inline-block;
   width: max-content;
@@ -1005,7 +1005,7 @@ input:focus,
   margin: 0 auto;
 }
 
-.mermaid svg {
+.mermaid-canvas svg {
   display: block;
   max-width: none;
   height: auto !important;
